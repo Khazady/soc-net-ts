@@ -1,3 +1,11 @@
-.posts {
+.postsBlock {
+    padding: 10px;
+}
 
+textarea {
+    display: block;
+}
+
+.posts {
+    margin-top: 10px;
 }

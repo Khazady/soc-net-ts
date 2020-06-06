@@ -1,10 +1,11 @@
 .nav {
     grid-area: n;
     background-color: #edeef0;
+    padding: 15px;
 }
 
 .item {
-    
+
 }
 
 .item:hover {
@@ -15,4 +16,8 @@
 .item a {
     text-decoration: none;
     color: #285473;
+}
+
+.item a.activeLink {
+    color: #d00fc6;
 }
