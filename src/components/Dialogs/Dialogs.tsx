@@ -42,30 +42,25 @@ function Dialogs() {
         {message: "Yo"},
     ]
 
+    let dialogElements =  dialogsData.map(function (dialogItem) {
+          return (
+            <DialogItem name={dialogItem.name} id={dialogItem.id}/>
+          )
+      })
+
+    let messageElements = messagesData.map(function (messageItem) {
+        return (
+          <Message message={messageItem.message}/>
+        )
+    })
 
     return (
       <div className={classes.dialogs}>
           <div className={classes.dialogsItem}>
-              <DialogItem name={dialogsData[0].name} id={dialogsData[0].id}/>
-
-              {
-                  dialogsData.map(function (dialogItem) {
-                      return (
-                        <DialogItem name={dialogItem.name} id={dialogItem.id}/>
-                      )
-                  })
-              }
-
+              {dialogElements}
           </div>
           <div className={classes.messages}>
-              <Message message={messagesData[0].message}/>
-              {
-                  messagesData.map(function (messageItem) {
-                      return (
-                        <Message message={messageItem.message}/>
-                        )
-                  })
-              }
+              {messageElements}
           </div>
       </div>
     )
