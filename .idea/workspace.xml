@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="38729180-fc7b-40fd-b525-d6fac38bb07c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/src/components/Dialogs/Dialogs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Dialogs/Dialogs.tsx" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1cYAUl0S1aTTPYamrSD1MmqDjAF" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/components/Profile/ProfileInfo" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="yarn" />
+    <property name="ts.external.directory.path" value="D:\Dev\Incubator\soc net ts\node_modules\typescript\lib" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Dev\Incubator\soc net ts\src\components\Profile\ProfileInfo" />
+      <recent name="D:\Dev\Incubator\soc net ts\src\components" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.start" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="38729180-fc7b-40fd-b525-d6fac38bb07c" name="Default Changelist" comment="" />
+      <created>1590695170854</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1590695170854</updated>
+      <workItem from="1590695177222" duration="3486000" />
+      <workItem from="1590764939038" duration="770000" />
+      <workItem from="1590830410210" duration="263000" />
+      <workItem from="1591180429999" duration="717000" />
+      <workItem from="1591182046586" duration="1491000" />
+      <workItem from="1591206654467" duration="9423000" />
+      <workItem from="1591272340067" duration="2914000" />
+      <workItem from="1591352142843" duration="2550000" />
+      <workItem from="1591361494706" duration="4545000" />
+      <workItem from="1591438821880" duration="5955000" />
+      <workItem from="1591635030434" duration="176000" />
+      <workItem from="1591659816350" duration="15000" />
+      <workItem from="1591663729307" duration="7160000" />
+      <workItem from="1591713420366" duration="454000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="1">
+          <value>
+            <State>
+              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="structure">
+                    <value>
+                      <list>
+                        <option value="dir:D:/Dev/Incubator/soc net ts/src/components" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="487" y="35" key="#TypeScript" timestamp="1591453836870">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="487" y="35" key="#TypeScript/0.0.1536.824@0.0.1536.824" timestamp="1591453836870" />
+    <state x="498" y="158" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1590696423941">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="498" y="158" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1590696423941" />
+    <state width="1513" height="210" key="GridCell.Tab.0.bottom" timestamp="1591713385052">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1513" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1591635207086" />
+    <state width="1513" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1591713385052" />
+    <state width="1513" height="210" key="GridCell.Tab.0.center" timestamp="1591713385052">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1513" height="210" key="GridCell.Tab.0.center/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1591635207085" />
+    <state width="1513" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1591713385052" />
+    <state width="1513" height="210" key="GridCell.Tab.0.left" timestamp="1591713385052">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1513" height="210" key="GridCell.Tab.0.left/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1591635207085" />
+    <state width="1513" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1591713385052" />
+    <state width="1513" height="210" key="GridCell.Tab.0.right" timestamp="1591713385052">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1513" height="210" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1591635207085" />
+    <state width="1513" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1591713385052" />
+    <state x="577" y="325" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1591182113254">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="577" y="325" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1591182113254" />
+    <state x="425" y="187" key="run.anything.popup" timestamp="1591455427267">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="425" y="187" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1591455427267" />
+    <state x="425" y="66" width="672" height="676" key="search.everywhere.popup" timestamp="1591266281104">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="425" y="66" width="672" height="676" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1591266281104" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/components/Music/Music.tsx</url>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
