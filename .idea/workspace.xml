@@ -10,8 +10,15 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38729180-fc7b-40fd-b525-d6fac38bb07c" name="Default Changelist" comment="">
+    <list default="true" id="38729180-fc7b-40fd-b525-d6fac38bb07c" name="Default Changelist" comment="lesson 26">
+      <change afterPath="$PROJECT_DIR$/src/components/Dialogs/DialogItem/DialogsItem.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Dialogs/Message/Message.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Dialogs/Dialogs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Dialogs/Dialogs.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Profile/MyPosts/MyPosts.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Profile/MyPosts/MyPosts.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Profile/Profile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Profile/Profile.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,7 +41,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/components/Profile/ProfileInfo" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/components/Dialogs/Message" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -43,6 +50,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Dev\Incubator\soc net ts\src\components\Dialogs\Message" />
+      <recent name="D:\Dev\Incubator\soc net ts\src\components\Dialogs\DialogItem" />
       <recent name="D:\Dev\Incubator\soc net ts\src\components\Profile\ProfileInfo" />
       <recent name="D:\Dev\Incubator\soc net ts\src\components" />
     </key>
@@ -87,8 +96,16 @@
       <workItem from="1591635030434" duration="176000" />
       <workItem from="1591659816350" duration="15000" />
       <workItem from="1591663729307" duration="7160000" />
-      <workItem from="1591713420366" duration="454000" />
+      <workItem from="1591713420366" duration="7133000" />
     </task>
+    <task id="LOCAL-00001" summary="lesson 26">
+      <created>1591713905346</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1591713905346</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -131,6 +148,10 @@
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="lesson 26" />
+    <option name="LAST_COMMIT_MESSAGE" value="lesson 26" />
+  </component>
   <component name="WindowStateProjectService">
     <state x="487" y="35" key="#TypeScript" timestamp="1591453836870">
       <screen x="0" y="0" width="1536" height="824" />
@@ -140,26 +161,26 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="498" y="158" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1590696423941" />
-    <state width="1513" height="210" key="GridCell.Tab.0.bottom" timestamp="1591713385052">
+    <state width="1513" height="141" key="GridCell.Tab.0.bottom" timestamp="1591719840807">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1513" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1591635207086" />
-    <state width="1513" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1591713385052" />
-    <state width="1513" height="210" key="GridCell.Tab.0.center" timestamp="1591713385052">
+    <state width="1513" height="141" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1591719840807" />
+    <state width="1513" height="141" key="GridCell.Tab.0.center" timestamp="1591719840807">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1513" height="210" key="GridCell.Tab.0.center/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1591635207085" />
-    <state width="1513" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1591713385052" />
-    <state width="1513" height="210" key="GridCell.Tab.0.left" timestamp="1591713385052">
+    <state width="1513" height="141" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1591719840807" />
+    <state width="1513" height="141" key="GridCell.Tab.0.left" timestamp="1591719840807">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1513" height="210" key="GridCell.Tab.0.left/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1591635207085" />
-    <state width="1513" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1591713385052" />
-    <state width="1513" height="210" key="GridCell.Tab.0.right" timestamp="1591713385052">
+    <state width="1513" height="141" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1591719840807" />
+    <state width="1513" height="141" key="GridCell.Tab.0.right" timestamp="1591719840807">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1513" height="210" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1591635207085" />
-    <state width="1513" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1591713385052" />
+    <state width="1513" height="141" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1591719840807" />
     <state x="577" y="325" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1591182113254">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
