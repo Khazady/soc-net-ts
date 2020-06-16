@@ -1,22 +1,28 @@
 import React from "react";
 import classes from "./Dialogs.module.css";
-import DialogItem, { DialogItemType } from "./DialogItem/DialogsItem";
-import Message, {MessageType} from "./Message/Message";
+import DialogItem from "./DialogItem/DialogsItem";
+import Message from "./Message/Message";
+import {DialogsPageType} from "../../redux/state";
 
 type DialogsPropsType = {
-    dialogs: Array<DialogItemType>,
-    messages: Array<MessageType>
+    state: DialogsPageType
 }
 
 function Dialogs(props: DialogsPropsType) {
+    /*мапим диалоги и сообщения*/
+    let dialogElements =  props.state.dialogsData.map((dialogItem) =>  <DialogItem name={dialogItem.name} id={dialogItem.id} avatar={dialogItem.avatar}/> )
 
-    let dialogElements =  props.dialogs.map((dialogItem) =>  <DialogItem name={dialogItem.name} id={dialogItem.id}/> )
-
-    let messageElements = props.messages.map(function (messageItem) {
+    let messageElements = props.state.messagesData.map(function (messageItem) {
         return (
           <Message message={messageItem.message}/>
         )
     })
+
+    let newMessageRef = React.createRef<HTMLTextAreaElement>();
+
+    let sendMessage = () => {
+        alert(newMessageRef.current?.value)
+    }
 
     return (
       <div className={classes.dialogs}>
@@ -25,6 +31,11 @@ function Dialogs(props: DialogsPropsType) {
           </div>
           <div className={classes.messages}>
               {messageElements}
+          </div>
+          <div>
+              <textarea ref={newMessageRef}
+                        placeholder="Type a message"/>
+              <button onClick={sendMessage}>Send</button>
           </div>
       </div>
     )

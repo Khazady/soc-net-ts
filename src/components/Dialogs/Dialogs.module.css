@@ -13,8 +13,16 @@
 
 }
 
-.messages {
+.dialog img {
+    width: 25%;
+    height: 25%;
+    border-radius: 50%;
+}
 
+.messages {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
 }
 
 .messages .message {
