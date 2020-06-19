@@ -1,11 +1,13 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import classes from "./MyPosts.module.css";
 import { PostTypes } from "../../../redux/state";
 import Post from "./Post/Post";
 
 type MyPostsPropsType = {
   posts: Array<PostTypes>
-  addPost: (postMessage: string) => void
+  newPostText: string
+  addPost: () => void
+  updateNewPostText: (newPostText: string) => void
 };
 
 const MyPosts = (props: MyPostsPropsType) => {
@@ -15,21 +17,19 @@ const MyPosts = (props: MyPostsPropsType) => {
     );
   });
 
-  let newPostRef = React.createRef<HTMLTextAreaElement>();
-
   let addPost = () => {
-      if(newPostRef.current) {
-          props.addPost(newPostRef.current.value);
-          /*обнуление строки после ввода*/
-          newPostRef.current.value = "";
-      }
+      props.addPost();
+  }
+
+  let onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+      props.updateNewPostText(e.currentTarget.value)
   }
 
   return (
     <div className={classes.postsBlock}>
       <h3>My Posts</h3>
       <div>
-        <textarea ref={newPostRef}>A</textarea>
+        <textarea onChange={onPostChange} value={props.newPostText}/>
         <button onClick={addPost}>Add post</button>
       </div>
       <div className={classes.posts}>{post}</div>

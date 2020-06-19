@@ -19,6 +19,7 @@ export type MessageType = {
 
 export type ProfilePageType = {
   postsData: Array<PostTypes>;
+  newPostText: string
 };
 
 export type DialogsPageType = {
@@ -38,6 +39,7 @@ let state: RootStateType = {
       { id: v1(), message: "It's my first post", likesCount: 53 },
       { id: v1(), message: "КУ", likesCount: 3 },
     ],
+    newPostText: ""
   },
   dialogsPage: {
     dialogsData: [
@@ -57,9 +59,17 @@ let state: RootStateType = {
   },
 };
 
-export const addPost = (postText: string)  => {
-  const newPost = {id: v1(), message: postText, likesCount: 0}
-  state.profilePage.postsData.push(newPost)
+
+export const addPost = ()  => {
+  const newPost = {id: v1(), message: state.profilePage.newPostText, likesCount: 0}
+  state.profilePage.postsData.push(newPost);
+  /*обнуление строки после ввода*/
+  state.profilePage.newPostText = "";
+  rerenderEntireTree(state)
+}
+
+export const updateNewPostText = (newText: string) => {
+  state.profilePage.newPostText = newText;
   rerenderEntireTree(state)
 }
 
