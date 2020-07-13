@@ -1,11 +1,25 @@
 import './index.css';
-import { rerenderEntireTree } from './render';
-import state from "./redux/state";
+import {RootStateType, store} from "./redux/state";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import {BrowserRouter} from "react-router-dom";
 
-//import * as serviceWorker from './serviceWorker';
+
+let rerenderEntireTree = (state: RootStateType) => {
+    ReactDOM.render(<BrowserRouter>
+        <App
+          state={store.getState() /*вызываем прямо здесь геттер, чтобы получить стейт сюда сейчас*/}
+          dispatch={store.dispatch.bind(store)}//bind лочит контекст на store, создает копию функции, в которой this всегда store
+        />
+    </BrowserRouter>, document.getElementById('root'));
+}
 
 
-rerenderEntireTree(state);
+rerenderEntireTree(store.getState()); //не нужен bind, т.к. getState вызываем прямо здесь
+
+store.subscribe(rerenderEntireTree)
 
 
 // If you want your app to work offline and load faster, you can change

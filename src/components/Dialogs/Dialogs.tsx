@@ -1,18 +1,20 @@
-import React from "react";
+import React, {ChangeEvent} from "react";
 import classes from "./Dialogs.module.css";
 import DialogItem from "./DialogItem/DialogsItem";
 import Message from "./Message/Message";
-import {DialogsPageType} from "../../redux/state";
+import {addMessageActionCreator, DialogsPageType, updateNewPostTextActionCreator, updateNewMessageTextActionCreator} from "../../redux/state";
 
 type DialogsPropsType = {
-    state: DialogsPageType
+    dialogsPage: DialogsPageType
+    newMessageText: string
+    dispatch: any
 }
 
 function Dialogs(props: DialogsPropsType) {
     /*мапим диалоги и сообщения*/
-    let dialogElements =  props.state.dialogsData.map((dialogItem) =>  <DialogItem name={dialogItem.name} id={dialogItem.id} avatar={dialogItem.avatar}/> )
+    let dialogElements =  props.dialogsPage.dialogsData.map((dialogItem) =>  <DialogItem name={dialogItem.name} id={dialogItem.id} avatar={dialogItem.avatar}/> )
 
-    let messageElements = props.state.messagesData.map(function (messageItem) {
+    let messageElements = props.dialogsPage.messagesData.map(function (messageItem) {
         return (
           <Message message={messageItem.message}/>
         )
@@ -21,7 +23,12 @@ function Dialogs(props: DialogsPropsType) {
     let newMessageRef = React.createRef<HTMLTextAreaElement>();
 
     let sendMessage = () => {
-        alert(newMessageRef.current?.value)
+        props.dispatch(addMessageActionCreator())
+    }
+
+    let onMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        let action = updateNewMessageTextActionCreator(e.currentTarget.value)
+        props.dispatch(action)
     }
 
     return (
@@ -34,6 +41,8 @@ function Dialogs(props: DialogsPropsType) {
           </div>
           <div>
               <textarea ref={newMessageRef}
+                        onChange={onMessageChange}
+                        value={props.newMessageText}
                         placeholder="Type a message"/>
               <button onClick={sendMessage}>Send</button>
           </div>
