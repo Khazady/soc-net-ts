@@ -3,7 +3,7 @@ import classes from "./../Dialogs.module.css";
 import { MessageType } from "../../../redux/state";
 
 function Message(props: MessageType) {
-  return <div className={classes.message}>{props.message}</div>;
+  return <div key={props.id} className={classes.message}>{props.message}</div>;
 }
 
 export default Message;
