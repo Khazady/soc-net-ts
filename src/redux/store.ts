@@ -1,6 +1,15 @@
 import {v1} from "uuid";
-import profileReducer from "./profile-reducer";
-import dialogsReducer from "./dialogs-reducer";
+import profileReducer, {
+    addPostActionCreator,
+    addPostActionType,
+    updateNewPostTextActionCreator,
+    updateNewPostTextActionType
+} from "./profile-reducer";
+import dialogsReducer, {
+    addMessageActionCreator,
+    AddMessageActionType, updateNewMessageTextActionCreator,
+    UpdateNewMessageTextActionType
+} from "./dialogs-reducer";
 
 export type PostTypes = {
     id: string
@@ -35,7 +44,22 @@ export type RootStateType = {
     dialogsPage: DialogsPageType;
 };
 
-export let store = {
+export type StoreType = {
+    _state: RootStateType
+    _callSubscriber: (state: RootStateType) => void
+    getState: () => RootStateType
+    subscribe: (observer: any) => void
+    dispatch: (action: UpdateNewMessageTextActionType | AddMessageActionType | addPostActionType | updateNewPostTextActionType) => void
+}
+
+export type ActionsType =
+//автоматическая типизация ActionCreator, добавить as const и убрать типизацию того, что выходит из функции(после кавычек)
+  ReturnType<typeof addPostActionCreator> |
+  ReturnType<typeof updateNewPostTextActionCreator> |
+  ReturnType<typeof addMessageActionCreator> |
+  ReturnType<typeof updateNewMessageTextActionCreator>
+
+export let store: StoreType = {
     _state: {
         profilePage: {
             postsData: [
