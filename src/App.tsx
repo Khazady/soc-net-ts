@@ -3,31 +3,28 @@ import './App.css';
 import Header from './components/Header/Header';
 import Navbar from './components/Navbar/Navbar';
 import Profile from './components/Profile/Profile';
-import Dialogs from "./components/Dialogs/Dialogs";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import {Route} from 'react-router-dom';
-import {RootStateType} from "./redux/store";
+import {RootStateType} from "./redux/redux-store";
+import { CombinedState } from 'redux';
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
 
 type AppPropsTypes = {
-    state: RootStateType
-    dispatch: any
+    store: CombinedState<RootStateType>
 }
 
-const App: React.FC<AppPropsTypes> = (props: AppPropsTypes) => {
+const App: React.FC<any> = (props: any) => {
     return (
       <div className='app-wrapper'>
           <Header/>
           <Navbar/>
           <div className="app-wrapper-content">
               <Route exact path="/dialogs"
-                     render={() => <Dialogs dialogsPage={props.state.dialogsPage}
-                                            newMessageText={props.state.dialogsPage.newMessageText}
-                                            dispatch={props.dispatch} />}/>
+                     render={() => <DialogsContainer />}/>
               <Route path="/profile"
-                     render={() => <Profile profilePage={props.state.profilePage}
-                                            dispatch={props.dispatch}/>}
+                     render={() => <Profile />}
               />
               <Route path="/news" component={News}/>
               <Route path="/music" component={Music}/>

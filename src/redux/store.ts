@@ -1,15 +1,6 @@
 import {v1} from "uuid";
-import profileReducer, {
-    addPostActionCreator,
-    addPostActionType,
-    updateNewPostTextActionCreator,
-    updateNewPostTextActionType
-} from "./profile-reducer";
-import dialogsReducer, {
-    addMessageActionCreator,
-    AddMessageActionType, updateNewMessageTextActionCreator,
-    UpdateNewMessageTextActionType
-} from "./dialogs-reducer";
+import profileReducer, { addPostActionCreator, updateNewPostTextActionCreator } from "./profile-reducer";
+import dialogsReducer, { addMessageActionCreator, updateNewMessageTextActionCreator} from "./dialogs-reducer";
 
 export type PostTypes = {
     id: string
@@ -49,7 +40,7 @@ export type StoreType = {
     _callSubscriber: (state: RootStateType) => void
     getState: () => RootStateType
     subscribe: (observer: any) => void
-    dispatch: (action: UpdateNewMessageTextActionType | AddMessageActionType | addPostActionType | updateNewPostTextActionType) => void
+    dispatch: (action: ActionsType) => void
 }
 
 export type ActionsType =
@@ -110,7 +101,7 @@ export let store: StoreType = {
     _callSubscriber(state: RootStateType) {
     },
 
-    getState() {
+    getState(): RootStateType {
         return this._state
     },
     subscribe(observer: any) {
@@ -119,7 +110,7 @@ export let store: StoreType = {
         //таким образом мы избегаем циклической зависимости??, если бы просто импортировали ререндер
     },
 
-    dispatch(action: any) {
+    dispatch(action: ActionsType) {
         //обновляем стейт
         this._state.profilePage = profileReducer(this._state.profilePage, action)
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)

@@ -1,12 +1,17 @@
-import {combineReducers, createStore} from "redux";
+import {combineReducers, createStore, Store} from "redux";
 import profileReducer from "./profile-reducer";
 import dialogsReducer from "./dialogs-reducer";
+import {DialogsPageType, ProfilePageType} from "./store";
 
-let reducers = combineReducers({
+export type RootStateType = {
+    profilePage: ProfilePageType;
+    dialogsPage: DialogsPageType;
+};
+
+let reducers = combineReducers<RootStateType>({
     //этот объект воспринимать как state
-    //такие записи аналогичны
-    profileReducer,
-    dialogsReducer: dialogsReducer
+    profilePage: profileReducer,
+    dialogsPage: dialogsReducer
 });
 
-export let store = createStore(reducers);
+export let store: Store = createStore(reducers);

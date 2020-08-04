@@ -5,15 +5,15 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import {BrowserRouter} from "react-router-dom";
-import {RootStateType} from "./redux/store";
+import {Provider} from "./StoreContext";
+import {RootStateType} from "./redux/redux-store";
 
 
 let rerenderEntireTree = (state: RootStateType) => {
     ReactDOM.render(<BrowserRouter>
-        <App
-          state={store.getState()} /*вызываем прямо здесь геттер, чтобы получить стейт сюда сейчас*/
-          dispatch={store.dispatch.bind(store)} //bind лочит контекст на store, создает копию функции, в которой this всегда store
-        />
+        <Provider store={store}>
+            <App/>
+        </Provider>
     </BrowserRouter>, document.getElementById('root'));
 }
 

@@ -1,5 +1,5 @@
 import {v1} from "uuid";
-import {ProfilePageType} from "./store";
+import {ActionsType, ProfilePageType} from "./store";
 
 
 
@@ -14,8 +14,9 @@ let initialState = {
       ],
       newPostText: ""
   };
+//Для самой первой отрисовки
 
-const profileReducer = (state: ProfilePageType = initialState, action: any) => {
+const profileReducer = (state: ProfilePageType = initialState, action: ActionsType): ProfilePageType => {
     switch (action.type) {
         case ADD_POST:
             let newPost = {id: v1(), message: state.newPostText, likesCount: 0}

@@ -2,20 +2,21 @@ import React, {ChangeEvent} from "react";
 import classes from "./Dialogs.module.css";
 import DialogItem from "./DialogItem/DialogsItem";
 import Message from "./Message/Message";
-import {ActionsType, DialogsPageType} from "../../redux/store";
-import { addMessageActionCreator, updateNewMessageTextActionCreator } from "../../redux/dialogs-reducer";
+import {DialogsPageType} from "../../redux/store";
 
 type DialogsPropsType = {
     dialogsPage: DialogsPageType
-    newMessageText: string
-    dispatch: (action: ActionsType) => void
+    updateNewMessageBody: (body: any) => void
+    sendMessage: () => void
 }
 
 function Dialogs(props: DialogsPropsType) {
-    /*мапим диалоги и сообщения*/
-    let dialogElements =  props.dialogsPage.dialogsData.map((dialogItem) =>  <DialogItem name={dialogItem.name} id={dialogItem.id} avatar={dialogItem.avatar}/> )
 
-    let messageElements = props.dialogsPage.messagesData.map(function (messageItem) {
+    let state = props.dialogsPage
+    /*мапим диалоги и сообщения*/
+    let dialogElements =  state.dialogsData.map((dialogItem) =>  <DialogItem name={dialogItem.name} id={dialogItem.id} avatar={dialogItem.avatar}/> )
+
+    let messageElements = state.messagesData.map(function (messageItem) {
         return (
           <Message id={messageItem.id} message={messageItem.message}/>
         )
@@ -24,12 +25,11 @@ function Dialogs(props: DialogsPropsType) {
     let newMessageRef = React.createRef<HTMLTextAreaElement>();
 
     let sendMessage = () => {
-        props.dispatch(addMessageActionCreator())
+        props.sendMessage();
     }
 
     let onMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        let action = updateNewMessageTextActionCreator(e.currentTarget.value)
-        props.dispatch(action)
+        props.updateNewMessageBody(e.currentTarget.value)
     }
 
     return (
@@ -43,7 +43,7 @@ function Dialogs(props: DialogsPropsType) {
           <div>
               <textarea ref={newMessageRef}
                         onChange={onMessageChange}
-                        value={props.newMessageText}
+                        value={props.dialogsPage.newMessageText}
                         placeholder="Type a message"/>
               <button onClick={sendMessage}>Send</button>
           </div>
