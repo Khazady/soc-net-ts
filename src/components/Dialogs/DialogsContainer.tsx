@@ -1,27 +1,29 @@
-import React from "react";
 import { addMessageActionCreator, updateNewMessageTextActionCreator } from "../../redux/dialogs-reducer";
 import Dialogs from "./Dialogs";
-import { StoreContext } from "../../StoreContext";
+import {connect} from "react-redux";
+import {RootStateType} from "../../redux/redux-store";
+import {ActionsType} from "../../redux/store";
 
-function DialogsContainer() {
-
-    return <StoreContext.Consumer>
-        { store => {
-            let state = store.getState().dialogsPage;
-
-            let sendMessage = () => {
-                store.dispatch(addMessageActionCreator())
-            }
-
-            let onMessageChange = (body: string) => {
-                let action = updateNewMessageTextActionCreator(body)
-                store.dispatch(action)
-            }
-            return <Dialogs updateNewMessageBody={onMessageChange} sendMessage={sendMessage} dialogsPage={state}/>
+let mapStateToProps = (state: RootStateType) => {
+    return {
+        dialogsPage: state.dialogsPage
+    }
+} //возвращает состояние объектом
+let mapDispatchToProps = (dispatch: (action: ActionsType) => void) => {
+    return {
+        sendMessage: () => {
+            //диспатчим, то, что вернул экшн креатор
+            dispatch(addMessageActionCreator())
+        },
+        updateNewMessageBody: (body: string) => {
+            let action = updateNewMessageTextActionCreator(body)
+            dispatch(action)
         }
     }
-    </StoreContext.Consumer>
-}
+} //возвращает коллбеки объектом
+
+const DialogsContainer = connect(mapStateToProps, mapDispatchToProps) (Dialogs);
+//2 объекта скрещиваются и превращаются в пропсы Dialogs
 
 
 export default DialogsContainer;

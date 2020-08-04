@@ -11,20 +11,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="38729180-fc7b-40fd-b525-d6fac38bb07c" name="Default Changelist" comment="lesson 26">
-      <change afterPath="$PROJECT_DIR$/src/StoreContext.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Dialogs/DialogsContainer.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Profile/MyPosts/MyPostsContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Dialogs/Dialogs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Dialogs/Dialogs.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/StoreContext.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Dialogs/DialogsContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Dialogs/DialogsContainer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Profile/MyPosts/MyPosts.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Profile/MyPosts/MyPosts.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Profile/MyPosts/MyPostsContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Profile/MyPosts/MyPostsContainer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Profile/Profile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Profile/Profile.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/dialogs-reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/dialogs-reducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/profile-reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/profile-reducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/redux-store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/redux-store.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/store.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,6 +49,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="TERMINAL_CUSTOM_COMMANDS_GOT_IT" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/components/Dialogs" />
     <property name="node.js.detected.package.eslint" value="true" />
@@ -133,7 +129,7 @@
       <workItem from="1596198271406" duration="1672000" />
       <workItem from="1596204504929" duration="1044000" />
       <workItem from="1596473310838" duration="872000" />
-      <workItem from="1596487789154" duration="15810000" />
+      <workItem from="1596487789154" duration="21932000" />
     </task>
     <task id="LOCAL-00001" summary="lesson 26">
       <created>1591713905346</created>
@@ -202,30 +198,30 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="498" y="158" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1590696423941" />
-    <state width="1513" height="165" key="GridCell.Tab.0.bottom" timestamp="1596536121569">
+    <state width="1513" height="165" key="GridCell.Tab.0.bottom" timestamp="1596550906591">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1513" height="165" key="GridCell.Tab.0.bottom/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1594839334212" />
     <state width="1417" height="138" key="GridCell.Tab.0.bottom/0.0.1536.824/1920.0.1440.860@1920.0.1440.860" timestamp="1592584428133" />
-    <state width="1513" height="165" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1596536121569" />
-    <state width="1513" height="165" key="GridCell.Tab.0.center" timestamp="1596536121568">
+    <state width="1513" height="165" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1596550906591" />
+    <state width="1513" height="165" key="GridCell.Tab.0.center" timestamp="1596550906590">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1513" height="165" key="GridCell.Tab.0.center/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1594839334212" />
     <state width="1417" height="138" key="GridCell.Tab.0.center/0.0.1536.824/1920.0.1440.860@1920.0.1440.860" timestamp="1592584428133" />
-    <state width="1513" height="165" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1596536121568" />
-    <state width="1513" height="165" key="GridCell.Tab.0.left" timestamp="1596536121568">
+    <state width="1513" height="165" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1596550906590" />
+    <state width="1513" height="165" key="GridCell.Tab.0.left" timestamp="1596550906590">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1513" height="165" key="GridCell.Tab.0.left/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1594839334211" />
     <state width="1417" height="138" key="GridCell.Tab.0.left/0.0.1536.824/1920.0.1440.860@1920.0.1440.860" timestamp="1592584428133" />
-    <state width="1513" height="165" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1596536121568" />
-    <state width="1513" height="165" key="GridCell.Tab.0.right" timestamp="1596536121568">
+    <state width="1513" height="165" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1596550906590" />
+    <state width="1513" height="165" key="GridCell.Tab.0.right" timestamp="1596550906591">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1513" height="165" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1594839334212" />
     <state width="1417" height="138" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.1440.860@1920.0.1440.860" timestamp="1592584428133" />
-    <state width="1513" height="165" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1596536121568" />
+    <state width="1513" height="165" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1596550906591" />
     <state x="577" y="325" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1596498794402">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

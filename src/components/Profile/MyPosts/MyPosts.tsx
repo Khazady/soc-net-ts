@@ -4,14 +4,14 @@ import Post from "./Post/Post";
 import { PostTypes } from "../../../redux/store";
 
 type MyPostsPropsType = {
-    posts: Array<PostTypes>
+    postsData: Array<PostTypes>
     newPostText: string
     updateNewPostText: (text: string) => void
     addPost: () => void
 };
 
 const MyPosts = (props: MyPostsPropsType) => {
-    let post = props.posts.map(function (postElement) {
+    let post = props.postsData.map(function (postElement) {
         return (
           <Post id={postElement.id} message={postElement.message} likesCount={postElement.likesCount}/>
         );
