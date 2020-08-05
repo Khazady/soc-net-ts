@@ -13,7 +13,10 @@ type MyPostsPropsType = {
 const MyPosts = (props: MyPostsPropsType) => {
     let post = props.postsData.map(function (postElement) {
         return (
-          <Post id={postElement.id} message={postElement.message} likesCount={postElement.likesCount}/>
+          <Post id={postElement.id}
+                key={postElement.id}
+                message={postElement.message}
+                likesCount={postElement.likesCount}/>
         );
     });
 

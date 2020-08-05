@@ -12,6 +12,11 @@
   <component name="ChangeListManager">
     <list default="true" id="38729180-fc7b-40fd-b525-d6fac38bb07c" name="Default Changelist" comment="lesson 26">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Dialogs/Dialogs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Dialogs/Dialogs.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Dialogs/DialogsContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Dialogs/DialogsContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Profile/MyPosts/MyPosts.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Profile/MyPosts/MyPosts.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Profile/MyPosts/MyPostsContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Profile/MyPosts/MyPostsContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/dialogs-reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/dialogs-reducer.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/redux/profile-reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/profile-reducer.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -123,7 +128,7 @@
       <workItem from="1596204504929" duration="1044000" />
       <workItem from="1596473310838" duration="872000" />
       <workItem from="1596487789154" duration="23025000" />
-      <workItem from="1596624405871" duration="1885000" />
+      <workItem from="1596624405871" duration="5731000" />
     </task>
     <task id="LOCAL-00001" summary="lesson 26">
       <created>1591713905346</created>
@@ -224,9 +229,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="425" y="187" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1596198209799" />
-    <state x="425" y="66" width="672" height="676" key="search.everywhere.popup" timestamp="1592325133151">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="2318" y="69" width="672" height="706" key="search.everywhere.popup" timestamp="1596632544547">
+      <screen x="1920" y="0" width="1440" height="860" />
     </state>
+    <state x="2318" y="69" width="672" height="706" key="search.everywhere.popup/0.0.1536.824/1920.0.1440.860@1920.0.1440.860" timestamp="1596632544547" />
     <state x="425" y="66" width="672" height="676" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1592325133151" />
   </component>
   <component name="XDebuggerManager">

@@ -42,18 +42,21 @@ let initialState = {
 
 const dialogsReducer = (state: DialogsPageType = initialState, action: ActionsType): DialogsPageType => {
     switch (action.type) {
-        case "ADD-MESSAGE": {
-            let stateCopy = {...state};
+        case "ADD-MESSAGE":
             let newMessage = {id: v1(), message: state.newMessageText}
-            stateCopy.messagesData.push(newMessage);
-            stateCopy.newMessageText = "";
-            return stateCopy
-        }
-        case "UPDATE-NEW-MESSAGE-TEXT": {
-            let stateCopy = {...state};
-            stateCopy.newMessageText = action.newText;
-            return stateCopy
-        }
+            return {
+                ...state,
+                newMessageText: "",
+                messagesData: [...state.messagesData, newMessage ]
+                //эта запись перезатирает shallow-копию messagesData
+                //массив messagesData содержит объекты, мы их глубоко не копируем, т.к. не изменяем
+                //dialogsData глубоко не копируем, не собираемся изменять
+            };
+        case "UPDATE-NEW-MESSAGE-TEXT":
+            return {
+                ...state,
+                newMessageText: action.newText
+            }
         default:
             return state;
     }

@@ -14,11 +14,13 @@ function Dialogs(props: DialogsPropsType) {
 
     let state = props.dialogsPage
     /*мапим диалоги и сообщения*/
-    let dialogElements =  state.dialogsData.map((dialogItem) =>  <DialogItem name={dialogItem.name} id={dialogItem.id} avatar={dialogItem.avatar}/> )
-
+    let dialogElements =  state.dialogsData.map((dialogItem) =>  <DialogItem name={dialogItem.name}
+                                                                             id={dialogItem.id}
+                                                                             key={dialogItem.id}
+                                                                             avatar={dialogItem.avatar}/> )
     let messageElements = state.messagesData.map(function (messageItem) {
         return (
-          <Message id={messageItem.id} message={messageItem.message}/>
+          <Message id={messageItem.id} message={messageItem.message} key={messageItem.id}/>
         )
     })
 

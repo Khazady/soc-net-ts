@@ -9,6 +9,7 @@ let mapStateToProps = (state: RootStateType) => {
     return {
         postsData: state.profilePage.postsData,
         newPostText: state.profilePage.newPostText
+        //перерисуйся, когда что-то из этого изменится
     }
 }
 let mapDispatchToProps = (dispatch: (action: ActionsType) => void) => {
