@@ -1,12 +1,20 @@
 import {v1} from "uuid";
-import {ActionsType, ProfilePageType} from "./store";
+import { ActionsType } from "./redux-store";
 
-
+export type PostTypes = {
+    id: string
+    message: string;
+    likesCount: number;
+};
+export type ProfilePageType = {
+    postsData: Array<PostTypes>;
+    newPostText: string
+};
 
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 
-let initialState = {
+let initialState: ProfilePageType = {
       postsData: [
           {id: v1(), message: "Hi, how are you?", likesCount: 7},
           {id: v1(), message: "It's my first post", likesCount: 53},

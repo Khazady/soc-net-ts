@@ -1,8 +1,7 @@
 import { addMessageActionCreator, updateNewMessageTextActionCreator } from "../../redux/dialogs-reducer";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
-import {RootStateType} from "../../redux/redux-store";
-import {ActionsType} from "../../redux/store";
+import {RootStateType, ActionsType} from "../../redux/redux-store";
 
 let mapStateToProps = (state: RootStateType) => {
     return {

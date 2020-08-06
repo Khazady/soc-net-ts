@@ -1,8 +1,7 @@
 import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../redux/profile-reducer";
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
-import {RootStateType} from "../../../redux/redux-store";
-import {ActionsType} from "../../../redux/store";
+import {RootStateType, ActionsType} from "../../../redux/redux-store";
 
 
 let mapStateToProps = (state: RootStateType) => {

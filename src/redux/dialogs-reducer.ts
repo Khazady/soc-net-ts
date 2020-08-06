@@ -1,8 +1,24 @@
 import {v1} from "uuid";
-import {ActionsType, DialogsPageType} from "./store";
+import {ActionsType} from "./redux-store";
+
+export type DialogItemType = {
+    name: string;
+    id: number;
+    avatar: string
+};
+export type MessageType = {
+    id: string
+    message: string;
+};
+export type DialogsPageType = {
+    dialogsData: Array<DialogItemType>;
+    messagesData: Array<MessageType>;
+    newMessageText: string
+};
 
 
-let initialState = {
+
+let initialState: DialogsPageType = {
     dialogsData: [
         {
             id: 1,

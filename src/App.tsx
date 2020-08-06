@@ -10,22 +10,24 @@ import {Route} from 'react-router-dom';
 import {RootStateType} from "./redux/redux-store";
 import { CombinedState } from 'redux';
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import UsersContainer from './components/Users/UsersContainer';
 
 type AppPropsTypes = {
     store: CombinedState<RootStateType>
 }
 
-const App: React.FC<any> = (props: any) => {
+const App: React.FC<any> = (props: AppPropsTypes) => {
     return (
       <div className='app-wrapper'>
           <Header/>
           <Navbar/>
           <div className="app-wrapper-content">
               <Route exact path="/dialogs"
-                     render={() => <DialogsContainer />}/>
+                     render={() => <DialogsContainer /> } />
               <Route path="/profile"
-                     render={() => <Profile />}
-              />
+                     render={() => <Profile /> } />
+              <Route path="/users"
+                     render={() => <UsersContainer /> } />
               <Route path="/news" component={News}/>
               <Route path="/music" component={Music}/>
               <Route path="/settings" component={Settings}/>
