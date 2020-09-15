@@ -7,9 +7,9 @@ type LocationType = {
 }
 export type UsersType = {
     id: string
-    photo: string
+    photos: any
     isFollowed: boolean
-    fullName: string
+    name: string
     status: string
     location: LocationType
 }
@@ -33,6 +33,7 @@ const userReducer = (state: UsersPageType = initialState, action: ActionsType): 
                 ...state,
                 usersData: state.usersData.map(u => {
                     if (u.id === action.userId) {
+                        //делаем копию только того юзера, которого меняем
                         return {...u, isFollowed: true}
                     }
                     return u;
@@ -49,8 +50,7 @@ const userReducer = (state: UsersPageType = initialState, action: ActionsType): 
                 })
             }
         case SET_USERS: {
-            console.log([...state.usersData])
-            console.log([...action.newUsersData])
+            //Дополняет инитстейт новыми юзерами, приходящими с сервака по нажатию кнопки show more
             return {
                 ...state,
                 usersData: [...state.usersData, ...action.newUsersData]
