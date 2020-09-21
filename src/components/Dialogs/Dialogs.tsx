@@ -9,7 +9,6 @@ type DialogsPropsType = {
     updateNewMessageBody: (body: any) => void
     sendMessage: () => void
 }
-
 function Dialogs(props: DialogsPropsType) {
 
     let state = props.dialogsPage
