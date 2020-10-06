@@ -1,7 +1,14 @@
 import {combineReducers, createStore, Store} from "redux";
 import profileReducer, {addPostActionCreator, ProfilePageType, updateNewPostTextActionCreator} from "./profile-reducer";
 import dialogsReducer, {addMessageActionCreator, updateNewMessageTextActionCreator, DialogsPageType} from "./dialogs-reducer";
-import userReducer, {followAC, setUsersAC, unfollowAC, UsersPageType} from "./users-reducer";
+import userReducer, {
+    followAC,
+    setCurrentPageAC,
+    setTotalUsersCountAC,
+    setUsersAC, toggleIsLoadingAC,
+    unfollowAC,
+    UsersPageType
+} from "./users-reducer";
 
 export type RootStateType = {
     profilePage: ProfilePageType;
@@ -16,7 +23,10 @@ export type ActionsType =
   ReturnType<typeof updateNewMessageTextActionCreator> |
   ReturnType<typeof followAC> |
   ReturnType<typeof unfollowAC> |
-  ReturnType<typeof setUsersAC>
+  ReturnType<typeof setUsersAC> |
+  ReturnType<typeof setCurrentPageAC> |
+  ReturnType<typeof setTotalUsersCountAC> |
+  ReturnType<typeof toggleIsLoadingAC>;
 
 let reducers = combineReducers<RootStateType>({
     //этот объект воспринимать как state

@@ -1,30 +1,37 @@
-import React from "react";
-import userPhoto from "../../assets/images/default-user-avatar.png";
 import styles from "./Users.module.css";
-import axios from "axios";
-import {UsersPageType, UsersType} from "../../redux/users-reducer";
+import userPhoto from "../../assets/images/default-user-avatar.png";
+import React from "react";
+import {UsersType} from "../../redux/users-reducer";
 
-//пропсы берутся из объекта, сформированного функцией connect в контейнерном компоненте
-type UsersPropsType = {
+export type UsersPropsType = {
     users: Array<UsersType>
+    totalUsersCount: number
+    pageSize: number
+    currentPage: number
     follow: (userId: string) => void
     unfollow: (userId: string) => void
-    setUsers: (users: Array<UsersType>) => void
+    onPageChanger: (page: number) => void
 }
 
-class Users extends React.Component<UsersPropsType, any> {
-    componentDidMount() {
-        //при get-запросе мы можем отправить на сервер только этот адрес
-        axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
-            //после ответа сервера выполнится этот код
-            this.props.setUsers(response.data.items)
-        });
+export const Users = (props: UsersPropsType) => {
+    //логика для визуала, поэтому она в презентационной компоненте
+    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
+    let pages = [];
+    for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i)
     }
 
-    render() {
-        return <div>
-            {
-                this.props.users.map(u => <div key={u.id}>
+    return (
+      <div>
+          <div>
+              {pages.map(p =>
+                <span className={props.currentPage === p ? styles.selectedPage : styles.page}
+                      onClick={ () => props.onPageChanger(p)}>
+                      {p}</span>
+              )}
+          </div>
+          {
+              props.users.map(u => <div key={u.id}>
                 <span>
                     <div><img
                       src={
@@ -34,11 +41,11 @@ class Users extends React.Component<UsersPropsType, any> {
                       alt={"avatar"}/>
                     </div>
                     <div>{u.isFollowed
-                      ? <button onClick={() => this.props.unfollow(u.id)}>Unfollow</button>
-                      : <button onClick={() => this.props.follow(u.id)}>Follow</button>
+                      ? <button onClick={() => props.unfollow(u.id)}>Unfollow</button>
+                      : <button onClick={() => props.follow(u.id)}>Follow</button>
                     }</div>
                 </span>
-                    <span>
+                  <span>
                     <span>
                         <div>{u.name}</div>
                         <div>{u.status}</div>
@@ -49,16 +56,14 @@ class Users extends React.Component<UsersPropsType, any> {
                     </span>
 
 
-                    {/*<button onClick={() => {*/}
-                    {/*    this.props.setUsers()*/}
-                    {/*}}>Show more</button>*/}
+                      {/*<button onClick={() => {*/}
+                      {/*    this.props.setUsers()*/}
+                      {/*}}>Show more</button>*/}
 
 
                 </span>
-                </div>)
-            }
-        </div>
-    }
+              </div>)
+          }
+      </div>
+    )
 }
-
-export default Users;
