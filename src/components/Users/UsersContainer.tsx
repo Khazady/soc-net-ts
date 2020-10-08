@@ -14,7 +14,7 @@ import {Users} from "./Users";
 import { Preloader } from "../common/Preloader/Preloader";
 
 //пропсы берутся из объекта, сформированного функцией connect ниже
-type UsersAPIComponentPropsType = {
+type UserContainerProps = {
     users: Array<UsersType>
     currentPage: number
     totalUsersCount: number
@@ -28,7 +28,7 @@ type UsersAPIComponentPropsType = {
     toggleIsLoading: (isLoading: boolean) => void
 }
 
-class UsersContainer extends React.Component<UsersAPIComponentPropsType, any> {
+class UsersContainer extends React.Component<UserContainerProps, any> {
     componentDidMount() {
         //включаем крутилку до запроса на серв
         this.props.toggleIsLoading(true);

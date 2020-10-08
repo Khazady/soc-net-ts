@@ -1,5 +1,5 @@
 import {combineReducers, createStore, Store} from "redux";
-import profileReducer, {addPostActionCreator, ProfilePageType, updateNewPostTextActionCreator} from "./profile-reducer";
+import profileReducer, {addPostAC, ProfilePageType, setProfileAC, updateNewPostTextAC} from "./profile-reducer";
 import dialogsReducer, {addMessageActionCreator, updateNewMessageTextActionCreator, DialogsPageType} from "./dialogs-reducer";
 import userReducer, {
     followAC,
@@ -17,8 +17,8 @@ export type RootStateType = {
 };
 export type ActionsType =
 //автоматическая типизация ActionCreator, добавить as const и убрать типизацию того, что выходит из функции(после кавычек)
-  ReturnType<typeof addPostActionCreator> |
-  ReturnType<typeof updateNewPostTextActionCreator> |
+  ReturnType<typeof addPostAC> |
+  ReturnType<typeof updateNewPostTextAC> |
   ReturnType<typeof addMessageActionCreator> |
   ReturnType<typeof updateNewMessageTextActionCreator> |
   ReturnType<typeof followAC> |
@@ -26,7 +26,8 @@ export type ActionsType =
   ReturnType<typeof setUsersAC> |
   ReturnType<typeof setCurrentPageAC> |
   ReturnType<typeof setTotalUsersCountAC> |
-  ReturnType<typeof toggleIsLoadingAC>;
+  ReturnType<typeof toggleIsLoadingAC> |
+  ReturnType<typeof setProfileAC>;
 
 let reducers = combineReducers<RootStateType>({
     //этот объект воспринимать как state
@@ -36,3 +37,8 @@ let reducers = combineReducers<RootStateType>({
 });
 
 export let store: Store = createStore(reducers);
+
+
+//нужно для того, чтобы видеть store в консоли
+// @ts-ignore
+window.store = store;

@@ -2,7 +2,6 @@ import React from 'react';
 import './App.css';
 import Header from './components/Header/Header';
 import Navbar from './components/Navbar/Navbar';
-import Profile from './components/Profile/Profile';
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
@@ -11,12 +10,15 @@ import {RootStateType} from "./redux/redux-store";
 import { CombinedState } from 'redux';
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from './components/Users/UsersContainer';
+import ProfileContainer from "./components/Profile/ProfileContainer";
 
 type AppPropsTypes = {
     store: CombinedState<RootStateType>
 }
 
 const App: React.FC<any> = (props: AppPropsTypes) => {
+    //В Profile /:userId параметр для пропсов withRouter (60 Выпуск)
+    // ? после userId делает параметр опциональным, поэтому если в url его не будет, загрузится другой профиль(указан в коде компоненты)
     return (
       <div className='app-wrapper'>
           <Header/>
@@ -24,8 +26,8 @@ const App: React.FC<any> = (props: AppPropsTypes) => {
           <div className="app-wrapper-content">
               <Route exact path="/dialogs"
                      render={() => <DialogsContainer /> } />
-              <Route path="/profile"
-                     render={() => <Profile /> } />
+              <Route path="/profile/:userId?"
+                     render={() => <ProfileContainer /> } />
               <Route path="/users"
                      render={() => <UsersContainer /> } />
               <Route path="/news" component={News}/>
