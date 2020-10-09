@@ -9,11 +9,13 @@ import userReducer, {
     unfollowAC,
     UsersPageType
 } from "./users-reducer";
+import authReducer, {AuthType, setAuthUserData} from "./auth-reducer";
 
 export type RootStateType = {
     profilePage: ProfilePageType;
     dialogsPage: DialogsPageType;
-    usersPage: UsersPageType
+    usersPage: UsersPageType;
+    auth: AuthType
 };
 export type ActionsType =
 //автоматическая типизация ActionCreator, добавить as const и убрать типизацию того, что выходит из функции(после кавычек)
@@ -27,13 +29,15 @@ export type ActionsType =
   ReturnType<typeof setCurrentPageAC> |
   ReturnType<typeof setTotalUsersCountAC> |
   ReturnType<typeof toggleIsLoadingAC> |
-  ReturnType<typeof setProfileAC>;
+  ReturnType<typeof setProfileAC> |
+  ReturnType<typeof setAuthUserData>;
 
 let reducers = combineReducers<RootStateType>({
     //этот объект воспринимать как state
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
-    usersPage: userReducer
+    usersPage: userReducer,
+    auth: authReducer
 });
 
 export let store: Store = createStore(reducers);
