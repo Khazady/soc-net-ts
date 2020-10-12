@@ -3,6 +3,7 @@ import userPhoto from "../../assets/images/default-user-avatar.png";
 import React from "react";
 import {UsersType} from "../../redux/users-reducer";
 import {NavLink} from "react-router-dom";
+import axios from "axios";
 
 export type UsersPropsType = {
     users: Array<UsersType>
@@ -45,29 +46,48 @@ export const Users = (props: UsersPropsType) => {
                         </NavLink>
                     </div>
                     <div>{u.isFollowed
-                      ? <button onClick={() => props.unfollow(u.id)}>Unfollow</button>
-                      : <button onClick={() => props.follow(u.id)}>Follow</button>
-                    }</div>
-                </span>
-                  <span>
-                    <span>
+                      ? <button onClick={() => {
+                          //в get и delete настройки 2 параметр, в post 3-ий
+                          axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {
+                              withCredentials: true
+                          }).then(response => {
+                              //если инфа на сервере поменялась ( 0 - успешно), то диспатчим и в своем стейте
+                              if (response.data.resultCode == 0) {
+                                  props.follow(u.id)
+                              }
+                          });
+                      }}>Follow</button>
+                      : <button onClick={() => {
+                          axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
+                              withCredentials: true
+                          }).then(response => {
+                              //если инфа на сервере поменялась ( 0 - успешно), то диспатчим и в своем стейте
+                              if (response.data.resultCode == 0) {
+                                  props.follow(u.id)
+                              }
+                          });
+                      }}>Unfollow</button>
+                      }</div>
+                        </span>
+                        <span>
+                        <span>
                         <div>{u.name}</div>
                         <div>{u.status}</div>
-                    </span>
-                    <span>
+                        </span>
+                        <span>
                         <div>{"u.location.city"}</div>
                         <div>{"u.location.country"}</div>
-                    </span>
+                        </span>
 
 
-                      {/*<button onClick={() => {*/}
-                      {/*    this.props.setUsers()*/}
-                      {/*}}>Show more</button>*/}
+                        {/*<button onClick={() => {*/}
+                        {/*    this.props.setUsers()*/}
+                        {/*}}>Show more</button>*/}
 
 
-                </span>
-              </div>)
-          }
-      </div>
-    )
-}
+                        </span>
+                        </div>)
+                        }
+                        </div>
+                        )
+                        }

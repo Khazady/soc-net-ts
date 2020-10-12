@@ -40,7 +40,6 @@ const authReducer = (state: AuthType = initialState, action: ActionsType): AuthT
     }
 }
 
-export const toggleIsLoadingAC = (isLoading: boolean) => ({type: TOGGLE_IS_LOADING, isLoading} as const)
 export const setAuthUserData = (userId: number | null, email: string|null, login: string|null) => ({type: SET_USER_DATA, data: {userId, email, login}} as const)
 
 export default authReducer;
