@@ -3,7 +3,7 @@ import userPhoto from "../../assets/images/default-user-avatar.png";
 import React from "react";
 import {UsersType} from "../../redux/users-reducer";
 import {NavLink} from "react-router-dom";
-import axios from "axios";
+import {followAPI} from "../../api/api";
 
 export type UsersPropsType = {
     users: Array<UsersType>
@@ -45,31 +45,29 @@ export const Users = (props: UsersPropsType) => {
                               alt={"avatar"}/>
                         </NavLink>
                     </div>
-                    <div>{u.isFollowed
-                      ? <button onClick={() => {
-                          //в get и delete настройки 2 параметр, в post 3-ий
-                          axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {
-                              withCredentials: true
-                          }).then(response => {
-                              //если инфа на сервере поменялась ( 0 - успешно), то диспатчим и в своем стейте
-                              if (response.data.resultCode == 0) {
-                                  props.follow(u.id)
-                              }
-                          });
-                      }}>Follow</button>
-                      : <button onClick={() => {
-                          axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
-                              withCredentials: true
-                          }).then(response => {
-                              //если инфа на сервере поменялась ( 0 - успешно), то диспатчим и в своем стейте
-                              if (response.data.resultCode == 0) {
-                                  props.follow(u.id)
-                              }
-                          });
-                      }}>Unfollow</button>
-                      }</div>
+                    <div>
+                        {u.isFollowed ?
+                          <button onClick={() => {
+                              //в get и delete настройки 2 параметр, в post 3-ий
+                              followAPI.followUser(u.id)
+                                .then(data => {
+                                    //если инфа на сервере поменялась ( 0 - успешно), то диспатчим и в своем стейте
+                                    if (data.resultCode == 0) {
+                                        props.follow(u.id)
+                                    }
+                                });
+                          }}>Follow</button>
+                          : <button onClick={() => {
+                              followAPI.unFollowUser(u.id)
+                                .then(response => {
+                                    if (response.data.resultCode == 0) {
+                                        props.unfollow(u.id)
+                                    }
+                                });
+                          }}>Unfollow</button>
+                        }</div>
                         </span>
-                        <span>
+                  <span>
                         <span>
                         <div>{u.name}</div>
                         <div>{u.status}</div>
@@ -80,14 +78,14 @@ export const Users = (props: UsersPropsType) => {
                         </span>
 
 
-                        {/*<button onClick={() => {*/}
-                        {/*    this.props.setUsers()*/}
-                        {/*}}>Show more</button>*/}
+                      {/*<button onClick={() => {*/}
+                      {/*    this.props.setUsers()*/}
+                      {/*}}>Show more</button>*/}
 
 
                         </span>
-                        </div>)
-                        }
-                        </div>
-                        )
-                        }
+              </div>)
+          }
+      </div>
+    )
+}

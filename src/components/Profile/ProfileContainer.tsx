@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import {ActionsType, RootStateType} from "../../redux/redux-store";
 import {ProfilePageType, setProfileAC} from "../../redux/profile-reducer";
 import { withRouter, RouteComponentProps } from "react-router-dom";
+import {profileAPI} from "../../api/api";
 //типы объектов с серва (то, что должен возвращать MStP
 type profileContactsServerType = {
     github: string | null
@@ -48,6 +49,7 @@ type PropsType = RouteComponentProps<PathParamType> & OwnPropsType
 class ProfileContainer extends React.Component<PropsType, any> {
 
     componentDidMount() {
+        document.title = "Profile";
         //айди из URL (withRouter, Route)
         let userId = this.props.match.params.userId;
         //если параметра userId нет (url выглядит как /profile/), то вставить 2
@@ -55,10 +57,9 @@ class ProfileContainer extends React.Component<PropsType, any> {
             userId = '2';
         }
         //при get-запросе мы можем отправить на сервер только адрес
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`).then(response => {
-            //после ответа сервера выполнится этот код
-            //в респонсе сидит объект дата ( а в нем как в документаци )
-            this.props.setProfile(response.data)
+        profileAPI.getProfiles(userId)
+          .then(data => {
+            this.props.setProfile(data)
         });
     }
 

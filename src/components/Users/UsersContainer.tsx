@@ -9,9 +9,9 @@ import {
     UsersType
 } from "../../redux/users-reducer";
 import React from "react";
-import axios from "axios";
 import {Users} from "./Users";
 import { Preloader } from "../common/Preloader/Preloader";
+import {usersAPI} from "../../api/api";
 
 //пропсы берутся из объекта, сформированного функцией connect ниже
 type UserContainerProps = {
@@ -30,13 +30,15 @@ type UserContainerProps = {
 
 class UsersContainer extends React.Component<UserContainerProps, any> {
     componentDidMount() {
+        document.title = "Users";
         //включаем крутилку до запроса на серв
         this.props.toggleIsLoading(true);
-        //при get-запросе мы можем отправить на сервер только этот адрес
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
+        //вынесли axios запрос в отдельный файл (api.ts) там DAL
+        usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
+          .then(data => {
             //после ответа сервера выполнится этот код
-            this.props.setUsers(response.data.items);
-            this.props.setTotalUsersCount(response.data.totalCount);
+            this.props.setUsers(data.items);
+            this.props.setTotalUsersCount(data.totalCount);
             //выключаем после получения ответа
             this.props.toggleIsLoading(false)
         });
@@ -47,16 +49,17 @@ class UsersContainer extends React.Component<UserContainerProps, any> {
         this.props.toggleIsLoading(true);
         //меняем страницу
         this.props.setCurrentPage(pageNumber);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(response => {
+        usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
+          .then(data => {
             //после ответа сервера выполнится этот код
-            this.props.setUsers(response.data.items);
+            this.props.setUsers(data.items);
             //выключаем крутилку
             this.props.toggleIsLoading(false)
         });
     }
 
     render() {
-        //после return - если идет запрос на сервак, то отобразить крутилку
+        //после return --- если идет запрос на сервак, то отобразить крутилку
         return <>
             {this.props.isLoading ? <Preloader/> : null}
             <Users totalUsersCount={this.props.totalUsersCount}
@@ -80,7 +83,6 @@ let mapStateToProps = (state: RootStateType) => {
         isLoading: state.usersPage.isLoading
     }
 }
-
 let mapDispatchToProps = (dispatch: (action: ActionsType) => void) => {
     //передает в пропсах презентационной компоненте коллбеки, которая она может вызывать
     return {
