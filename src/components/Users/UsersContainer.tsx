@@ -6,7 +6,8 @@ import {
     setTotalUsersCountAC,
     setUsersAC, toggleIsLoadingAC,
     unfollowAC,
-    UsersType
+    UsersType,
+    toggleFollowingProgressAC
 } from "../../redux/users-reducer";
 import React from "react";
 import {Users} from "./Users";
@@ -26,6 +27,8 @@ type UserContainerProps = {
     setCurrentPage: (pageNumber: number) => void
     setTotalUsersCount: (totalUsersCount: number) => void
     toggleIsLoading: (isLoading: boolean) => void
+    toggleFollowingProgress: (isFollowingInProgress: boolean, userId: string) => void
+    isFollowingInProgress: string[]
 }
 
 class UsersContainer extends React.Component<UserContainerProps, any> {
@@ -52,6 +55,7 @@ class UsersContainer extends React.Component<UserContainerProps, any> {
         usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
           .then(data => {
             //после ответа сервера выполнится этот код
+              debugger
             this.props.setUsers(data.items);
             //выключаем крутилку
             this.props.toggleIsLoading(false)
@@ -68,7 +72,10 @@ class UsersContainer extends React.Component<UserContainerProps, any> {
                    follow={this.props.follow}
                    unfollow={this.props.unfollow}
                    onPageChanger={this.onPageChanger}
-                   users={this.props.users}/>
+                   users={this.props.users}
+                   toggleFollowingProgress={this.props.toggleFollowingProgress}
+                   isFollowedInProgress={this.props.isFollowingInProgress}
+                    />
         </>
     }
 }
@@ -80,7 +87,8 @@ let mapStateToProps = (state: RootStateType) => {
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
-        isLoading: state.usersPage.isLoading
+        isLoading: state.usersPage.isLoading,
+        isFollowingInProgress: state.usersPage.isFollowingInProgress
     }
 }
 let mapDispatchToProps = (dispatch: (action: ActionsType) => void) => {
@@ -104,6 +112,9 @@ let mapDispatchToProps = (dispatch: (action: ActionsType) => void) => {
         },
         toggleIsLoading: (isLoading: boolean) => {
             dispatch(toggleIsLoadingAC(isLoading))
+        },
+        toggleFollowingProgress: (isFollowingInProgress: boolean, userId: string) => {
+            dispatch(toggleFollowingProgressAC(isFollowingInProgress, userId))
         }
     }
 }

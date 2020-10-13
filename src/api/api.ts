@@ -25,7 +25,7 @@ export const usersAPI = {
 export const followAPI = {
     //в get и delete настройки 2 параметр, в post 3-ий
     followUser(userId: string) {
-        return instance.post(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`)
+        return instance.post(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`, {})
           .then(response => response.data);
     },
     unFollowUser(userId: string) {

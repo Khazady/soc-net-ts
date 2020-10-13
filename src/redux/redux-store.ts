@@ -5,7 +5,7 @@ import userReducer, {
     followAC,
     setCurrentPageAC,
     setTotalUsersCountAC,
-    setUsersAC, toggleIsLoadingAC,
+    setUsersAC, toggleFollowingProgressAC, toggleIsLoadingAC,
     unfollowAC,
     UsersPageType
 } from "./users-reducer";
@@ -30,7 +30,8 @@ export type ActionsType =
   ReturnType<typeof setTotalUsersCountAC> |
   ReturnType<typeof toggleIsLoadingAC> |
   ReturnType<typeof setProfileAC> |
-  ReturnType<typeof setAuthUserData>;
+  ReturnType<typeof setAuthUserData> |
+  ReturnType<typeof toggleFollowingProgressAC>
 
 let reducers = combineReducers<RootStateType>({
     //этот объект воспринимать как state
