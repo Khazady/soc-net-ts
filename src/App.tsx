@@ -12,11 +12,7 @@ import UsersContainer from './components/Users/UsersContainer';
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 
-type AppPropsTypes = {
-    store: CombinedState<RootStateType>
-}
-
-const App: React.FC<any> = (props: AppPropsTypes) => {
+const App: React.FC<any> = () => {
     //В Profile /:userId параметр для пропсов withRouter (60 Выпуск)
     // ? после userId делает параметр опциональным, поэтому если в url его не будет, загрузится другой профиль(указан в коде компоненты)
     return (

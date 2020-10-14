@@ -1,15 +1,17 @@
-import {combineReducers, createStore, Store} from "redux";
+import {applyMiddleware, combineReducers, createStore, Store} from "redux";
 import profileReducer, {addPostAC, ProfilePageType, setProfileAC, updateNewPostTextAC} from "./profile-reducer";
 import dialogsReducer, {addMessageActionCreator, updateNewMessageTextActionCreator, DialogsPageType} from "./dialogs-reducer";
 import userReducer, {
-    followAC,
+    followSuccessAC,
     setCurrentPageAC,
     setTotalUsersCountAC,
     setUsersAC, toggleFollowingProgressAC, toggleIsLoadingAC,
-    unfollowAC,
+    unfollowSuccessAC,
     UsersPageType
 } from "./users-reducer";
-import authReducer, {AuthType, setAuthUserData} from "./auth-reducer";
+import authReducer, {AuthType, setAuthUserDataAC} from "./auth-reducer";
+import thunkMiddleware from "redux-thunk";
+
 
 export type RootStateType = {
     profilePage: ProfilePageType;
@@ -23,14 +25,14 @@ export type ActionsType =
   ReturnType<typeof updateNewPostTextAC> |
   ReturnType<typeof addMessageActionCreator> |
   ReturnType<typeof updateNewMessageTextActionCreator> |
-  ReturnType<typeof followAC> |
-  ReturnType<typeof unfollowAC> |
+  ReturnType<typeof followSuccessAC> |
+  ReturnType<typeof unfollowSuccessAC> |
   ReturnType<typeof setUsersAC> |
   ReturnType<typeof setCurrentPageAC> |
   ReturnType<typeof setTotalUsersCountAC> |
   ReturnType<typeof toggleIsLoadingAC> |
   ReturnType<typeof setProfileAC> |
-  ReturnType<typeof setAuthUserData> |
+  ReturnType<typeof setAuthUserDataAC> |
   ReturnType<typeof toggleFollowingProgressAC>
 
 let reducers = combineReducers<RootStateType>({
@@ -41,7 +43,7 @@ let reducers = combineReducers<RootStateType>({
     auth: authReducer
 });
 
-export let store: Store = createStore(reducers);
+export let store: Store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
 
 //нужно для того, чтобы видеть store в консоли

@@ -25,17 +25,25 @@ export const usersAPI = {
 export const followAPI = {
     //в get и delete настройки 2 параметр, в post 3-ий
     followUser(userId: string) {
-        return instance.post(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`, {})
+        return instance.post(`follow/${userId}`, {})
           .then(response => response.data);
     },
     unFollowUser(userId: string) {
-        return instance.delete(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`)
+        return instance.delete(`follow/${userId}`)
           .then(response => response.data);
     }
 }
 
 export const profileAPI = {
     getProfiles(userId: string) {
-        return instance.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
+        return instance.get(`profile/${userId}`)
           .then(response => response.data)}
+}
+
+export const headerAPI = {
+    setAuthUserData() {
+        return instance.get(`auth/me`, {
+            withCredentials: true
+        }).then(response => response.data)
+    }
 }

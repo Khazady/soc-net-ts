@@ -1,4 +1,7 @@
-import {ActionsType} from "./redux-store";
+import {ActionsType, RootStateType} from "./redux-store";
+import {followAPI, usersAPI} from "../api/api";
+import {Dispatch} from "redux";
+import {ThunkAction} from "redux-thunk";
 
 type LocationType = {
     country: string
@@ -102,8 +105,8 @@ const userReducer = (state: UsersPageType = initialState, action: ActionsType): 
     }
 }
 
-export const followAC = (userId: string) => ({type: FOLLOW, userId} as const)
-export const unfollowAC = (userId: string) => ({type: UNFOLLOW, userId: userId} as const)
+export const followSuccessAC = (userId: string) => ({type: FOLLOW, userId} as const)
+export const unfollowSuccessAC = (userId: string) => ({type: UNFOLLOW, userId: userId} as const)
 export const setUsersAC = (newUsersData: Array<UsersType>) => ({type: SET_USERS, newUsersData} as const)
 export const setCurrentPageAC = (pageNumber: number) => ({type: SET_CURRENT_PAGE, pageNumber: pageNumber} as const)
 export const setTotalUsersCountAC = (totalUsersCount: number) => ({
@@ -116,5 +119,56 @@ export const toggleFollowingProgressAC = (isFollowingInProgress: boolean, userId
     isFollowingInProgress,
     userId
 } as const)
+
+//?????
+type ThunkType = ThunkAction<void, RootStateType, unknown, any>;
+
+//AC возвращает объект, кот. мы можем задиспатчить, ThunkCreator возвр. функцию кот. мы можем задиспатчить
+export const getUsersThunkCreator = (currentPage: number, pageSize: number): ThunkType => {
+    return (dispatch) => {
+        document.title = "Users";
+        //включаем крутилку до запроса на серв
+        dispatch(toggleIsLoadingAC(true));
+        //вынесли axios запрос в отдельный файл (api.ts) там DAL
+        usersAPI.getUsers(currentPage, pageSize)
+          .then(data => {
+              //после ответа сервера выполнится этот код
+              dispatch(setUsersAC(data.items));
+              dispatch(setTotalUsersCountAC(data.totalCount));
+              //выключаем после получения ответа
+              dispatch(toggleIsLoadingAC(false));
+          });
+    }
+}
+
+export const followTC = (userId: string): ThunkType => {
+    return (dispatch) => {
+        //меняет в стейте дизаблед кнопки на тру
+        dispatch(toggleFollowingProgressAC(true, userId));
+        followAPI.followUser(userId)
+          .then(data => {
+              if (data.resultCode == 0) {
+                  followSuccessAC(userId)
+              }
+              //разблочивает кнопку после запроса
+              dispatch(toggleFollowingProgressAC(false, userId))
+          })
+    }
+}
+
+export const unfollowTC = (userId: string): ThunkType => {
+    return (dispatch) => {
+        //меняет в стейте дизаблед кнопки на тру
+        dispatch(toggleFollowingProgressAC(true, userId));
+        followAPI.unFollowUser(userId)
+          .then(data => {
+              if (data.resultCode == 0) {
+                  unfollowSuccessAC(userId)
+              }
+              //разблочивает кнопку после запроса
+              dispatch(toggleFollowingProgressAC(false, userId))
+          })
+    }
+}
 
 export default userReducer;

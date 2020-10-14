@@ -1,18 +1,15 @@
 import {connect} from "react-redux";
-import {ActionsType, RootStateType} from "../../redux/redux-store";
+import {RootStateType} from "../../redux/redux-store";
 import {
-    followAC,
+    followSuccessAC,
     setCurrentPageAC,
-    setTotalUsersCountAC,
-    setUsersAC, toggleIsLoadingAC,
-    unfollowAC,
+    unfollowSuccessAC,
     UsersType,
-    toggleFollowingProgressAC
+    toggleFollowingProgressAC, getUsersThunkCreator, unfollowTC, followTC
 } from "../../redux/users-reducer";
 import React from "react";
 import {Users} from "./Users";
 import { Preloader } from "../common/Preloader/Preloader";
-import {usersAPI} from "../../api/api";
 
 //пропсы берутся из объекта, сформированного функцией connect ниже
 type UserContainerProps = {
@@ -29,37 +26,17 @@ type UserContainerProps = {
     toggleIsLoading: (isLoading: boolean) => void
     toggleFollowingProgress: (isFollowingInProgress: boolean, userId: string) => void
     isFollowingInProgress: string[]
+    getUsers: (currentPage: number, pageSize: number) => void
 }
 
 class UsersContainer extends React.Component<UserContainerProps, any> {
     componentDidMount() {
-        document.title = "Users";
-        //включаем крутилку до запроса на серв
-        this.props.toggleIsLoading(true);
-        //вынесли axios запрос в отдельный файл (api.ts) там DAL
-        usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
-          .then(data => {
-            //после ответа сервера выполнится этот код
-            this.props.setUsers(data.items);
-            this.props.setTotalUsersCount(data.totalCount);
-            //выключаем после получения ответа
-            this.props.toggleIsLoading(false)
-        });
+        //вызываем санку
+        this.props.getUsers(this.props.currentPage, this.props.pageSize)
     }
 
-    onPageChanger = (pageNumber: number) => {
-        //включаем крутилку
-        this.props.toggleIsLoading(true);
-        //меняем страницу
-        this.props.setCurrentPage(pageNumber);
-        usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
-          .then(data => {
-            //после ответа сервера выполнится этот код
-              debugger
-            this.props.setUsers(data.items);
-            //выключаем крутилку
-            this.props.toggleIsLoading(false)
-        });
+    onPageChanger = (currentPage: number) => {
+        this.props.getUsers(currentPage, this.props.pageSize)
     }
 
     render() {
@@ -73,7 +50,6 @@ class UsersContainer extends React.Component<UserContainerProps, any> {
                    unfollow={this.props.unfollow}
                    onPageChanger={this.onPageChanger}
                    users={this.props.users}
-                   toggleFollowingProgress={this.props.toggleFollowingProgress}
                    isFollowedInProgress={this.props.isFollowingInProgress}
                     />
         </>
@@ -91,30 +67,24 @@ let mapStateToProps = (state: RootStateType) => {
         isFollowingInProgress: state.usersPage.isFollowingInProgress
     }
 }
-let mapDispatchToProps = (dispatch: (action: ActionsType) => void) => {
+let mapDispatchToProps = (dispatch: (action: any) => void) => {
     //передает в пропсах презентационной компоненте коллбеки, которая она может вызывать
     return {
         follow: (userId: string) => {
             //диспатчит результат работы AC
-            dispatch(followAC(userId))
+            dispatch(followTC(userId))
         },
         unfollow: (userId: string) => {
-            dispatch(unfollowAC(userId))
-        },
-        setUsers: (users: Array<UsersType>) => {
-            dispatch(setUsersAC(users))
+            dispatch(unfollowTC(userId))
         },
         setCurrentPage: (pageNumber: number) => {
             dispatch(setCurrentPageAC(pageNumber))
         },
-        setTotalUsersCount: (totalUsersCount: number) => {
-            dispatch(setTotalUsersCountAC(totalUsersCount))
-        },
-        toggleIsLoading: (isLoading: boolean) => {
-            dispatch(toggleIsLoadingAC(isLoading))
-        },
         toggleFollowingProgress: (isFollowingInProgress: boolean, userId: string) => {
             dispatch(toggleFollowingProgressAC(isFollowingInProgress, userId))
+        },
+        getUsers: (currentPage: number, pageSize: number) => {
+            dispatch(getUsersThunkCreator(currentPage, pageSize))
         }
     }
 }

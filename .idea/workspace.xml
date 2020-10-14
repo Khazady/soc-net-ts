@@ -15,11 +15,17 @@
   <component name="ChangeListManager">
     <list default="true" id="38729180-fc7b-40fd-b525-d6fac38bb07c" name="Default Changelist" comment="lesson 26">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/api.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Header/HeaderContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header/HeaderContainer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Users/Users.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Users/Users.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Users/UsersContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Users/UsersContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/auth-reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/auth-reducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/profile-reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/profile-reducer.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/redux/redux-store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/redux-store.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/redux/users-reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/users-reducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -150,7 +156,8 @@
       <workItem from="1601905888045" duration="24571000" />
       <workItem from="1602162497315" duration="3798000" />
       <workItem from="1602198113225" duration="5900000" />
-      <workItem from="1602275935871" duration="23793000" />
+      <workItem from="1602275935871" duration="23967000" />
+      <workItem from="1602675022604" duration="9152000" />
     </task>
     <task id="LOCAL-00001" summary="lesson 26">
       <created>1591713905346</created>
@@ -221,25 +228,25 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="498" y="158" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1596644151169" />
-    <state width="1513" height="121" key="GridCell.Tab.0.bottom" timestamp="1602619868410">
+    <state width="1513" height="121" key="GridCell.Tab.0.bottom" timestamp="1602715061388">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1513" height="121" key="GridCell.Tab.0.bottom/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1602619868410" />
+    <state width="1513" height="121" key="GridCell.Tab.0.bottom/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1602715061388" />
     <state width="1513" height="323" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1602195343638" />
-    <state width="1513" height="121" key="GridCell.Tab.0.center" timestamp="1602619868409">
+    <state width="1513" height="121" key="GridCell.Tab.0.center" timestamp="1602715061388">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1513" height="121" key="GridCell.Tab.0.center/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1602619868409" />
+    <state width="1513" height="121" key="GridCell.Tab.0.center/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1602715061388" />
     <state width="1513" height="323" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1602195343638" />
-    <state width="1513" height="121" key="GridCell.Tab.0.left" timestamp="1602619868409">
+    <state width="1513" height="121" key="GridCell.Tab.0.left" timestamp="1602715061388">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1513" height="121" key="GridCell.Tab.0.left/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1602619868409" />
+    <state width="1513" height="121" key="GridCell.Tab.0.left/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1602715061388" />
     <state width="1513" height="323" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1602195343638" />
-    <state width="1513" height="121" key="GridCell.Tab.0.right" timestamp="1602619868410">
+    <state width="1513" height="121" key="GridCell.Tab.0.right" timestamp="1602715061388">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1513" height="121" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1602619868410" />
+    <state width="1513" height="121" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1602715061388" />
     <state width="1513" height="323" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1602195343638" />
     <state width="498" height="446" key="SwitcherDM" timestamp="1602511603472">
       <screen x="0" y="0" width="1536" height="824" />
@@ -254,10 +261,10 @@
     </state>
     <state x="425" y="187" key="run.anything.popup/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1602032545051" />
     <state x="425" y="187" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1596645919801" />
-    <state x="425" y="66" width="672" height="676" key="search.everywhere.popup" timestamp="1602613749867">
+    <state x="425" y="66" width="672" height="676" key="search.everywhere.popup" timestamp="1602715127820">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="425" y="66" width="672" height="676" key="search.everywhere.popup/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1602613749867" />
+    <state x="425" y="66" width="672" height="676" key="search.everywhere.popup/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1602715127820" />
     <state x="2318" y="69" width="672" height="706" key="search.everywhere.popup/0.0.1536.824/1920.0.1440.860@1920.0.1440.860" timestamp="1596634462021" />
     <state x="425" y="66" width="672" height="676" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1602521677727" />
   </component>
@@ -270,8 +277,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/redux/users-reducer.ts</url>
-          <line>20</line>
-          <properties lambdaOrdinal="-1" />
+          <line>23</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>

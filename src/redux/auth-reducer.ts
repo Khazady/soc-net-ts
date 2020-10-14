@@ -1,4 +1,5 @@
 import {ActionsType} from "./redux-store";
+import {headerAPI} from "../api/api";
 
 export type AuthType = {
     userId: number | null
@@ -40,6 +41,28 @@ const authReducer = (state: AuthType = initialState, action: ActionsType): AuthT
     }
 }
 
-export const setAuthUserData = (userId: number | null, email: string|null, login: string|null) => ({type: SET_USER_DATA, data: {userId, email, login}} as const)
+export const setAuthUserDataAC = (userId: number | null, email: string|null, login: string|null) => ({type: SET_USER_DATA, data: {userId, email, login}} as const)
+
+type ResponseData = {
+        resultCode: number,
+        data: {
+            id: number | null
+            login: string | null
+            email: string | null
+        }
+}
+
+export const authTC = () => {
+    return (dispatch: any) => {
+        headerAPI.setAuthUserData()
+          .then((response: ResponseData) => {
+              if (response.resultCode === 0) {
+                  let {id, email, login} = response.data;
+                  //axios упаковывает в data и разраб сервера упаковал в data
+                  dispatch(setAuthUserDataAC(id, email, login))
+              }
+          });
+    }
+}
 
 export default authReducer;

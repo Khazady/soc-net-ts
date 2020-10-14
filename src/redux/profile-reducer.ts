@@ -1,5 +1,6 @@
 import {v1} from "uuid";
 import {ActionsType} from "./redux-store";
+import {profileAPI} from "../api/api";
 
 export type PostTypes = {
     id: string
@@ -54,5 +55,6 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionsTy
 export const addPostAC = () => ({type: ADD_POST} as const)
 export const updateNewPostTextAC = (newText: string) => ({type: UPDATE_NEW_POST_TEXT, newText} as const)
 export const setProfileAC = (profile: ProfilePageType) => ({type: SET_PROFILE, profile} as const)
+
 
 export default profileReducer;
