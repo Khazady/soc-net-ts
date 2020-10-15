@@ -1,11 +1,9 @@
 import React, {Props} from "react";
 import Profile from "./Profile";
-import axios from "axios";
 import {connect} from "react-redux";
 import {ActionsType, RootStateType} from "../../redux/redux-store";
-import {ProfilePageType, setProfileAC} from "../../redux/profile-reducer";
+import {ProfilePageType, setProfileAC, getUserProfileTC} from "../../redux/profile-reducer";
 import { withRouter, RouteComponentProps } from "react-router-dom";
-import {profileAPI} from "../../api/api";
 //типы объектов с серва (то, что должен возвращать MStP
 type profileContactsServerType = {
     github: string | null
@@ -34,7 +32,7 @@ type MapStateToPropsType = {
     profile: profileServerType
 }
 type MapDispatchToPropsType = {
-    setProfile: (profile: ProfilePageType) => void
+    getUserProfile: (userId: string) => void
 }
 type OwnPropsType = MapStateToPropsType & MapDispatchToPropsType
 type PathParamType = {
@@ -56,11 +54,7 @@ class ProfileContainer extends React.Component<PropsType, any> {
         if (!userId) {
             userId = '2';
         }
-        //при get-запросе мы можем отправить на сервер только адрес
-        profileAPI.getProfiles(userId)
-          .then(data => {
-            this.props.setProfile(data)
-        });
+        this.props.getUserProfile(userId);
     }
 
     render() {
@@ -77,9 +71,9 @@ let WithURLDataContainerComponent = withRouter(ProfileContainer)
 let mapStateToProps = (state: RootStateType): MapStateToPropsType => ({
     profile: state.profilePage.profile
 })
-let mapDispatchToProps = (dispatch: (action: ActionsType) => void): MapDispatchToPropsType => ({
-    setProfile: (profile) => {
-        dispatch(setProfileAC(profile))
+let mapDispatchToProps = (dispatch: any): MapDispatchToPropsType => ({
+    getUserProfile: (userId) => {
+        dispatch(getUserProfileTC(userId))
     }
 })
 //3-ий контейнер для  связи со стором и создания финальных пропсов, закинет в 1-ую через 2-ую нужные пропсы из стора

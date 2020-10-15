@@ -19,10 +19,7 @@ export const usersAPI = {
         return instance.get(`users?page=${currentPage}&count=${pageSize}`)
           //тут промис зен, чтобы в компоненту приходил ответ только с data
           .then(response => response.data)
-    }
-};
-
-export const followAPI = {
+    },
     //в get и delete настройки 2 параметр, в post 3-ий
     followUser(userId: string) {
         return instance.post(`follow/${userId}`, {})
@@ -32,18 +29,16 @@ export const followAPI = {
         return instance.delete(`follow/${userId}`)
           .then(response => response.data);
     }
-}
+};
 
 export const profileAPI = {
-    getProfiles(userId: string) {
+    getProfile(userId: string) {
         return instance.get(`profile/${userId}`)
           .then(response => response.data)}
 }
 
 export const headerAPI = {
-    setAuthUserData() {
-        return instance.get(`auth/me`, {
-            withCredentials: true
-        }).then(response => response.data)
+    me() {
+        return instance.get(`auth/me`).then(response => response.data)
     }
 }

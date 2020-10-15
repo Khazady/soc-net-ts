@@ -52,9 +52,9 @@ type ResponseData = {
         }
 }
 
-export const authTC = () => {
+export const getAuthUserData = () => {
     return (dispatch: any) => {
-        headerAPI.setAuthUserData()
+        headerAPI.me()
           .then((response: ResponseData) => {
               if (response.resultCode === 0) {
                   let {id, email, login} = response.data;

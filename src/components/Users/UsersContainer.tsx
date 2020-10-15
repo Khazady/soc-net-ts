@@ -18,15 +18,12 @@ type UserContainerProps = {
     totalUsersCount: number
     pageSize: number
     isLoading: boolean
-    follow: (userId: string) => void
-    unfollow: (userId: string) => void
-    setUsers: (users: Array<UsersType>) => void
+    follow: any
+    unfollow: any
     setCurrentPage: (pageNumber: number) => void
-    setTotalUsersCount: (totalUsersCount: number) => void
-    toggleIsLoading: (isLoading: boolean) => void
     toggleFollowingProgress: (isFollowingInProgress: boolean, userId: string) => void
     isFollowingInProgress: string[]
-    getUsers: (currentPage: number, pageSize: number) => void
+    getUsers: any
 }
 
 class UsersContainer extends React.Component<UserContainerProps, any> {

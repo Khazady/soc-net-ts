@@ -15,7 +15,7 @@ export type ProfilePageType = {
 
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
-const SET_PROFILE = "SET-PROFI  LE"
+const SET_PROFILE = "SET-PROFILE"
 
 let initialState: ProfilePageType = {
     postsData: [
@@ -56,5 +56,11 @@ export const addPostAC = () => ({type: ADD_POST} as const)
 export const updateNewPostTextAC = (newText: string) => ({type: UPDATE_NEW_POST_TEXT, newText} as const)
 export const setProfileAC = (profile: ProfilePageType) => ({type: SET_PROFILE, profile} as const)
 
+export const getUserProfileTC = (userId: string) => (dispatch: any) => {
+    profileAPI.getProfile(userId)
+      .then(data => {
+          dispatch(setProfileAC(data))
+      });
+}
 
 export default profileReducer;

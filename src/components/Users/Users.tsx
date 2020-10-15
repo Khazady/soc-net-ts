@@ -9,8 +9,8 @@ export type UsersPropsType = {
     totalUsersCount: number
     pageSize: number
     currentPage: number
-    follow: (userId: string) => void
-    unfollow: (userId: string) => void
+    follow: any
+    unfollow: any
     onPageChanger: (page: number) => void
     isFollowedInProgress: string[]
 }
