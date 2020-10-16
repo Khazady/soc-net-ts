@@ -11,6 +11,7 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from './components/Users/UsersContainer';
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
+import Login from './components/Login/Login';
 
 const App: React.FC<any> = () => {
     //В Profile /:userId параметр для пропсов withRouter (60 Выпуск)
@@ -29,6 +30,8 @@ const App: React.FC<any> = () => {
               <Route path="/news" component={News}/>
               <Route path="/music" component={Music}/>
               <Route path="/settings" component={Settings}/>
+
+              <Route path="/login" component={Login}/>
           </div>
       </div>
     );

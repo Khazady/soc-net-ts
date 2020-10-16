@@ -1,6 +1,5 @@
-import {ActionsType, RootStateType} from "./redux-store";
+import {ActionsType} from "./redux-store";
 import {usersAPI} from "../api/api";
-import {ThunkAction} from "redux-thunk";
 
 type LocationType = {
     country: string
@@ -107,10 +106,7 @@ export const followSuccessAC = (userId: string) => ({type: FOLLOW, userId} as co
 export const unfollowSuccessAC = (userId: string) => ({type: UNFOLLOW, userId: userId} as const)
 export const setUsersAC = (newUsersData: Array<UsersType>) => ({type: SET_USERS, newUsersData} as const)
 export const setCurrentPageAC = (pageNumber: number) => ({type: SET_CURRENT_PAGE, pageNumber: pageNumber} as const)
-export const setTotalUsersCountAC = (totalUsersCount: number) => ({
-    type: SET_TOTAL_USERS_COUNT,
-    totalUsersCount
-} as const)
+export const setTotalUsersCountAC = (totalUsersCount: number) => ({type: SET_TOTAL_USERS_COUNT, totalUsersCount} as const)
 export const toggleIsLoadingAC = (isLoading: boolean) => ({type: TOGGLE_IS_LOADING, isLoading} as const)
 export const toggleFollowingProgressAC = (isFollowingInProgress: boolean, userId: string) => ({
     type: TOGGLE_FOLLOWING_PROGRESS,
@@ -120,6 +116,7 @@ export const toggleFollowingProgressAC = (isFollowingInProgress: boolean, userId
 
 //AC возвращает объект, кот. мы можем задиспатчить, ThunkCreator возвр. функцию кот. мы можем задиспатчить
 export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
+    debugger
     return (dispatch: any) => {
         document.title = "Users";
         //включаем крутилку до запроса на серв
@@ -128,6 +125,7 @@ export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
         usersAPI.getUsers(currentPage, pageSize)
           .then(data => {
               //после ответа сервера выполнится этот код
+              dispatch(setCurrentPageAC(currentPage))
               dispatch(setUsersAC(data.items));
               dispatch(setTotalUsersCountAC(data.totalCount));
               //выключаем после получения ответа
@@ -142,8 +140,8 @@ export const followTC = (userId: string) => {
         dispatch(toggleFollowingProgressAC(true, userId));
         usersAPI.followUser(userId)
           .then(data => {
-              if (data.resultCode == 0) {
-                  followSuccessAC(userId)
+              if (data.resultCode === 0) {
+                  dispatch(followSuccessAC(userId))
               }
               //разблочивает кнопку после запроса
               dispatch(toggleFollowingProgressAC(false, userId))
@@ -151,14 +149,13 @@ export const followTC = (userId: string) => {
     }
 }
 export const unfollowTC = (userId: string) => {
-    debugger
     return (dispatch: any) => {
         //меняет в стейте дизаблед кнопки на тру
         dispatch(toggleFollowingProgressAC(true, userId));
         usersAPI.unFollowUser(userId)
           .then(data => {
               if (data.resultCode == 0) {
-                  unfollowSuccessAC(userId)
+                  dispatch(unfollowSuccessAC(userId))
               }
               //разблочивает кнопку после запроса
               dispatch(toggleFollowingProgressAC(false, userId))

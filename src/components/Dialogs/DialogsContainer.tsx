@@ -5,7 +5,8 @@ import {RootStateType, ActionsType} from "../../redux/redux-store";
 
 let mapStateToProps = (state: RootStateType) => {
     return {
-        dialogsPage: state.dialogsPage
+        dialogsPage: state.dialogsPage,
+        isAuth: state.auth.isAuth
         //приходит в стейт ссылка на новый объект(копия), тогда перерисовывает
     }
 } //возвращает состояние объектом

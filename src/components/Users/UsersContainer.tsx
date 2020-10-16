@@ -1,9 +1,6 @@
 import {connect} from "react-redux";
 import {RootStateType} from "../../redux/redux-store";
 import {
-    followSuccessAC,
-    setCurrentPageAC,
-    unfollowSuccessAC,
     UsersType,
     toggleFollowingProgressAC, getUsersThunkCreator, unfollowTC, followTC
 } from "../../redux/users-reducer";
@@ -20,7 +17,6 @@ type UserContainerProps = {
     isLoading: boolean
     follow: any
     unfollow: any
-    setCurrentPage: (pageNumber: number) => void
     toggleFollowingProgress: (isFollowingInProgress: boolean, userId: string) => void
     isFollowingInProgress: string[]
     getUsers: any
@@ -33,7 +29,7 @@ class UsersContainer extends React.Component<UserContainerProps, any> {
     }
 
     onPageChanger = (currentPage: number) => {
-        this.props.getUsers(currentPage, this.props.pageSize)
+        this.props.getUsers(currentPage, this.props.pageSize);
     }
 
     render() {
@@ -68,14 +64,12 @@ let mapDispatchToProps = (dispatch: (action: any) => void) => {
     //передает в пропсах презентационной компоненте коллбеки, которая она может вызывать
     return {
         follow: (userId: string) => {
+            debugger
             //диспатчит результат работы AC
             dispatch(followTC(userId))
         },
         unfollow: (userId: string) => {
             dispatch(unfollowTC(userId))
-        },
-        setCurrentPage: (pageNumber: number) => {
-            dispatch(setCurrentPageAC(pageNumber))
         },
         toggleFollowingProgress: (isFollowingInProgress: boolean, userId: string) => {
             dispatch(toggleFollowingProgressAC(isFollowingInProgress, userId))

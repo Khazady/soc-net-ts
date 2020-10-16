@@ -3,7 +3,8 @@ import Profile from "./Profile";
 import {connect} from "react-redux";
 import {ActionsType, RootStateType} from "../../redux/redux-store";
 import {ProfilePageType, setProfileAC, getUserProfileTC} from "../../redux/profile-reducer";
-import { withRouter, RouteComponentProps } from "react-router-dom";
+import {withRouter, RouteComponentProps, Redirect} from "react-router-dom";
+import Login from "../Login/Login";
 //типы объектов с серва (то, что должен возвращать MStP
 type profileContactsServerType = {
     github: string | null
@@ -30,6 +31,7 @@ type profileServerType = {
 }
 type MapStateToPropsType = {
     profile: profileServerType
+    isAuth: boolean
 }
 type MapDispatchToPropsType = {
     getUserProfile: (userId: string) => void
@@ -58,6 +60,8 @@ class ProfileContainer extends React.Component<PropsType, any> {
     }
 
     render() {
+        //если не залогинен, то редирект на логин
+        if (!this.props.isAuth) return <Redirect to={"/login"}/>
         //копирует и передает все пропсы
         return <Profile {...this.props} profile={this.props.profile}/>
     }
@@ -69,7 +73,8 @@ let WithURLDataContainerComponent = withRouter(ProfileContainer)
 
 
 let mapStateToProps = (state: RootStateType): MapStateToPropsType => ({
-    profile: state.profilePage.profile
+    profile: state.profilePage.profile,
+    isAuth: state.auth.isAuth
 })
 let mapDispatchToProps = (dispatch: any): MapDispatchToPropsType => ({
     getUserProfile: (userId) => {

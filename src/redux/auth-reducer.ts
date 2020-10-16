@@ -1,5 +1,5 @@
 import {ActionsType} from "./redux-store";
-import {headerAPI} from "../api/api";
+import {authAPI} from "../api/api";
 
 export type AuthType = {
     userId: number | null
@@ -54,7 +54,7 @@ type ResponseData = {
 
 export const getAuthUserData = () => {
     return (dispatch: any) => {
-        headerAPI.me()
+        authAPI.me()
           .then((response: ResponseData) => {
               if (response.resultCode === 0) {
                   let {id, email, login} = response.data;

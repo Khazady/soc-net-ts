@@ -22,44 +22,44 @@ export const Users = (props: UsersPropsType) => {
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
     }
-
     return (
-      <div>
-          <div>
-              {pages.map(p =>
-                <span className={props.currentPage === p ? styles.selectedPage : styles.page}
-                      onClick={() => props.onPageChanger(p)}>
-                      {p}</span>
-              )}
-          </div>
-          {
-              props.users.map(u => <div key={u.id}>
+        <div>
+            <div>
+                {pages.map(p =>
+                    <span className={props.currentPage === p ? styles.selectedPage : styles.page}
+                          onClick={() => {
+                              props.onPageChanger(p)
+                          }}>{p}</span>
+                )}
+            </div>
+            {
+                props.users.map(u => <div key={u.id}>
                 <span>
                     <div>
                         <NavLink to={"/profile/" + u.id}>
                             <img
-                              src={
-                                  /*если фото отсутствует, то стандартная картинка*/
-                                  u.photos.small != null ? u.photos.small : userPhoto}
-                              className={styles.userPhoto}
-                              alt={"avatar"}/>
+                                src={
+                                    /*если фото отсутствует, то стандартная картинка*/
+                                    u.photos.small != null ? u.photos.small : userPhoto}
+                                className={styles.userPhoto}
+                                alt={"avatar"}/>
                         </NavLink>
                     </div>
                     <div>
                         {u.followed ?
-                          //если хоть кто-то из массива обрабатывающихся id совпадает с user id по которым мапимся, то true в disabled
-                          <button disabled={props.isFollowedInProgress.some((id: string) => id === u.id)}
-                                  onClick={() => {
-                                      //меняет в стейте дизаблед кнопки на тру
-                                      props.unfollow(u.id)
-                                  }}>Unfollow</button>
-                          : <button disabled={props.isFollowedInProgress.some((id: string) => id === u.id)}
+                            //если хоть кто-то из массива обрабатывающихся id совпадает с user id по которым мапимся, то true в disabled
+                            <button disabled={props.isFollowedInProgress.some((id: string) => id === u.id)}
                                     onClick={() => {
-                                        props.follow(u.id)
-                                    }}>Follow</button>
+                                        //меняет в стейте дизаблед кнопки на тру
+                                        props.unfollow(u.id)
+                                    }}>Unfollow</button>
+                            : <button disabled={props.isFollowedInProgress.some((id: string) => id === u.id)}
+                                      onClick={() => {
+                                          props.follow(u.id)
+                                      }}>Follow</button>
                         }</div>
                         </span>
-                  <span>
+                    <span>
                         <span>
                         <div>{u.name}</div>
                         <div>{u.status}</div>
@@ -70,14 +70,14 @@ export const Users = (props: UsersPropsType) => {
                         </span>
 
 
-                      {/*<button onClick={() => {*/}
-                      {/*    this.props.setUsers()*/}
-                      {/*}}>Show more</button>*/}
+                        {/*<button onClick={() => {*/}
+                        {/*    this.props.setUsers()*/}
+                        {/*}}>Show more</button>*/}
 
 
                         </span>
-              </div>)
-          }
-      </div>
+                </div>)
+            }
+        </div>
     )
 }
