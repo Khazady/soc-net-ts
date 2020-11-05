@@ -7,6 +7,8 @@ import {
 import React from "react";
 import {Users} from "./Users";
 import { Preloader } from "../common/Preloader/Preloader";
+import {withAuthRedirect} from "../../hoc/hoc";
+import { compose } from "redux";
 
 //пропсы берутся из объекта, сформированного функцией connect ниже
 type UserContainerProps = {
@@ -81,10 +83,7 @@ let mapDispatchToProps = (dispatch: (action: any) => void) => {
 }
 
 
-//коннектит контейнерную компоненту с UI-ной // комбайнит результаты обоих функций в один объект пропсов
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer)
-
-/*export default connect(mapStateToProps,
-           вместо MDtP записывает объект с AC (follow: followAC), но если из названия AC убрать "AC", то запись сокращается до 1 слова
-                        {follow, unfollow, setUsers, setCurrentPage}
-                (UsersContainer)*/
+export default compose(
+  withAuthRedirect,
+  connect(mapStateToProps, mapDispatchToProps)
+)(UsersContainer)

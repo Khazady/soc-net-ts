@@ -3,9 +3,8 @@ import classes from "./Dialogs.module.css";
 import DialogItem from "./DialogItem/DialogsItem";
 import Message from "./Message/Message";
 import {DialogsPageType} from "../../redux/dialogs-reducer";
-import { Redirect } from "react-router-dom";
 
-type DialogsPropsType = {
+export type DialogsPropsType = {
     dialogsPage: DialogsPageType
     updateNewMessageBody: (body: any) => void
     sendMessage: () => void
@@ -33,9 +32,6 @@ function Dialogs(props: DialogsPropsType) {
         props.updateNewMessageBody(e.currentTarget.value)
     }
 
-    //если не залогинен, то редирект на url с компонентой логина
-    if (!props.isAuth) return <Redirect to={"/login"}/>
-
     return (
         <div className={classes.dialogs}>
             <div className={classes.dialogsItem}>
@@ -54,5 +50,7 @@ function Dialogs(props: DialogsPropsType) {
         </div>
     )
 }
+
+
 
 export default Dialogs;

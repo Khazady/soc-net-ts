@@ -1,10 +1,12 @@
-import React, {Props} from "react";
+import React from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
-import {ActionsType, RootStateType} from "../../redux/redux-store";
-import {ProfilePageType, setProfileAC, getUserProfileTC} from "../../redux/profile-reducer";
-import {withRouter, RouteComponentProps, Redirect} from "react-router-dom";
-import Login from "../Login/Login";
+import {RootStateType} from "../../redux/redux-store";
+import {getUserProfileTC} from "../../redux/profile-reducer";
+import {RouteComponentProps, withRouter} from "react-router-dom";
+import {withAuthRedirect} from "../../hoc/hoc";
+import {compose} from "redux";
+
 //типы объектов с серва (то, что должен возвращать MStP
 type profileContactsServerType = {
     github: string | null
@@ -29,9 +31,12 @@ type profileServerType = {
     contacts: profileContactsServerType
     photos: profilePhotosServerType
 }
+export type MapStateToPropsForRedirectType = {
+    isAuth: boolean
+}
 type MapStateToPropsType = {
     profile: profileServerType
-    isAuth: boolean
+
 }
 type MapDispatchToPropsType = {
     getUserProfile: (userId: string) => void
@@ -60,26 +65,22 @@ class ProfileContainer extends React.Component<PropsType, any> {
     }
 
     render() {
-        //если не залогинен, то редирект на логин
-        if (!this.props.isAuth) return <Redirect to={"/login"}/>
         //копирует и передает все пропсы
         return <Profile {...this.props} profile={this.props.profile}/>
     }
 }
 
-
-//2-ой контейнер для получения данных из URL, закидывает в 1-ую дату из урла
-let WithURLDataContainerComponent = withRouter(ProfileContainer)
-
-
 let mapStateToProps = (state: RootStateType): MapStateToPropsType => ({
     profile: state.profilePage.profile,
-    isAuth: state.auth.isAuth
 })
 let mapDispatchToProps = (dispatch: any): MapDispatchToPropsType => ({
     getUserProfile: (userId) => {
         dispatch(getUserProfileTC(userId))
     }
 })
-//3-ий контейнер для  связи со стором и создания финальных пропсов, закинет в 1-ую через 2-ую нужные пропсы из стора
-export default connect(mapStateToProps, mapDispatchToProps)(WithURLDataContainerComponent)
+
+export default compose(
+  withAuthRedirect,
+  withRouter,
+  connect(mapStateToProps, mapDispatchToProps)
+)(ProfileContainer)
