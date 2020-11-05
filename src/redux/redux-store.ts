@@ -1,5 +1,5 @@
 import {applyMiddleware, combineReducers, createStore, Store} from "redux";
-import profileReducer, {addPostAC, ProfilePageType, setProfileAC, updateNewPostTextAC} from "./profile-reducer";
+import profileReducer, {addPostAC, setProfileAC, updateNewPostTextAC} from "./profile-reducer";
 import dialogsReducer, {addMessageActionCreator, updateNewMessageTextActionCreator, DialogsPageType} from "./dialogs-reducer";
 import userReducer, {
     followSuccessAC,
@@ -7,18 +7,12 @@ import userReducer, {
     setTotalUsersCountAC,
     setUsersAC, toggleFollowingProgressAC, toggleIsLoadingAC,
     unfollowSuccessAC,
-    UsersPageType
 } from "./users-reducer";
-import authReducer, {AuthType, setAuthUserDataAC} from "./auth-reducer";
+import authReducer, {setAuthUserDataAC} from "./auth-reducer";
 import thunkMiddleware from "redux-thunk";
 
+export type RootStateType = ReturnType<typeof reducers>
 
-export type RootStateType = {
-    profilePage: ProfilePageType;
-    dialogsPage: DialogsPageType;
-    usersPage: UsersPageType;
-    auth: AuthType
-};
 export type ActionsType =
 //автоматическая типизация ActionCreator, добавить as const и убрать типизацию того, что выходит из функции(после кавычек)
   ReturnType<typeof addPostAC> |
@@ -35,7 +29,7 @@ export type ActionsType =
   ReturnType<typeof setAuthUserDataAC> |
   ReturnType<typeof toggleFollowingProgressAC>
 
-let reducers = combineReducers<RootStateType>({
+let reducers = combineReducers({
     //этот объект воспринимать как state
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,

@@ -9,14 +9,20 @@
 </head>
 <body>
 <script>
-    const referenceExample = [
-        {name: 'vladislav', age: 31, man: true, hasBeard: true},
-        {name: 'konstantin', age: 21, city: undefined, man: true, hasBeard: true},
-        {name: 'sviatoslav', age: 19, city: 'Minsk', woman: true},
-        {name: 'Isak', age: 19, woman: true},
-        {name: 'Petia', age: 65, man: true, hasBeard: true},
-    ];
-    console.log(referenceExample.filter(human => human.man).filter(human => human.hasBeard));
+    function list(names){
+        let massives = names.map(obj => Object.values(obj));
+
+        for (let i = 0; i <= massives.length; i++) {
+            if (i === massives.length - 1) {
+                return massives.join("& ")
+            } else {
+                return massives.join(", ")
+            }
+        }
+        debugger
+    };
+
+    list([{name: 'Bart'},{name: 'Lisa'},{name: 'Maggie'},{name: 'Homer'},{name: 'Marge'}])
 </script>
 </body>
 </html>
