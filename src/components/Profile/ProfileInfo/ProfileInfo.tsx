@@ -3,6 +3,7 @@ import classes from "./ProfileInfo.module.css";
 import {Preloader} from "../../common/Preloader/Preloader";
 import job from "../../../assets/images/lookingForAJob.jpg"
 import noJob from "../../../assets/images/notLookingForAJob.jpg"
+import ProfileStatus from "./ProfileStatus"
 
 type ProfileInfoType = {
     profile: any
@@ -15,17 +16,18 @@ function ProfileInfo(props: any) {
     }
     return (
       <div>
-          <div>
+          {/*<div>
               <img
                 src='https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&h=350'
                 alt="logo"/>
-          </div>
+          </div>*/}
           <div className={classes.descriptionBlock}>
-              <img src={props.profile.photos.large}/>
+              <img src={props.profile.photos.large} alt={"alt"}/>
+              <ProfileStatus status={"Hello, my friends"}/>
               <span>{props.profile.aboutMe}</span>
           </div>
           <div>
-              {props.profile.lookingForAJob ? <img src={job}/> : <img src={noJob}/>}
+              {props.profile.lookingForAJob ? <img src={job} alt={"alt"}/> : <img src={noJob} alt={"alt"}/>}
               <span>{props.profile.lookingForAJobDescription}</span>
           </div>
       </div>
