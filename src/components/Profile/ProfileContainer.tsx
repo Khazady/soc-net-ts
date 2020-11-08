@@ -2,7 +2,7 @@ import React from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import {RootStateType} from "../../redux/redux-store";
-import {getUserProfileTC} from "../../redux/profile-reducer";
+import {getUserProfileTC, getUserStatusTC, updateStatusTC} from "../../redux/profile-reducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {withAuthRedirect} from "../../hoc/hoc";
 import {compose} from "redux";
@@ -36,10 +36,12 @@ export type MapStateToPropsForRedirectType = {
 }
 type MapStateToPropsType = {
     profile: profileServerType
-
+    status: string
 }
 type MapDispatchToPropsType = {
     getUserProfile: (userId: string) => void
+    getUserStatus: (userId: string) => void
+    updateUserStatus: (status: string) => void
 }
 type OwnPropsType = MapStateToPropsType & MapDispatchToPropsType
 type PathParamType = {
@@ -59,23 +61,31 @@ class ProfileContainer extends React.Component<PropsType, any> {
         let userId = this.props.match.params.userId;
         //если параметра userId нет (url выглядит как /profile/), то вставить 2
         if (!userId) {
-            userId = '2';
+            userId = '9313';
         }
         this.props.getUserProfile(userId);
+        this.props.getUserStatus(userId);
     }
 
     render() {
         //копирует и передает все пропсы
-        return <Profile {...this.props} profile={this.props.profile}/>
+        return <Profile {...this.props} profile={this.props.profile} status={this.props.status} updateUserStatus={this.props.updateUserStatus}/>
     }
 }
 
 let mapStateToProps = (state: RootStateType): MapStateToPropsType => ({
     profile: state.profilePage.profile,
+    status: state.profilePage.status
 })
 let mapDispatchToProps = (dispatch: any): MapDispatchToPropsType => ({
     getUserProfile: (userId) => {
         dispatch(getUserProfileTC(userId))
+    },
+    getUserStatus: (userId) => {
+        dispatch(getUserStatusTC(userId))
+    },
+    updateUserStatus: (status) => {
+        dispatch(updateStatusTC(status))
     }
 })
 

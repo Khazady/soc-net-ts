@@ -1,5 +1,5 @@
 import {applyMiddleware, combineReducers, createStore, Store} from "redux";
-import profileReducer, {addPostAC, setProfileAC, updateNewPostTextAC} from "./profile-reducer";
+import profileReducer, {addPostAC, setProfileAC, updateNewPostTextAC, setStatusAC} from "./profile-reducer";
 import dialogsReducer, {addMessageActionCreator, updateNewMessageTextActionCreator, DialogsPageType} from "./dialogs-reducer";
 import userReducer, {
     followSuccessAC,
@@ -27,7 +27,8 @@ export type ActionsType =
   ReturnType<typeof toggleIsLoadingAC> |
   ReturnType<typeof setProfileAC> |
   ReturnType<typeof setAuthUserDataAC> |
-  ReturnType<typeof toggleFollowingProgressAC>
+  ReturnType<typeof toggleFollowingProgressAC> |
+  ReturnType<typeof setStatusAC>
 
 let reducers = combineReducers({
     //этот объект воспринимать как state

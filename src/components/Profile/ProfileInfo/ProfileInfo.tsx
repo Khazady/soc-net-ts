@@ -7,9 +7,11 @@ import ProfileStatus from "./ProfileStatus"
 
 type ProfileInfoType = {
     profile: any
+    status: string
+    updateUserStatus: (status: string) => void
 }
 
-function ProfileInfo(props: any) {
+function ProfileInfo(props: ProfileInfoType) {
     //наш профиль в иниц стейте = null, поэтому когда он null рисуем колесо
     if (!props.profile) {
         return <Preloader/>
@@ -22,8 +24,8 @@ function ProfileInfo(props: any) {
                 alt="logo"/>
           </div>*/}
           <div className={classes.descriptionBlock}>
-              <img src={props.profile.photos.large} alt={"alt"}/>
-              <ProfileStatus status={"Hello, my friends"}/>
+              <img src={props.profile.photos.large} alt={"no photo"}/>
+              <ProfileStatus status={props.status} updateUserStatus={props.updateUserStatus}/>
               <span>{props.profile.aboutMe}</span>
           </div>
           <div>

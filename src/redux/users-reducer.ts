@@ -116,7 +116,6 @@ export const toggleFollowingProgressAC = (isFollowingInProgress: boolean, userId
 
 //AC возвращает объект, кот. мы можем задиспатчить, ThunkCreator возвр. функцию кот. мы можем задиспатчить
 export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
-    debugger
     return (dispatch: any) => {
         document.title = "Users";
         //включаем крутилку до запроса на серв
