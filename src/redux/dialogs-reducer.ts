@@ -13,7 +13,6 @@ export type MessageType = {
 export type DialogsPageType = {
     dialogsData: Array<DialogItemType>;
     messagesData: Array<MessageType>;
-    newMessageText: string
 };
 
 
@@ -53,37 +52,26 @@ let initialState: DialogsPageType = {
         {id: v1(), message: "Yo"},
         {id: v1(), message: "Yo"},
     ],
-    newMessageText: "",
+
 };
 
 const dialogsReducer = (state: DialogsPageType = initialState, action: ActionsType): DialogsPageType => {
     switch (action.type) {
         case "ADD-MESSAGE":
-            let newMessage = {id: v1(), message: state.newMessageText}
+            let newMessage = {id: v1(), message: action.newMessageText}
             return {
                 ...state,
-                newMessageText: "",
                 messagesData: [...state.messagesData, newMessage ]
                 //эта запись перезатирает shallow-копию messagesData
                 //массив messagesData содержит объекты, мы их глубоко не копируем, т.к. не изменяем
                 //dialogsData глубоко не копируем, не собираемся изменять
             };
-        case "UPDATE-NEW-MESSAGE-TEXT":
-            return {
-                ...state,
-                newMessageText: action.newText
-            }
         default:
             return state;
     }
 }
 
-export const updateNewMessageTextActionCreator = (text: string) => {
-    return {
-        type: "UPDATE-NEW-MESSAGE-TEXT",
-        newText: text
-    } as const
-}
-export const addMessageActionCreator = () => ({type: "ADD-MESSAGE"} as const)
+
+export const addMessageAC = (newMessageText: string) => ({type: "ADD-MESSAGE", newMessageText} as const)
 
 export default dialogsReducer;

@@ -1,5 +1,6 @@
 import {ActionsType} from "./redux-store";
-import {authAPI} from "../api/api";
+import {authAPI, loginDataType} from "../api/api";
+import {Dispatch} from "redux";
 
 export type AuthType = {
     userId: number | null
@@ -30,6 +31,13 @@ const authReducer = (state: AuthType = initialState, action: ActionsType): AuthT
                 isAuth: true
             }
         }
+        case "SET-USER-EMAIL-AND-ID":
+            return {
+                ...state,
+                email: action.email,
+                userId: action.userId,
+                isAuth: true
+            }
         case TOGGLE_IS_LOADING: {
             return {
                 ...state,
@@ -41,20 +49,24 @@ const authReducer = (state: AuthType = initialState, action: ActionsType): AuthT
     }
 }
 
-export const setAuthUserDataAC = (userId: number | null, email: string|null, login: string|null) =>
+export const setAuthUserDataAC = (userId: number | null, email: string | null, login: string | null) =>
   ({type: SET_USER_DATA, data: {userId, email, login}} as const)
+export const setUserEmailAndIDAC = (userId: number, email: string) => ({
+    type: 'SET-USER-EMAIL-AND-ID', userId, email
+} as const)
+
 
 type ResponseData = {
-        resultCode: number,
-        data: {
-            id: number | null
-            login: string | null
-            email: string | null
-        }
+    resultCode: number,
+    data: {
+        id: number | null
+        login: string | null
+        email: string | null
+    }
 }
 
 export const getAuthUserDataTC = () => {
-    return (dispatch: any) => {
+    return (dispatch: Dispatch) => {
         authAPI.me()
           .then((response: ResponseData) => {
               if (response.resultCode === 0) {
@@ -65,8 +77,14 @@ export const getAuthUserDataTC = () => {
           });
     }
 }
-export const loginTC = () => {
-
+export const loginTC = (loginData: loginDataType) => {
+    debugger
+    return (dispatch: Dispatch) => {
+        authAPI.login(loginData)
+          .then((res) => {
+              dispatch(setUserEmailAndIDAC(res.userId, loginData.email))
+          })
+    }
 }
 
 export default authReducer;

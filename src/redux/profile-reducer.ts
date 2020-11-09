@@ -9,7 +9,6 @@ let initialState: ProfilePageType = {
         {id: v1(), message: "It's my first post", likesCount: 53},
         {id: v1(), message: "КУ", likesCount: 3},
     ],
-    newPostText: "",
     profile: null,
     status: ""
 };
@@ -18,17 +17,11 @@ let initialState: ProfilePageType = {
 const profileReducer = (state: ProfilePageType = initialState, action: ActionsType): ProfilePageType => {
     switch (action.type) {
         case 'ADD_POST':
-            let newPost = {id: v1(), message: state.newPostText, likesCount: 0};
+            let newPost = {id: v1(), message: action.newPostText, likesCount: 0};
             return {
                 ...state,
-                newPostText: "",
                 postsData: [...state.postsData, newPost]
             };
-        case 'UPDATE_NEW_POST_TEXT':
-            return {
-                ...state,
-                newPostText: action.newText
-            }
         case 'SET_PROFILE':
             return {
                 ...state,
@@ -46,8 +39,7 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionsTy
 
 
 // actions
-export const addPostAC = () => ({type: 'ADD_POST'} as const)
-export const updateNewPostTextAC = (newText: string) => ({type: 'UPDATE_NEW_POST_TEXT', newText} as const)
+export const addPostAC = (newPostText: string) => ({type: 'ADD_POST', newPostText} as const)
 export const setProfileAC = (profile: ProfilePageType) => ({type: 'SET_PROFILE', profile} as const)
 export const setStatusAC = (status: string) => ({type: 'SET_STATUS', status} as const)
 
@@ -83,7 +75,6 @@ export type PostTypes = {
 };
 export type ProfilePageType = {
     postsData: Array<PostTypes>;
-    newPostText: string
     profile: any
     status: string
 };

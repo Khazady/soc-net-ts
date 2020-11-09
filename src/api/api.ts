@@ -1,5 +1,4 @@
 import axios from "axios";
-import {stringify} from "querystring";
 // это DAL
 
 //для избежания дублирования кода в каждом запросе
@@ -45,11 +44,10 @@ export const profileAPI = {
           .then(response => response.data)},
 }
 
-type loginDataType = {
+export type loginDataType = {
     email: string,
     password: string,
     rememberMe: boolean
-    captcha: boolean
 }
 
 export const authAPI = {
@@ -57,6 +55,7 @@ export const authAPI = {
         return instance.get(`auth/me`).then(response => response.data)
     },
     login(loginData: loginDataType) {
+        debugger
         return instance.post('auth/login', {loginData}).then(response => response.data)
     }
 }

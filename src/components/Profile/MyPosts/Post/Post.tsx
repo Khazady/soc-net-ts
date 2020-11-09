@@ -5,7 +5,7 @@ import { PostTypes } from "../../../../redux/profile-reducer";
 const Post = (props: PostTypes) => {
   return (
     <div key={props.id} className={classes.item}>
-      <img src="https://i.ibb.co/   0t8zmD0/pngwing-com.png" alt="avatar" />
+      <img src="https://i.ibb.co/0t8zmD0/pngwing-com.png" alt="avatar" />
       {props.message}
       <div>
         <span>{props.likesCount} likes</span>

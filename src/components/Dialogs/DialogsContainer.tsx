@@ -1,16 +1,10 @@
-import {addMessageActionCreator, updateNewMessageTextActionCreator} from "../../redux/dialogs-reducer";
-import Dialogs, {DialogsPropsType} from "./Dialogs";
+import {addMessageAC} from "../../redux/dialogs-reducer";
+import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
 import {ActionsType, RootStateType} from "../../redux/redux-store";
-import React from "react";
 import {withAuthRedirect} from "../../hoc/withAuthRedirectHOC";
 import {compose} from "redux";
 
-class DialogsContainer extends React.Component<DialogsPropsType, any> {
-    render() {
-        return <Dialogs {...this.props}/>
-        }
-}
 
 let mapStateToProps = (state: RootStateType) => {
     return {
@@ -20,13 +14,9 @@ let mapStateToProps = (state: RootStateType) => {
 } //возвращает состояние объектом
 let mapDispatchToProps = (dispatch: (action: ActionsType) => void) => {
     return {
-        sendMessage: () => {
+        sendMessage: (newMessageText: string) => {
             //диспатчим, то, что вернул экшн креатор
-            dispatch(addMessageActionCreator())
-        },
-        updateNewMessageBody: (body: string) => {
-            let action = updateNewMessageTextActionCreator(body)
-            dispatch(action)
+            dispatch(addMessageAC(newMessageText))
         }
     }
 } //возвращает коллбеки объектом
@@ -39,4 +29,4 @@ export default compose(
   // HOC, который добавляет Redirect
   withAuthRedirect,
   connect(mapStateToProps, mapDispatchToProps)
-)(DialogsContainer);
+)(Dialogs);
