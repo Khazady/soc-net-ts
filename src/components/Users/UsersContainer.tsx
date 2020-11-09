@@ -7,7 +7,7 @@ import {
 import React from "react";
 import {Users} from "./Users";
 import { Preloader } from "../common/Preloader/Preloader";
-import {withAuthRedirect} from "../../hoc/hoc";
+import {withAuthRedirect} from "../../hoc/withAuthRedirectHOC";
 import { compose } from "redux";
 
 //пропсы берутся из объекта, сформированного функцией connect ниже

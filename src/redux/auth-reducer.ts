@@ -41,7 +41,8 @@ const authReducer = (state: AuthType = initialState, action: ActionsType): AuthT
     }
 }
 
-export const setAuthUserDataAC = (userId: number | null, email: string|null, login: string|null) => ({type: SET_USER_DATA, data: {userId, email, login}} as const)
+export const setAuthUserDataAC = (userId: number | null, email: string|null, login: string|null) =>
+  ({type: SET_USER_DATA, data: {userId, email, login}} as const)
 
 type ResponseData = {
         resultCode: number,
@@ -52,7 +53,7 @@ type ResponseData = {
         }
 }
 
-export const getAuthUserData = () => {
+export const getAuthUserDataTC = () => {
     return (dispatch: any) => {
         authAPI.me()
           .then((response: ResponseData) => {
@@ -63,6 +64,9 @@ export const getAuthUserData = () => {
               }
           });
     }
+}
+export const loginTC = () => {
+
 }
 
 export default authReducer;

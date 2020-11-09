@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {RootStateType} from "../../redux/redux-store";
 import {getUserProfileTC, getUserStatusTC, updateStatusTC} from "../../redux/profile-reducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
-import {withAuthRedirect} from "../../hoc/hoc";
+import {withAuthRedirect} from "../../hoc/withAuthRedirectHOC";
 import {compose} from "redux";
 
 //типы объектов с серва (то, что должен возвращать MStP

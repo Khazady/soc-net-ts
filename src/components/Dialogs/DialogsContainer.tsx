@@ -3,7 +3,7 @@ import Dialogs, {DialogsPropsType} from "./Dialogs";
 import {connect} from "react-redux";
 import {ActionsType, RootStateType} from "../../redux/redux-store";
 import React from "react";
-import {withAuthRedirect} from "../../hoc/hoc";
+import {withAuthRedirect} from "../../hoc/withAuthRedirectHOC";
 import {compose} from "redux";
 
 class DialogsContainer extends React.Component<DialogsPropsType, any> {

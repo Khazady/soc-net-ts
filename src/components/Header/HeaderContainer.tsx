@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import Header from "./Header";
 import {connect} from 'react-redux';
 import { RootStateType} from "../../redux/redux-store";
-import {getAuthUserData} from "../../redux/auth-reducer";
+import {getAuthUserDataTC} from "../../redux/auth-reducer";
 
 
 export type HeaderContainerPropsType = {
@@ -25,4 +25,4 @@ const mapStateToProps = (state: RootStateType) => ({
     login: state.auth.login
 })
 
-export default connect(mapStateToProps, {getAuthUserData})(HeaderContainer);
+export default connect(mapStateToProps, {getAuthUserData: getAuthUserDataTC})(HeaderContainer);
