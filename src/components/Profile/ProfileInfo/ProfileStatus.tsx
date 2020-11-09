@@ -5,8 +5,13 @@ type ProfileStatusType = {
     updateUserStatus: (status: string) => void
 }
 
+type LocalStateType = {
+    editMode: boolean
+    status: string
+}
+
 class ProfileStatus extends React.Component<ProfileStatusType, any> {
-    state = {
+    state: LocalStateType = {
         editMode: false,
         //вставляем из глобал стейта в локал
         status: this.props.status
@@ -35,13 +40,23 @@ class ProfileStatus extends React.Component<ProfileStatusType, any> {
         })
     }
 
+    componentDidUpdate(prevProps: Readonly<ProfileStatusType>, prevState: Readonly<LocalStateType>) {
+        //всегда нужно условие для вызова setState в lifecycle методах
+        //сравнивает предыдущий статус с нынешним(как react.memo), если разные то перерисует
+        if(prevProps.status !== this.props.status) {
+            this.setState({
+                status: this.props.status
+            })
+        }
+    }
+
     render() {
         // *|| если пустой статус, то в спане empty status, а в инпуте вместо пустоты, то, что в глобальном стейте
         return (
           <>
               {this.state.editMode
                 ?   <div>
-                    <input onChange={this.onStatusChange} autoFocus onBlur={this.deactivateEditMode} value={this.state.status || this.props.status}/>
+                    <input onChange={this.onStatusChange} autoFocus onBlur={this.deactivateEditMode} value={this.state.status}/>
                     </div>
                 :   <div>
                     <span onDoubleClick={ this.activateEditMode }>{this.props.status || "empty status"}</span>
