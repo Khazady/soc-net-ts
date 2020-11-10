@@ -44,18 +44,15 @@ export const profileAPI = {
           .then(response => response.data)},
 }
 
-export type loginDataType = {
-    email: string,
-    password: string,
-    rememberMe: boolean
-}
 
 export const authAPI = {
     me() {
         return instance.get(`auth/me`).then(response => response.data)
     },
-    login(loginData: loginDataType) {
-        debugger
-        return instance.post('auth/login', {loginData}).then(response => response.data)
+    login(email: string, password: string, rememberMe = false) {
+        return instance.post('auth/login', {email, password, rememberMe}).then(response => response.data)
+    },
+    logout() {
+        return instance.delete('auth/login').then(response => response.data)
     }
 }

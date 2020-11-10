@@ -1,5 +1,5 @@
 import {ActionsType} from "./redux-store";
-import {authAPI, loginDataType} from "../api/api";
+import {authAPI} from "../api/api";
 import {Dispatch} from "redux";
 
 export type AuthType = {
@@ -9,9 +9,16 @@ export type AuthType = {
     isLoading: boolean
     isAuth: boolean
 }
-
 const SET_USER_DATA = "SET_USER_DATA"
 const TOGGLE_IS_LOADING = "TOGGLE-IS-LOADING"
+type ResponseData = {
+    resultCode: number,
+    data: {
+        id: number | null
+        login: string | null
+        email: string | null
+    }
+}
 
 let initialState: AuthType = {
     userId: null,
@@ -25,19 +32,9 @@ const authReducer = (state: AuthType = initialState, action: ActionsType): AuthT
         case SET_USER_DATA: {
             return {
                 ...state,
-                //создаем объект data
-                ...action.data,
-                //если пришли польз. данные, то авторизован
-                isAuth: true
+                ...action.payload,
             }
         }
-        case "SET-USER-EMAIL-AND-ID":
-            return {
-                ...state,
-                email: action.email,
-                userId: action.userId,
-                isAuth: true
-            }
         case TOGGLE_IS_LOADING: {
             return {
                 ...state,
@@ -49,21 +46,9 @@ const authReducer = (state: AuthType = initialState, action: ActionsType): AuthT
     }
 }
 
-export const setAuthUserDataAC = (userId: number | null, email: string | null, login: string | null) =>
-  ({type: SET_USER_DATA, data: {userId, email, login}} as const)
-export const setUserEmailAndIDAC = (userId: number, email: string) => ({
-    type: 'SET-USER-EMAIL-AND-ID', userId, email
-} as const)
+export const setAuthUserDataAC = (userId: number | null, email: string | null, login: string | null, isAuth: boolean) =>
+  ({type: SET_USER_DATA, payload: {userId, email, login, isAuth}} as const)
 
-
-type ResponseData = {
-    resultCode: number,
-    data: {
-        id: number | null
-        login: string | null
-        email: string | null
-    }
-}
 
 export const getAuthUserDataTC = () => {
     return (dispatch: Dispatch) => {
@@ -72,19 +57,28 @@ export const getAuthUserDataTC = () => {
               if (response.resultCode === 0) {
                   let {id, email, login} = response.data;
                   //axios упаковывает в data и разраб сервера упаковал в data
-                  dispatch(setAuthUserDataAC(id, email, login))
+                  dispatch(setAuthUserDataAC(id, email, login, true))
               }
           });
     }
 }
-export const loginTC = (loginData: loginDataType) => {
-    debugger
-    return (dispatch: Dispatch) => {
-        authAPI.login(loginData)
-          .then((res) => {
-              dispatch(setUserEmailAndIDAC(res.userId, loginData.email))
-          })
-    }
+export const loginTC = (email: string, password: string, rememberMe: boolean) => (dispatch: Dispatch<any>) => {
+    authAPI.login(email, password, rememberMe)
+      .then((res) => {
+          if (res.resultCode === 0) {
+              //запускаем санку получения данных юзера с серва, если успешная логинизация
+              dispatch(getAuthUserDataTC())
+          }
+      })
+}
+export const logoutTC = () => (dispatch: Dispatch) => {
+    authAPI.logout()
+      .then((res) => {
+          if (res.resultCode === 0) {
+              //удаляем всю информацю из стейта о юзере в исходное состояние (initState)
+              dispatch(setAuthUserDataAC(null, null, null, false))
+          }
+      })
 }
 
 export default authReducer;

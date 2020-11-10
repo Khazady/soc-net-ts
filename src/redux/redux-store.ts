@@ -10,7 +10,7 @@ import userReducer, {
     toggleIsLoadingAC,
     unfollowSuccessAC,
 } from "./users-reducer";
-import authReducer, {setAuthUserDataAC, setUserEmailAndIDAC} from "./auth-reducer";
+import authReducer, {setAuthUserDataAC} from "./auth-reducer";
 import thunkMiddleware from "redux-thunk";
 import {reducer as formReducer} from 'redux-form'
 
@@ -28,8 +28,7 @@ export type ActionsType =
   ReturnType<typeof setProfileAC> |
   ReturnType<typeof setAuthUserDataAC> |
   ReturnType<typeof toggleFollowingProgressAC> |
-  ReturnType<typeof setStatusAC> |
-  ReturnType<typeof setUserEmailAndIDAC>
+  ReturnType<typeof setStatusAC>
 
 let reducers = combineReducers({
     //этот объект воспринимать как state
