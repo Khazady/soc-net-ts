@@ -5,6 +5,7 @@ import {Input} from "../../common/FormsWithValidationErrors/FormsWithValidationE
 //validator for Field from another file
 import {required} from "../../../utils/validators";
 import { LoginFormData } from "../Login";
+import classes from "./../../common/FormsWithValidationErrors/FormsWithValidationErrors.module.css";
 
 const LoginForm: React.FC<InjectedFormProps<LoginFormData>> = (props) => (
   //handleSubmit прокинул HOC, он делает e.preventDefault, передает значения из инпутов наверх упакуя в объект
@@ -12,6 +13,7 @@ const LoginForm: React.FC<InjectedFormProps<LoginFormData>> = (props) => (
       <div><Field component={Input} validate={[required]} name="email" placeholder="Email" type='email'/></div>
       <div><Field component={Input} validate={[required]} name="password" placeholder="Password" type='password'/></div>
       <div><Field component={Input} name="rememberMe" type="checkbox"/> remember me</div>
+      {props.error && <div className={classes.formSummaryError}>{props.error}</div>}
       <div>
           <button>Login</button>
       </div>

@@ -37,6 +37,8 @@ export type MapStateToPropsForRedirectType = {
 type MapStateToPropsType = {
     profile: profileServerType
     status: string
+    authorizedUserId: number | null
+    isAuth: boolean
 }
 type MapDispatchToPropsType = {
     getUserProfile: (userId: string) => void
@@ -50,8 +52,6 @@ type PathParamType = {
 type PropsType = RouteComponentProps<PathParamType> & OwnPropsType
 
 
-
-
 //1-ый контейнер для AJAX запросов, setInterval и т.д. (грязной работы), рисует презентационную
 class ProfileContainer extends React.Component<PropsType, any> {
 
@@ -59,9 +59,10 @@ class ProfileContainer extends React.Component<PropsType, any> {
         document.title = "Profile";
         //айди из URL (withRouter, Route)
         let userId = this.props.match.params.userId;
-        //если параметра userId нет (url выглядит как /profile/), то вставить 2
+        //если параметра userId нет (url выглядит как /profile/), то вставить айди, пришедший с сервака
+        //если и он null, то "" (временно)
         if (!userId) {
-            userId = '9313';
+            userId = this.props.authorizedUserId ? this.props.authorizedUserId.toString() : ""
         }
         this.props.getUserProfile(userId);
         this.props.getUserStatus(userId);
@@ -69,14 +70,21 @@ class ProfileContainer extends React.Component<PropsType, any> {
 
     render() {
         //копирует и передает все пропсы
-        return <Profile {...this.props} profile={this.props.profile} status={this.props.status} updateUserStatus={this.props.updateUserStatus}/>
+        return <Profile {...this.props}
+                        profile={this.props.profile}
+                        status={this.props.status}
+                        updateUserStatus={this.props.updateUserStatus}/>
     }
 }
 
-let mapStateToProps = (state: RootStateType): MapStateToPropsType => ({
-    profile: state.profilePage.profile,
-    status: state.profilePage.status
-})
+let mapStateToProps = (state: RootStateType): MapStateToPropsType => {
+    return ({
+        profile: state.profilePage.profile,
+        status: state.profilePage.status,
+        authorizedUserId: state.auth.userId,
+        isAuth: state.auth.isAuth
+    })
+}
 let mapDispatchToProps = (dispatch: any): MapDispatchToPropsType => ({
     getUserProfile: (userId) => {
         dispatch(getUserProfileTC(userId))

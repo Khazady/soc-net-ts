@@ -1,6 +1,7 @@
 import {ActionsType} from "./redux-store";
 import {authAPI} from "../api/api";
 import {Dispatch} from "redux";
+import {stopSubmit} from "redux-form";
 
 export type AuthType = {
     userId: number | null
@@ -64,10 +65,16 @@ export const getAuthUserDataTC = () => {
 }
 export const loginTC = (email: string, password: string, rememberMe: boolean) => (dispatch: Dispatch<any>) => {
     authAPI.login(email, password, rememberMe)
-      .then((res) => {
-          if (res.resultCode === 0) {
+      .then((data) => {
+          if (data.resultCode === 0) {
               //запускаем санку получения данных юзера с серва, если успешная логинизация
               dispatch(getAuthUserDataTC())
+          } else {
+              //если resultCode !== 0, то останавливаем сабмит формы
+              //проверяем не пустой ли массив с сообщ. об ошибке
+              let errorMessage = data.messages.length > 0 ? data.messages[0] : "Unknown error"
+              //1 арг. название именно <form/>, вторым объект с проблемным полем (_error для всех сразу field)
+              dispatch(stopSubmit("login", {_error: errorMessage} ))
           }
       })
 }
