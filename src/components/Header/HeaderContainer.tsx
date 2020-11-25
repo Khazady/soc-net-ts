@@ -1,24 +1,20 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import Header from "./Header";
 import {connect} from 'react-redux';
-import { RootStateType} from "../../redux/redux-store";
-import {getAuthUserDataTC, logoutTC} from "../../redux/auth-reducer";
+import {RootStateType} from "../../redux/redux-store";
+import {logoutTC} from "../../redux/auth-reducer";
 
 
 export type HeaderContainerPropsType = {
     isAuth: boolean
     isLoading: boolean
     login: string | null
-    getAuthUserData: any
     logout: () => void
 }
 
-function HeaderContainer(props: HeaderContainerPropsType) {
-    useEffect(() => {
-        props.getAuthUserData();
-    })
+const HeaderContainer: React.FC<HeaderContainerPropsType> = (props) => {
     return <Header {...props}/>
-}
+};
 
 const mapStateToProps = (state: RootStateType) => ({
     isAuth: state.auth.isAuth,
@@ -26,4 +22,4 @@ const mapStateToProps = (state: RootStateType) => ({
     login: state.auth.login
 })
 
-export default connect(mapStateToProps, {getAuthUserData: getAuthUserDataTC, logout: logoutTC})(HeaderContainer);
+export default connect(mapStateToProps, {logout: logoutTC})(HeaderContainer);

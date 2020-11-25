@@ -10,29 +10,53 @@ import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from './components/Login/Login';
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import {connect} from 'react-redux';
+import {initializeAppTC} from "./redux/app-reducer";
+import {RootStateType} from "./redux/redux-store";
+import {Preloader} from "./components/common/Preloader/Preloader";
 
-const App: React.FC<any> = () => {
-    //В Profile /:userId параметр для пропсов withRouter (60 Выпуск)
-    // ? после userId делает параметр опциональным, поэтому если в url его не будет, загрузится другой профиль(указан в коде компоненты)
-    return (
-      <div className='app-wrapper'>
-          <HeaderContainer/>
-          <Navbar/>
-          <div className="app-wrapper-content">
-              <Route exact path="/dialogs"
-                     render={() => <DialogsContainer /> } />
-              <Route path="/profile/:userId?"
-                     render={() => <ProfileContainer /> } />
-              <Route path="/users"
-                     render={() => <UsersContainer /> } />
-              <Route path="/news" component={News}/>
-              <Route path="/music" component={Music}/>
-              <Route path="/settings" component={Settings}/>
-
-              <Route path="/login" component={Login}/>
-          </div>
-      </div>
-    );
+type AppPropsType = {
+    initialized: boolean
+    initializingApp: () => void
 }
 
-export default App;
+class App extends React.Component<AppPropsType> {
+    componentDidMount() {
+        this.props.initializingApp()
+    }
+
+    render() {
+        //В Profile /:userId параметр для пропсов withRouter (60 Выпуск)
+        // ? после userId делает параметр опциональным, поэтому если в url его не будет, загрузится другой профиль(указан в коде компоненты)
+        return !this.props.initialized
+          ? <Preloader/>
+          : (
+            <div className='app-wrapper'>
+                <HeaderContainer/>
+                <Navbar/>
+                <div className="app-wrapper-content">
+                    <Route exact path="/dialogs"
+                           render={() => <DialogsContainer/>}/>
+                    <Route path="/profile/:userId?"
+                           render={() => <ProfileContainer/>}/>
+                    <Route path="/users"
+                           render={() => <UsersContainer/>}/>
+                    <Route path="/news" component={News}/>
+                    <Route path="/music" component={Music}/>
+                    <Route path="/settings" component={Settings}/>
+
+                    <Route path="/login" component={Login}/>
+                </div>
+            </div>
+          );
+    }
+}
+
+// connect redux
+const mapStateToProps = (state: RootStateType) => ({
+    initialized: state.app.initialized
+})
+const mapDispatchToProps = (dispatch: any) => ({
+    initializingApp: () => dispatch(initializeAppTC())
+})
+export default connect(mapStateToProps, mapDispatchToProps)(App);

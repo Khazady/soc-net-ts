@@ -14,12 +14,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="38729180-fc7b-40fd-b525-d6fac38bb07c" name="Default Changelist" comment="lesson 26">
+      <change afterPath="$PROJECT_DIR$/src/redux/app-reducer.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/api.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Login/LoginForm/LoginForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Login/LoginForm/LoginForm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Profile/ProfileContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Profile/ProfileContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Header/HeaderContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header/HeaderContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Profile/ProfileInfo/ProfileInfo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Profile/ProfileInfo/ProfileInfo.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/common/FormsWithValidationErrors/FormsWithValidationErrors.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/common/FormsWithValidationErrors/FormsWithValidationErrors.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/redux/auth-reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/auth-reducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/redux-store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/redux-store.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/users-reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/users-reducer.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +56,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="TERMINAL_CUSTOM_COMMANDS_GOT_IT" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/components/common/FormsWithValidationErrors" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/redux" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -62,21 +66,21 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Dev\Incubator\soc-net-ts\src\components\common\FormsWithValidationErrors" />
-      <recent name="D:\Dev\Incubator\soc net ts\src\components\Header" />
-      <recent name="D:\Dev\Incubator\soc net ts\src\redux" />
-      <recent name="D:\Dev\Incubator\soc net ts\src\components\Profile" />
-      <recent name="D:\Dev\Incubator\soc net ts\src\components\Users" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Dev\Incubator\soc-net-ts\src\utils" />
+      <recent name="D:\Dev\Incubator\soc-net-ts\src\hoc" />
+      <recent name="D:\Dev\Incubator\soc net ts\src\components\common\Preloader" />
     </key>
     <key name="es6.move.members.recent.items">
       <recent name="D:\Dev\Incubator\soc-net-ts\src\components\Login\LoginForm\LoginForm.tsx" />
       <recent name="D:\Dev\Incubator\soc-net-ts\src\components\Dialogs\AddMessageForm\AddMessageForm.tsx" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\Dev\Incubator\soc-net-ts\src\utils" />
-      <recent name="D:\Dev\Incubator\soc-net-ts\src\hoc" />
-      <recent name="D:\Dev\Incubator\soc net ts\src\components\common\Preloader" />
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Dev\Incubator\soc-net-ts\src\redux" />
+      <recent name="D:\Dev\Incubator\soc-net-ts\src\components\common\FormsWithValidationErrors" />
+      <recent name="D:\Dev\Incubator\soc net ts\src\components\Header" />
+      <recent name="D:\Dev\Incubator\soc net ts\src\redux" />
+      <recent name="D:\Dev\Incubator\soc net ts\src\components\Profile" />
     </key>
   </component>
   <component name="RunManager">
@@ -170,7 +174,9 @@
       <workItem from="1604608439554" duration="9972000" />
       <workItem from="1604657225358" duration="4032000" />
       <workItem from="1604779677770" duration="44359000" />
-      <workItem from="1604979996346" duration="18103000" />
+      <workItem from="1604979996346" duration="18361000" />
+      <workItem from="1605120230523" duration="1729000" />
+      <workItem from="1606316097173" duration="5834000" />
     </task>
     <task id="LOCAL-00001" summary="lesson 26">
       <created>1591713905346</created>
@@ -232,46 +238,34 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="542" y="211" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.824@0.0.1536.824" timestamp="1604612823066" />
-    <state x="2340" y="153" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1596798769670">
+    <state width="1417" height="178" key="GridCell.Tab.0.bottom" timestamp="1606321202165">
       <screen x="1920" y="0" width="1440" height="860" />
-    </state>
-    <state x="2340" y="153" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1536.824/1920.0.1440.860@1920.0.1440.860" timestamp="1596798769670" />
-    <state x="276" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1596667595623">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="276" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.824@0.0.1536.824" timestamp="1596667595623" />
-    <state x="498" y="158" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1596644151169">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="498" y="158" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1596644151169" />
-    <state width="1513" height="169" key="GridCell.Tab.0.bottom" timestamp="1605007235617">
-      <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1417" height="221" key="GridCell.Tab.0.bottom/0.0.1440.860@0.0.1440.860" timestamp="1602967085859" />
     <state width="1513" height="121" key="GridCell.Tab.0.bottom/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1602715061388" />
-    <state width="1417" height="178" key="GridCell.Tab.0.bottom/0.0.1536.824/1920.0.1440.860@1920.0.1440.860" timestamp="1604944255819" />
-    <state width="1513" height="169" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1605007235617" />
-    <state width="1513" height="169" key="GridCell.Tab.0.center" timestamp="1605007235617">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1417" height="178" key="GridCell.Tab.0.bottom/0.0.1536.824/1920.0.1440.860@1920.0.1440.860" timestamp="1606321202165" />
+    <state width="1513" height="169" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1605010945293" />
+    <state width="1417" height="178" key="GridCell.Tab.0.center" timestamp="1606321202165">
+      <screen x="1920" y="0" width="1440" height="860" />
     </state>
     <state width="1417" height="221" key="GridCell.Tab.0.center/0.0.1440.860@0.0.1440.860" timestamp="1602967085859" />
     <state width="1513" height="121" key="GridCell.Tab.0.center/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1602715061388" />
-    <state width="1417" height="178" key="GridCell.Tab.0.center/0.0.1536.824/1920.0.1440.860@1920.0.1440.860" timestamp="1604944255819" />
-    <state width="1513" height="169" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1605007235617" />
-    <state width="1513" height="169" key="GridCell.Tab.0.left" timestamp="1605007235617">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1417" height="178" key="GridCell.Tab.0.center/0.0.1536.824/1920.0.1440.860@1920.0.1440.860" timestamp="1606321202165" />
+    <state width="1513" height="169" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1605010945293" />
+    <state width="1417" height="178" key="GridCell.Tab.0.left" timestamp="1606321202165">
+      <screen x="1920" y="0" width="1440" height="860" />
     </state>
     <state width="1417" height="221" key="GridCell.Tab.0.left/0.0.1440.860@0.0.1440.860" timestamp="1602967085859" />
     <state width="1513" height="121" key="GridCell.Tab.0.left/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1602715061388" />
-    <state width="1417" height="178" key="GridCell.Tab.0.left/0.0.1536.824/1920.0.1440.860@1920.0.1440.860" timestamp="1604944255819" />
-    <state width="1513" height="169" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1605007235617" />
-    <state width="1513" height="169" key="GridCell.Tab.0.right" timestamp="1605007235617">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1417" height="178" key="GridCell.Tab.0.left/0.0.1536.824/1920.0.1440.860@1920.0.1440.860" timestamp="1606321202165" />
+    <state width="1513" height="169" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1605010945293" />
+    <state width="1417" height="178" key="GridCell.Tab.0.right" timestamp="1606321202165">
+      <screen x="1920" y="0" width="1440" height="860" />
     </state>
     <state width="1417" height="221" key="GridCell.Tab.0.right/0.0.1440.860@0.0.1440.860" timestamp="1602967085859" />
     <state width="1513" height="121" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1602715061388" />
-    <state width="1417" height="178" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.1440.860@1920.0.1440.860" timestamp="1604944255819" />
-    <state width="1513" height="169" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1605007235617" />
+    <state width="1417" height="178" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.1440.860@1920.0.1440.860" timestamp="1606321202165" />
+    <state width="1513" height="169" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1605010945293" />
     <state width="1419" height="276" key="GridCell.Tab.1.bottom" timestamp="1602799128541">
       <screen x="0" y="0" width="1440" height="860" />
     </state>
@@ -332,7 +326,6 @@
       <screen x="0" y="0" width="1440" height="860" />
     </state>
     <state x="541" y="339" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1440.860@0.0.1440.860" timestamp="1602798707379" />
-    <state x="577" y="325" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1596498794402" />
     <state x="271" y="76" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1602865100545">
       <screen x="0" y="0" width="1440" height="860" />
     </state>
@@ -345,13 +338,12 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="425" y="187" key="run.anything.popup/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1602032545051" />
-    <state x="425" y="187" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1596645919801" />
-    <state x="425" y="66" width="672" height="676" key="search.everywhere.popup" timestamp="1605009863862">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="2318" y="69" width="672" height="706" key="search.everywhere.popup" timestamp="1606322336991">
+      <screen x="1920" y="0" width="1440" height="860" />
     </state>
     <state x="398" y="69" width="672" height="706" key="search.everywhere.popup/0.0.1440.860@0.0.1440.860" timestamp="1602957352756" />
     <state x="425" y="66" width="672" height="676" key="search.everywhere.popup/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1602715127820" />
-    <state x="2318" y="69" width="672" height="706" key="search.everywhere.popup/0.0.1536.824/1920.0.1440.860@1920.0.1440.860" timestamp="1604947944190" />
+    <state x="2318" y="69" width="672" height="706" key="search.everywhere.popup/0.0.1536.824/1920.0.1440.860@1920.0.1440.860" timestamp="1606322336991" />
     <state x="425" y="66" width="672" height="676" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1605009863862" />
   </component>
   <component name="XDebuggerManager">

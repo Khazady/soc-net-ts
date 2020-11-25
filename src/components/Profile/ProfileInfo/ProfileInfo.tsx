@@ -24,7 +24,7 @@ function ProfileInfo(props: ProfileInfoType) {
                 alt="logo"/>
           </div>*/}
           <div className={classes.descriptionBlock}>
-              <img src={props.profile.photos.large} alt={"no photo"}/>
+              <img src={props.profile.photos.large} alt={"something wrong"}/>
               <ProfileStatus status={props.status} updateUserStatus={props.updateUserStatus}/>
               <span>{props.profile.aboutMe}</span>
           </div>

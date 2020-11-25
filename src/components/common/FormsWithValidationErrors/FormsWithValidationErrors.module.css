@@ -4,7 +4,8 @@
 }
 
 .formControl.error span {
-    color: red
+    color: indianred;
+    margin-left: 5px;
 }
 /*общая для форм ошибка(логин и пароль, чтобы не указывать что именно из них неправльно)*/
 .formSummaryError {

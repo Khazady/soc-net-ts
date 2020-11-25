@@ -153,7 +153,7 @@ export const unfollowTC = (userId: string) => {
         dispatch(toggleFollowingProgressAC(true, userId));
         usersAPI.unFollowUser(userId)
           .then(data => {
-              if (data.resultCode == 0) {
+              if (data.resultCode === 0) {
                   dispatch(unfollowSuccessAC(userId))
               }
               //разблочивает кнопку после запроса

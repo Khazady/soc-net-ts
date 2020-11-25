@@ -53,7 +53,8 @@ export const setAuthUserDataAC = (userId: number | null, email: string | null, l
 
 export const getAuthUserDataTC = () => {
     return (dispatch: Dispatch) => {
-        authAPI.me()
+        //возвращаем промис внаружу, диспатч TC вернет это в app-reducer
+        return authAPI.me()
           .then((response: ResponseData) => {
               if (response.resultCode === 0) {
                   let {id, email, login} = response.data;
