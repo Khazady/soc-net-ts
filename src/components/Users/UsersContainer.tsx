@@ -2,13 +2,21 @@ import {connect} from "react-redux";
 import {RootStateType} from "../../redux/redux-store";
 import {
     UsersType,
-    toggleFollowingProgressAC, getUsersThunkCreator, unfollowTC, followTC
+    toggleFollowingProgressAC, requestUsersTC, unfollowTC, followTC
 } from "../../redux/users-reducer";
 import React from "react";
 import {Users} from "./Users";
 import { Preloader } from "../common/Preloader/Preloader";
 import {withAuthRedirect} from "../../hoc/withAuthRedirectHOC";
 import { compose } from "redux";
+import {
+    getCurrentPage,
+    getPageSize,
+    getTotalUsersCount,
+    getUsers,
+    getIsLoading,
+    getIsFollowingProgress
+} from "../../redux/users-selectors";
 
 //пропсы берутся из объекта, сформированного функцией connect ниже
 type UserContainerProps = {
@@ -53,13 +61,14 @@ class UsersContainer extends React.Component<UserContainerProps, any> {
 
 let mapStateToProps = (state: RootStateType) => {
     //принимает стейт целиком, а возвращает только то, что нужно компоненте
+    //выбираем стейт в селекторах, чтобы если что не менять все mstp, а поменять в 1 селекторе
     return {
-        users: state.usersPage.usersData,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        isLoading: state.usersPage.isLoading,
-        isFollowingInProgress: state.usersPage.isFollowingInProgress
+        users: getUsers(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isLoading: getIsLoading(state),
+        isFollowingInProgress: getIsFollowingProgress(state)
     }
 }
 let mapDispatchToProps = (dispatch: (action: any) => void) => {
@@ -77,7 +86,7 @@ let mapDispatchToProps = (dispatch: (action: any) => void) => {
             dispatch(toggleFollowingProgressAC(isFollowingInProgress, userId))
         },
         getUsers: (currentPage: number, pageSize: number) => {
-            dispatch(getUsersThunkCreator(currentPage, pageSize))
+            dispatch(requestUsersTC(currentPage, pageSize))
         }
     }
 }
