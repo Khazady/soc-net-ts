@@ -3,7 +3,7 @@ import classes from "./ProfileInfo.module.css";
 import {Preloader} from "../../common/Preloader/Preloader";
 import job from "../../../assets/images/lookingForAJob.jpg"
 import noJob from "../../../assets/images/notLookingForAJob.jpg"
-import ProfileStatus from "./ProfileStatus"
+import { ProfileStatus } from './ProfileStatus';
 
 type ProfileInfoType = {
     profile: any
