@@ -52,7 +52,6 @@ let initialState: DialogsPageType = {
         {id: v1(), message: "Yo"},
         {id: v1(), message: "Yo"},
     ],
-
 };
 
 const dialogsReducer = (state: DialogsPageType = initialState, action: ActionsType): DialogsPageType => {
@@ -66,6 +65,11 @@ const dialogsReducer = (state: DialogsPageType = initialState, action: ActionsTy
                 //массив messagesData содержит объекты, мы их глубоко не копируем, т.к. не изменяем
                 //dialogsData глубоко не копируем, не собираемся изменять
             };
+        case "DELETE-MESSAGE":
+            return {
+                ...state,
+                messagesData: state.messagesData.filter(mess => mess.id !== action.messageId)
+            }
         default:
             return state;
     }
@@ -73,5 +77,6 @@ const dialogsReducer = (state: DialogsPageType = initialState, action: ActionsTy
 
 
 export const addMessageAC = (newMessageText: string) => ({type: "ADD-MESSAGE", newMessageText} as const)
+export const deleteMessageAC = (messageId: string) => ({type: "DELETE-MESSAGE", messageId} as const)
 
 export default dialogsReducer;

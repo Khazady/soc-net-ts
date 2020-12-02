@@ -1,6 +1,6 @@
 import {applyMiddleware, combineReducers, createStore, Store} from "redux";
-import profileReducer, {addPostAC, setProfileAC, setStatusAC} from "./profile-reducer";
-import dialogsReducer, {addMessageAC} from "./dialogs-reducer";
+import profileReducer, {addPostAC, deletePostAC, setProfileAC, setStatusAC} from "./profile-reducer";
+import dialogsReducer, {addMessageAC, deleteMessageAC} from "./dialogs-reducer";
 import userReducer, {
     followSuccessAC,
     setCurrentPageAC,
@@ -30,7 +30,9 @@ export type ActionsType =
   ReturnType<typeof setAuthUserDataAC> |
   ReturnType<typeof toggleFollowingProgressAC> |
   ReturnType<typeof setStatusAC> |
-  ReturnType<typeof setInitializingSuccessAC>
+  ReturnType<typeof setInitializingSuccessAC> |
+  ReturnType<typeof deletePostAC> |
+  ReturnType<typeof deleteMessageAC>
 
 let reducers = combineReducers({
     //этот объект воспринимать как state

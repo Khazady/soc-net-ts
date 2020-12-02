@@ -21,7 +21,12 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionsTy
             return {
                 ...state,
                 postsData: [...state.postsData, newPost]
-            };
+            }
+        case "DELETE_POST":
+            return {
+                ...state,
+                postsData: state.postsData.filter(post => post.id !== action.postId)
+            }
         case 'SET_PROFILE':
             return {
                 ...state,
@@ -40,6 +45,7 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionsTy
 
 // actions
 export const addPostAC = (newPostText: string) => ({type: 'ADD_POST', newPostText} as const)
+export const deletePostAC = (postId: string) => ({type: 'DELETE_POST', postId} as const)
 export const setProfileAC = (profile: ProfilePageType) => ({type: 'SET_PROFILE', profile} as const)
 export const setStatusAC = (status: string) => ({type: 'SET_STATUS', status} as const)
 
@@ -61,7 +67,7 @@ export const getUserStatusTC = (userId: string) => (dispatch: Dispatch) => {
 export const updateStatusTC = (status: string) => (dispatch: Dispatch) => {
     profileAPI.updateStatus(status)
       .then(data => {
-          if(data.resultCode === 0) {
+          if (data.resultCode === 0) {
               dispatch(setStatusAC(status))
           }
       });

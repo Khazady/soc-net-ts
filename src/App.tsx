@@ -35,17 +35,17 @@ class App extends React.Component<AppPropsType> {
                 <HeaderContainer/>
                 <Navbar/>
                 <div className="app-wrapper-content">
-                    <Route exact path="/dialogs"
+                    <Route exact path="/soc-net-ts/dialogs"
                            render={() => <DialogsContainer/>}/>
-                    <Route path="/profile/:userId?"
+                    <Route path="/soc-net-ts/profile/:userId?"
                            render={() => <ProfileContainer/>}/>
-                    <Route path="/users"
+                    <Route path="/soc-net-ts/users"
                            render={() => <UsersContainer/>}/>
-                    <Route path="/news" component={News}/>
-                    <Route path="/music" component={Music}/>
-                    <Route path="/settings" component={Settings}/>
+                    <Route path="/soc-net-ts/news" component={News}/>
+                    <Route path="/soc-net-ts/music" component={Music}/>
+                    <Route path="/soc-net-ts/settings" component={Settings}/>
 
-                    <Route path="/login" component={Login}/>
+                    <Route path="/soc-net-ts/login" component={Login}/>
                 </div>
             </div>
           );

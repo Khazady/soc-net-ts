@@ -11,7 +11,7 @@ function Header(props: HeaderContainerPropsType) {
             {props.isAuth
               ? <div>{props.login} - <button onClick={props.logout}>Log Out</button></div> :
               //показываем имя пользователя либо ссылку на страницу логина
-              <NavLink to={"/login"}>Login</NavLink>
+              <NavLink to={"/soc-net-ts/login"}>Login</NavLink>
             }
         </div>
     </header>

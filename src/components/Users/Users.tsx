@@ -36,7 +36,7 @@ export const Users = (props: UsersPropsType) => {
                 props.users.map(u => <div key={u.id}>
                 <span>
                     <div>
-                        <NavLink to={"/profile/" + u.id}>
+                        <NavLink to={"/soc-net-ts/profile/" + u.id}>
                             <img
                                 src={
                                     /*если фото отсутствует, то стандартная картинка*/
