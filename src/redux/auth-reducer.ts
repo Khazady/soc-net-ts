@@ -2,7 +2,9 @@ import {ActionsType} from "./redux-store";
 import {authAPI} from "../api/api";
 import {Dispatch} from "redux";
 import {stopSubmit} from "redux-form";
+import {TOGGLE_IS_LOADING} from "./users-reducer";
 
+// types
 export type AuthType = {
     userId: number | null
     email: string | null
@@ -10,8 +12,7 @@ export type AuthType = {
     isLoading: boolean
     isAuth: boolean
 }
-const SET_USER_DATA = "SET_USER_DATA"
-const TOGGLE_IS_LOADING = "TOGGLE-IS-LOADING"
+const SET_USER_DATA = "auth/SET_USER_DATA"
 type ResponseData = {
     resultCode: number,
     data: {
@@ -28,7 +29,7 @@ let initialState: AuthType = {
     isLoading: false,
     isAuth: false
 };
-const authReducer = (state: AuthType = initialState, action: ActionsType): AuthType => {
+export const authReducer = (state: AuthType = initialState, action: ActionsType): AuthType => {
     switch (action.type) {
         case SET_USER_DATA: {
             return {
@@ -51,42 +52,34 @@ export const setAuthUserDataAC = (userId: number | null, email: string | null, l
   ({type: SET_USER_DATA, payload: {userId, email, login, isAuth}} as const)
 
 
-export const getAuthUserDataTC = () => {
-    return (dispatch: Dispatch) => {
-        //возвращаем промис внаружу, диспатч TC вернет это в app-reducer
-        return authAPI.me()
-          .then((response: ResponseData) => {
-              if (response.resultCode === 0) {
-                  let {id, email, login} = response.data;
-                  //axios упаковывает в data и разраб сервера упаковал в data
-                  dispatch(setAuthUserDataAC(id, email, login, true))
-              }
-          });
+export const getAuthUserDataTC = () =>
+  async (dispatch: Dispatch) => {
+      //возвращаем промис внаружу, диспатч TC вернет этот промис в app-reducer
+      let response: ResponseData = await authAPI.me()
+      if (response.resultCode === 0) {
+          let {id, email, login} = response.data;
+          //axios упаковывает в data и разраб сервера упаковал в data
+          dispatch(setAuthUserDataAC(id, email, login, true))
+      }
+  }
+export const loginTC = (email: string, password: string, rememberMe: boolean) =>
+  async (dispatch: Dispatch<any>) => {
+      let response = await authAPI.login(email, password, rememberMe);
+      if (response.resultCode === 0) {
+          //запускаем санку получения данных юзера с серва, если успешная логинизация
+          dispatch(getAuthUserDataTC())
+      } else {
+          //если resultCode !== 0, то останавливаем сабмит формы
+          //проверяем не пустой ли массив с сообщ. об ошибке
+          let errorMessage = response.messages.length > 0 ? response.messages[0] : "Unknown error"
+          //1 арг. название именно <form/>, вторым объект с проблемным полем (_error для всех сразу field)
+          dispatch(stopSubmit("login", {_error: errorMessage}))
+      }
+  }
+export const logoutTC = () => async (dispatch: Dispatch) => {
+    let response = await authAPI.logout()
+    if (response.resultCode === 0) {
+        //удаляем всю информацю из стейта о юзере в исходное состояние (initState)
+        dispatch(setAuthUserDataAC(null, null, null, false))
     }
 }
-export const loginTC = (email: string, password: string, rememberMe: boolean) => (dispatch: Dispatch<any>) => {
-    authAPI.login(email, password, rememberMe)
-      .then((data) => {
-          if (data.resultCode === 0) {
-              //запускаем санку получения данных юзера с серва, если успешная логинизация
-              dispatch(getAuthUserDataTC())
-          } else {
-              //если resultCode !== 0, то останавливаем сабмит формы
-              //проверяем не пустой ли массив с сообщ. об ошибке
-              let errorMessage = data.messages.length > 0 ? data.messages[0] : "Unknown error"
-              //1 арг. название именно <form/>, вторым объект с проблемным полем (_error для всех сразу field)
-              dispatch(stopSubmit("login", {_error: errorMessage} ))
-          }
-      })
-}
-export const logoutTC = () => (dispatch: Dispatch) => {
-    authAPI.logout()
-      .then((res) => {
-          if (res.resultCode === 0) {
-              //удаляем всю информацю из стейта о юзере в исходное состояние (initState)
-              dispatch(setAuthUserDataAC(null, null, null, false))
-          }
-      })
-}
-
-export default authReducer;

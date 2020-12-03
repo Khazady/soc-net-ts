@@ -1,6 +1,7 @@
 import {ActionsType} from "./redux-store";
 import {usersAPI} from "../api/api";
 
+//types
 type LocationType = {
     country: string
     city: string
@@ -21,15 +22,13 @@ export type UsersPageType = {
     isLoading: boolean
     isFollowingInProgress: any
 }
-
-
-const FOLLOW = "FOLLOW";
-const UNFOLLOW = "UNFOLLOW";
-const SET_USERS = "SET-USERS";
-const SET_CURRENT_PAGE = "SET-CURRENT-PAGE"
-const SET_TOTAL_USERS_COUNT = "SET-TOTAL-USERS-COUNT"
-const TOGGLE_IS_LOADING = "TOGGLE-IS-LOADING"
-const TOGGLE_FOLLOWING_PROGRESS = "TOGGLE_FOLLOWING_PROGRESS"
+const FOLLOW = "user/FOLLOW";
+const UNFOLLOW = "user/UNFOLLOW";
+const SET_USERS = "user/SET-USERS";
+const SET_CURRENT_PAGE = "user/SET-CURRENT-PAGE"
+const SET_TOTAL_USERS_COUNT = "user/SET-TOTAL-USERS-COUNT"
+export const TOGGLE_IS_LOADING = "user/TOGGLE-IS-LOADING"
+const TOGGLE_FOLLOWING_PROGRESS = "user/TOGGLE_FOLLOWING_PROGRESS"
 
 let initialState: UsersPageType = {
     usersData: [],
@@ -90,11 +89,11 @@ const userReducer = (state: UsersPageType = initialState, action: ActionsType): 
             return {
                 ...state,
                 isFollowingInProgress: action.isFollowingInProgress
-                  //если в action isFollowing true, то в конец массива айдишек(которые были нажаты) дописываем айди из action
-                  ? [...state.isFollowingInProgress, action.userId]
-                  //если false, то деструкт. не нужна, фильтр возвр. новый массив
-                  //удаляет из массивы обрабатывающихся id, ту, что закончила обработку
-                  : [state.isFollowingInProgress.filter((id: string) => id !== action.userId)]
+                    //если в action isFollowing true, то в конец массива айдишек(которые были нажаты) дописываем айди из action
+                    ? [...state.isFollowingInProgress, action.userId]
+                    //если false, то деструкт. не нужна, фильтр возвр. новый массив
+                    //удаляет из массивы обрабатывающихся id, ту, что закончила обработку
+                    : [state.isFollowingInProgress.filter((id: string) => id !== action.userId)]
             }
         }
         default:
@@ -102,11 +101,15 @@ const userReducer = (state: UsersPageType = initialState, action: ActionsType): 
     }
 }
 
+// actions
 export const followSuccessAC = (userId: string) => ({type: FOLLOW, userId} as const)
 export const unfollowSuccessAC = (userId: string) => ({type: UNFOLLOW, userId: userId} as const)
 export const setUsersAC = (newUsersData: Array<UsersType>) => ({type: SET_USERS, newUsersData} as const)
 export const setCurrentPageAC = (pageNumber: number) => ({type: SET_CURRENT_PAGE, pageNumber: pageNumber} as const)
-export const setTotalUsersCountAC = (totalUsersCount: number) => ({type: SET_TOTAL_USERS_COUNT, totalUsersCount} as const)
+export const setTotalUsersCountAC = (totalUsersCount: number) => ({
+    type: SET_TOTAL_USERS_COUNT,
+    totalUsersCount
+} as const)
 export const toggleIsLoadingAC = (isLoading: boolean) => ({type: TOGGLE_IS_LOADING, isLoading} as const)
 export const toggleFollowingProgressAC = (isFollowingInProgress: boolean, userId: string) => ({
     type: TOGGLE_FOLLOWING_PROGRESS,
@@ -114,52 +117,45 @@ export const toggleFollowingProgressAC = (isFollowingInProgress: boolean, userId
     userId
 } as const)
 
+// thunks
 //AC возвращает объект, кот. мы можем задиспатчить, ThunkCreator возвр. функцию кот. мы можем задиспатчить
-export const requestUsersTC = (currentPage: number, pageSize: number) => {
-    return (dispatch: any) => {
+export const requestUsersTC = (currentPage: number, pageSize: number) =>
+    async (dispatch: any) => {
         document.title = "Users";
         //включаем крутилку до запроса на серв
         dispatch(toggleIsLoadingAC(true));
-        //вынесли axios запрос в отдельный файл (api.ts) там DAL
-        usersAPI.getUsers(currentPage, pageSize)
-          .then(data => {
-              //после ответа сервера выполнится этот код
-              dispatch(setCurrentPageAC(currentPage))
-              dispatch(setUsersAC(data.items));
-              dispatch(setTotalUsersCountAC(data.totalCount));
-              //выключаем после получения ответа
-              dispatch(toggleIsLoadingAC(false));
-          });
+        let response = await usersAPI.getUsers(currentPage, pageSize)
+        //после ответа сервера выполнится этот код
+        dispatch(setCurrentPageAC(currentPage))
+        dispatch(setUsersAC(response.items));
+        dispatch(setTotalUsersCountAC(response.totalCount));
+        //выключаем после получения ответа
+        dispatch(toggleIsLoadingAC(false));
     }
-}
 
-export const followTC = (userId: string) => {
-    return (dispatch:any) => {
+export const followTC = (userId: string) =>
+    async (dispatch: any) => {
         //меняет в стейте дизаблед кнопки на тру
         dispatch(toggleFollowingProgressAC(true, userId));
-        usersAPI.followUser(userId)
-          .then(data => {
-              if (data.resultCode === 0) {
-                  dispatch(followSuccessAC(userId))
-              }
-              //разблочивает кнопку после запроса
-              dispatch(toggleFollowingProgressAC(false, userId))
-          })
+        let response = await usersAPI.followUser(userId)
+        if (response.resultCode === 0) {
+            dispatch(followSuccessAC(userId))
+        }
+        //разблочивает кнопку после запроса
+        dispatch(toggleFollowingProgressAC(false, userId))
     }
-}
-export const unfollowTC = (userId: string) => {
-    return (dispatch: any) => {
+
+export const unfollowTC = (userId: string) =>
+    async (dispatch: any) => {
         //меняет в стейте дизаблед кнопки на тру
         dispatch(toggleFollowingProgressAC(true, userId));
-        usersAPI.unFollowUser(userId)
-          .then(data => {
-              if (data.resultCode === 0) {
-                  dispatch(unfollowSuccessAC(userId))
-              }
-              //разблочивает кнопку после запроса
-              dispatch(toggleFollowingProgressAC(false, userId))
-          })
+        //дожидаемся когда промис придет в состояние resolved
+        let response = await usersAPI.unFollowUser(userId)
+        if (response.resultCode === 0) {
+            dispatch(unfollowSuccessAC(userId))
+        }
+        //разблочивает кнопку после запроса
+        dispatch(toggleFollowingProgressAC(false, userId))
     }
-}
 
 export default userReducer;

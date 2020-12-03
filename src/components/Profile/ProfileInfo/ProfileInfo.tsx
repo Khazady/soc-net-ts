@@ -18,11 +18,6 @@ function ProfileInfo(props: ProfileInfoType) {
     }
     return (
       <div>
-          {/*<div>
-              <img
-                src='https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&h=350'
-                alt="logo"/>
-          </div>*/}
           <div className={classes.descriptionBlock}>
               <img src={props.profile.photos.large} alt={"something wrong"}/>
               <ProfileStatus status={props.status} updateUserStatus={props.updateUserStatus}/>

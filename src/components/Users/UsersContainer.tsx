@@ -5,7 +5,7 @@ import {
     toggleFollowingProgressAC, requestUsersTC, unfollowTC, followTC
 } from "../../redux/users-reducer";
 import React from "react";
-import {Users} from "./Users";
+import {UsersList} from "./UsersList";
 import { Preloader } from "../common/Preloader/Preloader";
 import {withAuthRedirect} from "../../hoc/withAuthRedirectHOC";
 import { compose } from "redux";
@@ -46,14 +46,14 @@ class UsersContainer extends React.Component<UserContainerProps, any> {
         //после return --- если идет запрос на сервак, то отобразить крутилку
         return <>
             {this.props.isLoading ? <Preloader/> : null}
-            <Users totalUsersCount={this.props.totalUsersCount}
-                   pageSize={this.props.pageSize}
-                   currentPage={this.props.currentPage}
-                   follow={this.props.follow}
-                   unfollow={this.props.unfollow}
-                   onPageChanger={this.onPageChanger}
-                   users={this.props.users}
-                   isFollowedInProgress={this.props.isFollowingInProgress}
+            <UsersList totalUsersCount={this.props.totalUsersCount}
+                       pageSize={this.props.pageSize}
+                       currentPage={this.props.currentPage}
+                       follow={this.props.follow}
+                       unfollow={this.props.unfollow}
+                       onPageChanger={this.onPageChanger}
+                       users={this.props.users}
+                       isFollowedInProgress={this.props.isFollowingInProgress}
                     />
         </>
     }

@@ -6,14 +6,14 @@ import {Input} from "../../common/FormsWithValidationErrors/FormsWithValidationE
 import {required} from "../../../utils/validators";
 import { LoginFormData } from "../Login";
 import classes from "./../../common/FormsWithValidationErrors/FormsWithValidationErrors.module.css";
-
-const LoginForm: React.FC<InjectedFormProps<LoginFormData>> = (props) => (
+//деструктуризация пропсов, достаем из них нужные айтемы, чтобы постоянно не писать props.error
+const LoginForm: React.FC<InjectedFormProps<LoginFormData>> = ({handleSubmit, error}) => (
   //handleSubmit прокинул HOC, он делает e.preventDefault, передает значения из инпутов наверх упакуя в объект
-  <form onSubmit={props.handleSubmit}>
+  <form onSubmit={handleSubmit}>
       <div><Field component={Input} validate={[required]} name="email" placeholder="Email" type='email'/></div>
       <div><Field component={Input} validate={[required]} name="password" placeholder="Password" type='password'/></div>
       <div><Field component={Input} name="rememberMe" type="checkbox"/> remember me</div>
-      {props.error && <div className={classes.formSummaryError}>{props.error}</div>}
+      {error && <div className={classes.formSummaryError}>{error}</div>}
       <div>
           <button>Login</button>
       </div>

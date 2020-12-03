@@ -1,14 +1,11 @@
 import {ActionsType} from "./redux-store";
-import {Dispatch} from "redux";
 import {getAuthUserDataTC} from "./auth-reducer";
 
+// types
+const INITIALIZING_SUCCESS = "app/INITIALIZING_SUCCESS"
 
-const INITIALIZING_SUCCESS = "INITIALIZING_SUCCESS"
 
-
-let initialState = {
-    initialized: false
-};
+let initialState = {initialized: false};
 
 const appReducer = (state = initialState, action: ActionsType) => {
     switch (action.type) {
@@ -23,12 +20,13 @@ const appReducer = (state = initialState, action: ActionsType) => {
     }
 }
 
+// actions
 export const setInitializingSuccessAC = () => ({type: INITIALIZING_SUCCESS} as const)
 
-
-export const initializeAppTC = () => {
+// thunks
+export const initializeAppTC = () =>  {
     return (dispatch: any) => {
-        //dispatch Не только что-то диспатчит, но и умеет возвращать что-то, что напишем в ретурне санки
+        //dispatch Не только что-то диспатчит, но и умеет возвращать что-то, что напишем в ретурне санки(или async await сам по себе ретурнит его??)
         let promise = dispatch(getAuthUserDataTC())
         //all ждет пока зарезолвятся все промисы из массива
         Promise.all([promise])

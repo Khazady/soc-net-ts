@@ -1,6 +1,6 @@
 import {applyMiddleware, combineReducers, createStore, Store} from "redux";
-import profileReducer, {addPostAC, deletePostAC, setProfileAC, setStatusAC} from "./profile-reducer";
-import dialogsReducer, {addMessageAC, deleteMessageAC} from "./dialogs-reducer";
+import {profileReducer, addPostAC, deletePostAC, setProfileAC, setStatusAC} from "./profile-reducer";
+import {dialogsReducer, addMessageAC, deleteMessageAC} from "./dialogs-reducer";
 import userReducer, {
     followSuccessAC,
     setCurrentPageAC,
@@ -10,7 +10,7 @@ import userReducer, {
     toggleIsLoadingAC,
     unfollowSuccessAC,
 } from "./users-reducer";
-import authReducer, {setAuthUserDataAC} from "./auth-reducer";
+import {authReducer, setAuthUserDataAC} from "./auth-reducer";
 import thunkMiddleware from "redux-thunk";
 import {reducer as formReducer} from 'redux-form'
 import appReducer, {setInitializingSuccessAC} from "./app-reducer";

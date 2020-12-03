@@ -14,7 +14,7 @@ export const withAuthRedirect = (Component: any) => {
     class RedirectComponent extends React.Component<any, any> {
         render() {
             //если не залогинен, то редирект на логин
-            if (!this.props.isAuth) return <Redirect to='/soc-net-ts/login'/>
+            if (!this.props.isAuth) return <Redirect to='/login'/>
             //возвращаем пришедший компонент с его пропсами
             return <Component {...this.props}/>
         }

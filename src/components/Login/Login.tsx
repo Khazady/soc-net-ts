@@ -18,7 +18,7 @@ const Login = (props: any) => {
     }
 
     if(props.isAuth) {
-        return <Redirect to={"soc-net-ts/profile"}/>
+        return <Redirect to={"/profile"}/>
     }
     return <div>
         <h1>LOGIN</h1>
