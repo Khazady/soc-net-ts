@@ -15,17 +15,18 @@ export type UsersListPropsType = {
 }
 
 export const UsersList: React.FC<UsersListPropsType> = (props) => (
-    <div>
-        <Paginator totalUsersCount={props.totalUsersCount}
-                   pageSize={props.pageSize}
-                   currentPage={props.currentPage}
-                   onPageChanger={props.onPageChanger}/>
-        {
-            props.users.map(u => <User key={u.id}
-                                       user={u}
-                                       isFollowedInProgress={props.isFollowedInProgress}
-                                       follow={props.follow} unfollow={props.unfollow}/>
-            )
-        }
-    </div>
+  <div>
+      <Paginator totalItemsCount={props.totalUsersCount}
+                 pageSize={props.pageSize}
+                 currentPage={props.currentPage}
+                 onPageChanger={props.onPageChanger}
+                 portionSize={10}/>
+      {
+          props.users.map(u => <User key={u.id}
+                                     user={u}
+                                     isFollowedInProgress={props.isFollowedInProgress}
+                                     follow={props.follow} unfollow={props.unfollow}/>
+          )
+      }
+  </div>
 )

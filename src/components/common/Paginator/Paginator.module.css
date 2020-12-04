@@ -1,8 +1,17 @@
+.paginator {
+    margin: 15px;
+}
+
 .page {
     cursor: pointer;
+    padding: 2px;
+    border: 1px solid gray;
 }
 
 .selectedPage {
     font-weight: bold;
-    color: darkorange;
+    color: #d6b776;
+    padding: 2px;
+    border: 1px solid gray;
+    background-color: #000;
 }

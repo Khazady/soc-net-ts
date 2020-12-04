@@ -1,6 +1,6 @@
-import {applyMiddleware, combineReducers, createStore, Store} from "redux";
-import {profileReducer, addPostAC, deletePostAC, setProfileAC, setStatusAC} from "./profile-reducer";
-import {dialogsReducer, addMessageAC, deleteMessageAC} from "./dialogs-reducer";
+import {applyMiddleware, combineReducers, compose, createStore} from "redux";
+import {addPostAC, deletePostAC, profileReducer, setProfileAC, setStatusAC} from "./profile-reducer";
+import {addMessageAC, deleteMessageAC, dialogsReducer} from "./dialogs-reducer";
 import userReducer, {
     followSuccessAC,
     setCurrentPageAC,
@@ -45,7 +45,14 @@ let reducers = combineReducers({
     form: formReducer
 });
 
-export let store: Store = createStore(reducers, applyMiddleware(thunkMiddleware));
+//store for ReduxDevTools
+//расширение добавит в глобальный window __REDUX_D.., если его нет то обычный compose
+// @ts-ignore
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+export const store = createStore(reducers,composeEnhancers( applyMiddleware(thunkMiddleware)));
+
+//обычный стор
+//export let store: Store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
 
 //нужно для того, чтобы видеть store в консоли
