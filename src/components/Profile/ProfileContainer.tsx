@@ -2,7 +2,7 @@ import React from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import {RootStateType} from "../../redux/redux-store";
-import {getUserProfileTC, getUserStatusTC, updateStatusTC} from "../../redux/profile-reducer";
+import {getUserProfileTC, getUserStatusTC, updateStatusTC, savePhotoTC} from "../../redux/profile-reducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
@@ -44,6 +44,7 @@ type MapDispatchToPropsType = {
     getUserProfile: (userId: string) => void
     getUserStatus: (userId: string) => void
     updateUserStatus: (status: string) => void
+    savePhoto: (photo: File | null | undefined) => void
 }
 type OwnPropsType = MapStateToPropsType & MapDispatchToPropsType
 type PathParamType = {
@@ -54,8 +55,7 @@ type PropsType = RouteComponentProps<PathParamType> & OwnPropsType
 
 //1-ый контейнер для AJAX запросов, setInterval и т.д. (грязной работы), рисует презентационную
 class ProfileContainer extends React.Component<PropsType, any> {
-
-    componentDidMount() {
+    refreshProfile() {
         document.title = "Profile";
         //айди из URL (withRouter, Route)
         let userId = this.props.match.params.userId;
@@ -68,12 +68,28 @@ class ProfileContainer extends React.Component<PropsType, any> {
         this.props.getUserStatus(userId);
     }
 
+    componentDidMount() {
+        this.refreshProfile()
+    }
+
+    componentDidUpdate(prevProps: Readonly<PropsType>, prevState: Readonly<MapStateToPropsType>) {
+        //чтобы компонента обновлялась, если после вмонтирования меняем юзера
+        if (this.props.match.params.userId !== prevProps.match.params.userId) {
+            this.refreshProfile()
+
+        }
+    }
+
     render() {
         //копирует и передает все пропсы
         return <Profile {...this.props}
                         profile={this.props.profile}
                         status={this.props.status}
-                        updateUserStatus={this.props.updateUserStatus}/>
+                        updateUserStatus={this.props.updateUserStatus}
+          //если нет userId, то owner страницы (для показа кнопки загрузки фото)
+                        isOwner={!this.props.match.params.userId}
+                        savePhoto={this.props.savePhoto}
+        />
     }
 }
 
@@ -94,7 +110,10 @@ let mapDispatchToProps = (dispatch: any): MapDispatchToPropsType => ({
     },
     updateUserStatus: (status) => {
         dispatch(updateStatusTC(status))
-    }
+    },
+    savePhoto: (photo => {
+        dispatch(savePhotoTC(photo))
+    })
 })
 
 export default compose(

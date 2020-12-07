@@ -1,34 +1,45 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import classes from "./ProfileInfo.module.css";
 import {Preloader} from "../../common/Preloader/Preloader";
-import job from "../../../assets/images/lookingForAJob.jpg"
-import noJob from "../../../assets/images/notLookingForAJob.jpg"
-import { ProfileStatus } from './ProfileStatus';
+import {ProfileStatus} from './ProfileStatus';
+import userPhoto from "../../../assets/images/default-user-avatar.svg";
 
 type ProfileInfoType = {
     profile: any
     status: string
     updateUserStatus: (status: string) => void
+    isOwner: boolean
+    savePhoto: (photo: File | null | undefined) => void
 }
 
-function ProfileInfo(props: ProfileInfoType) {
+const ProfileInfo = (props: ProfileInfoType) => {
     //наш профиль в иниц стейте = null, поэтому когда он null рисуем колесо
     if (!props.profile) {
         return <Preloader/>
     }
+
+    const MainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.currentTarget.files?.length) {
+            const selectedFile = e.target.files?.item(0)
+            props.savePhoto(selectedFile)
+        }
+    }
     return (
       <div>
           <div className={classes.descriptionBlock}>
-              <img src={props.profile.photos.large} alt={"something wrong"}/>
+              <img src={props.profile.photos.large || userPhoto} className={classes.mainPhoto} alt={"something wrong"}/>
+              {props.isOwner ? <input type='file' onChange={MainPhotoSelected}/> : null}
               <ProfileStatus status={props.status} updateUserStatus={props.updateUserStatus}/>
               <span>{props.profile.aboutMe}</span>
           </div>
           <div>
-              {props.profile.lookingForAJob ? <img src={job} alt={"alt"}/> : <img src={noJob} alt={"alt"}/>}
+              {props.profile.lookingForAJob
+                ? <p style={{padding: "10px"}}>Open to work</p>
+                : <p style={{padding: "10px"}}>Not interested in work</p>}
               <span>{props.profile.lookingForAJobDescription}</span>
           </div>
       </div>
     )
-}
+};
 
 export default ProfileInfo;

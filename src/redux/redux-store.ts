@@ -1,5 +1,5 @@
 import {applyMiddleware, combineReducers, compose, createStore} from "redux";
-import {addPostAC, deletePostAC, profileReducer, setProfileAC, setStatusAC} from "./profile-reducer";
+import {addPostAC, deletePostAC, profileReducer, setProfileAC, setStatusAC, savePhotosSuccessAC} from "./profile-reducer";
 import {addMessageAC, deleteMessageAC, dialogsReducer} from "./dialogs-reducer";
 import userReducer, {
     followSuccessAC,
@@ -32,7 +32,8 @@ export type ActionsType =
   ReturnType<typeof setStatusAC> |
   ReturnType<typeof setInitializingSuccessAC> |
   ReturnType<typeof deletePostAC> |
-  ReturnType<typeof deleteMessageAC>
+  ReturnType<typeof deleteMessageAC> |
+  ReturnType<typeof savePhotosSuccessAC>
 
 let reducers = combineReducers({
     //этот объект воспринимать как state

@@ -42,6 +42,19 @@ export const profileAPI = {
     updateStatus(status: string) {
         return instance.put(`profile/status`, {status: status})
           .then(response => response.data)},
+    uploadPhoto(photoFile: any) {
+        debugger
+        //формируем объект с файлом
+        let formData = new FormData();
+        formData.append("image", photoFile)
+        return instance.put(`profile/photo`, formData, {
+            //меня тип отправляемых данных с json на формдату
+            headers: {
+                'Content-type': 'multipart/form-data'
+            }
+        })
+          .then(response => response.data)
+    }
 }
 
 
