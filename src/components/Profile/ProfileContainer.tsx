@@ -2,10 +2,17 @@ import React from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import {RootStateType} from "../../redux/redux-store";
-import {getUserProfileTC, getUserStatusTC, updateStatusTC, savePhotoTC} from "../../redux/profile-reducer";
+import {
+    getUserProfile,
+    getStatus,
+    updateStatus,
+    updatePhoto,
+    updateProfile
+} from "../../redux/profile-reducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
+import {ProfileFormDataType} from "./ProfileInfo/ProfileInfo";
 
 //типы объектов с серва (то, что должен возвращать MStP
 type profileContactsServerType = {
@@ -22,7 +29,7 @@ type profilePhotosServerType = {
     small: string | null
     large: string | null
 }
-type profileServerType = {
+export type profileServerType = {
     aboutMe: string | null
     userId: number
     lookingForAJob: boolean
@@ -34,27 +41,22 @@ type profileServerType = {
 export type MapStateToPropsForRedirectType = {
     isAuth: boolean
 }
-type MapStateToPropsType = {
-    profile: profileServerType
-    status: string
-    authorizedUserId: number | null
-    isAuth: boolean
-}
-type MapDispatchToPropsType = {
+type MapPropsType = ReturnType<typeof mapStateToProps>
+type DispatchPropsType = {
     getUserProfile: (userId: string) => void
-    getUserStatus: (userId: string) => void
-    updateUserStatus: (status: string) => void
-    savePhoto: (photo: File | null | undefined) => void
+    getStatus: (userId: string) => void
+    updateStatus: (status: string) => void
+    updatePhoto: (photo: File | null | undefined) => void
+    updateProfile: (changedProfile: profileServerType) => Promise<any>
 }
-type OwnPropsType = MapStateToPropsType & MapDispatchToPropsType
 type PathParamType = {
     userId: string | undefined
 }
-type PropsType = RouteComponentProps<PathParamType> & OwnPropsType
+type PropsType = RouteComponentProps<PathParamType> & MapPropsType & DispatchPropsType
 
 
 //1-ый контейнер для AJAX запросов, setInterval и т.д. (грязной работы), рисует презентационную
-class ProfileContainer extends React.Component<PropsType, any> {
+class ProfileContainer extends React.Component<PropsType> {
     refreshProfile() {
         document.title = "Profile";
         //айди из URL (withRouter, Route)
@@ -65,14 +67,14 @@ class ProfileContainer extends React.Component<PropsType, any> {
             userId = this.props.authorizedUserId ? this.props.authorizedUserId.toString() : ""
         }
         this.props.getUserProfile(userId);
-        this.props.getUserStatus(userId);
+        this.props.getStatus(userId);
     }
 
     componentDidMount() {
         this.refreshProfile()
     }
 
-    componentDidUpdate(prevProps: Readonly<PropsType>, prevState: Readonly<MapStateToPropsType>) {
+    componentDidUpdate(prevProps: PropsType, prevState: PropsType) {
         //чтобы компонента обновлялась, если после вмонтирования меняем юзера
         if (this.props.match.params.userId !== prevProps.match.params.userId) {
             this.refreshProfile()
@@ -85,15 +87,15 @@ class ProfileContainer extends React.Component<PropsType, any> {
         return <Profile {...this.props}
                         profile={this.props.profile}
                         status={this.props.status}
-                        updateUserStatus={this.props.updateUserStatus}
+                        updateStatus={this.props.updateStatus}
           //если нет userId, то owner страницы (для показа кнопки загрузки фото)
                         isOwner={!this.props.match.params.userId}
-                        savePhoto={this.props.savePhoto}
+                        updatePhoto={this.props.updatePhoto}
         />
     }
 }
 
-let mapStateToProps = (state: RootStateType): MapStateToPropsType => {
+let mapStateToProps = (state: RootStateType) => {
     return ({
         profile: state.profilePage.profile,
         status: state.profilePage.status,
@@ -101,23 +103,26 @@ let mapStateToProps = (state: RootStateType): MapStateToPropsType => {
         isAuth: state.auth.isAuth
     })
 }
-let mapDispatchToProps = (dispatch: any): MapDispatchToPropsType => ({
+/*let mapDispatchToProps = (dispatch: any): DispatchPropsType => ({
     getUserProfile: (userId) => {
         dispatch(getUserProfileTC(userId))
     },
-    getUserStatus: (userId) => {
+    getStatus: (userId) => {
         dispatch(getUserStatusTC(userId))
     },
-    updateUserStatus: (status) => {
+    updateStatus: (status) => {
         dispatch(updateStatusTC(status))
     },
-    savePhoto: (photo => {
-        dispatch(savePhotoTC(photo))
+    updatePhoto: (photo => {
+        dispatch(updatePhotoTC(photo))
+    }),
+    updateProfile: (changedProfile => {
+        dispatch(updateProfileTC(changedProfile))
     })
-})
+})*/
 
 export default compose(
   withAuthRedirect,
   withRouter,
-  connect(mapStateToProps, mapDispatchToProps)
+  connect(mapStateToProps, {getUserProfile, getStatus, updateStatus, updatePhoto, updateProfile})
 )(ProfileContainer)

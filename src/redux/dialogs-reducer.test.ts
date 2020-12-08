@@ -1,5 +1,4 @@
-import dialogsReducer, {addMessageAC, deleteMessageAC, DialogsPageType} from "./dialogs-reducer";
-import profileReducer, {deletePostAC} from "./profile-reducer";
+import {dialogsReducer, addMessageAC, deleteMessageAC, DialogsPageType} from "./dialogs-reducer";
 
 let startState: DialogsPageType;
 beforeEach(() => {

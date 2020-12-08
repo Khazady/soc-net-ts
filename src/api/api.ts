@@ -1,4 +1,5 @@
 import axios from "axios";
+import {ProfileFormDataType} from "../components/Profile/ProfileInfo/ProfileInfo";
 // это DAL
 //api pass samurai1809
 
@@ -35,15 +36,17 @@ export const usersAPI = {
 export const profileAPI = {
     getProfile(userId: string) {
         return instance.get(`profile/${userId}`)
-          .then(response => response.data)},
+          .then(response => response.data)
+    },
     getUserStatus(userId: string) {
         return instance.get(`profile/status/${userId}`)
-          .then(response => response.data)},
+          .then(response => response.data)
+    },
     updateStatus(status: string) {
-        return instance.put(`profile/status`, {status: status})
-          .then(response => response.data)},
+        return instance.put(`profile/status`, {status})
+          .then(response => response.data)
+    },
     uploadPhoto(photoFile: any) {
-        debugger
         //формируем объект с файлом
         let formData = new FormData();
         formData.append("image", photoFile)
@@ -54,7 +57,11 @@ export const profileAPI = {
             }
         })
           .then(response => response.data)
-    }
+    },
+    updateProfile(changedProfile: ProfileFormDataType) {
+        return instance.put(`profile`, changedProfile)
+          .then(response => response.data)
+    },
 }
 
 

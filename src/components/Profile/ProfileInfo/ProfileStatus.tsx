@@ -23,14 +23,15 @@ export const ProfileStatus: React.FC<ProfileStatusType> = (props) => {
     const [status, setStatus] = useState(props.status)
     return (
       <>
+          <b>Status: </b>
           {editMode
-            ? <div>
+            ? <span>
                 <input onChange={onStatusChange} autoFocus onBlur={deactivateEditMode}
                        value={status}/>
-            </div>
-            : <div>
+            </span>
+            : <span>
                 <span onDoubleClick={activateEditMode}>{props.status || "empty status"}</span>
-            </div>}
+            </span>}
       </>
     )
 }

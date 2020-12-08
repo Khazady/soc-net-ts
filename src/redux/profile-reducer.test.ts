@@ -1,4 +1,4 @@
-import profileReducer, {addPostAC, deletePostAC, ProfilePageType} from "./profile-reducer";
+import {profileReducer, addPostAC, deletePostAC, ProfilePageType} from "./profile-reducer";
 
 let startState: ProfilePageType;
 beforeEach(() => {

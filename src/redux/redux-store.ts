@@ -1,5 +1,12 @@
 import {applyMiddleware, combineReducers, compose, createStore} from "redux";
-import {addPostAC, deletePostAC, profileReducer, setProfileAC, setStatusAC, savePhotosSuccessAC} from "./profile-reducer";
+import {
+    addPostAC,
+    deletePostAC,
+    profileReducer,
+    savePhotosSuccessAC,
+    setProfileAC,
+    setStatusAC
+} from "./profile-reducer";
 import {addMessageAC, deleteMessageAC, dialogsReducer} from "./dialogs-reducer";
 import userReducer, {
     followSuccessAC,

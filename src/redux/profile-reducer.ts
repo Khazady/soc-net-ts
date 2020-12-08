@@ -2,6 +2,8 @@ import {v1} from "uuid";
 import {ActionsType} from "./redux-store";
 import {profileAPI} from "../api/api";
 import {Dispatch} from "redux";
+import {ProfileFormDataType} from "../components/Profile/ProfileInfo/ProfileInfo";
+import {stopSubmit} from "redux-form";
 
 // types
 const ADD_POST = 'profile/ADD_POST'
@@ -75,24 +77,35 @@ export const savePhotosSuccessAC = (photos: { large: string, small: string }) =>
 
 
 // thunks
-export const getUserProfileTC = (userId: string) => async (dispatch: Dispatch<ActionsType>) => {
+export const getUserProfile = (userId: string) => async (dispatch: Dispatch<ActionsType>) => {
     let response = await profileAPI.getProfile(userId)
     dispatch(setProfileAC(response))
 }
-export const getUserStatusTC = (userId: string) => async (dispatch: Dispatch<ActionsType>) => {
+export const getStatus = (userId: string) => async (dispatch: Dispatch<ActionsType>) => {
     let response = await profileAPI.getUserStatus(userId)
     dispatch(setStatusAC(response))
 }
-export const updateStatusTC = (status: string) => async (dispatch: Dispatch<ActionsType>) => {
+export const updateStatus = (status: string) => async (dispatch: Dispatch<ActionsType>) => {
     let response = await profileAPI.updateStatus(status)
     if (response.resultCode === 0) {
         dispatch(setStatusAC(status))
     }
 }
-export const savePhotoTC = (photo: File | null | undefined) => async (dispatch: Dispatch<ActionsType>) => {
+export const updatePhoto = (photo: File | null | undefined) => async (dispatch: Dispatch<ActionsType>) => {
     let response = await profileAPI.uploadPhoto(photo)
     if (response.resultCode === 0) {
         dispatch(savePhotosSuccessAC(response.data.photos))
+    }
+}
+export const updateProfile = (changedProfile: ProfileFormDataType) => async (dispatch: Dispatch<any>, getState: any) => {
+    const userId = getState().auth.userId
+    const response = await profileAPI.updateProfile(changedProfile)
+    if (response.resultCode === 0) {
+        //т.к серв не возвращает обновленный профиль, то диспатчим санку для его получения
+        dispatch(getUserProfile(userId))
+    } else {
+        dispatch(stopSubmit('edit-profile', {_error: response.messages[0]}))
+        return Promise.reject(response.messages[0]);
     }
 }
 
