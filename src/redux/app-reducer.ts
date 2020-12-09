@@ -5,16 +5,16 @@ import {getAuthUserDataTC} from "./auth-reducer";
 const INITIALIZING_SUCCESS = "app/INITIALIZING_SUCCESS"
 
 
-let initialState = {initialized: false};
+const initialState = {initialized: false};
 
 const appReducer = (state = initialState, action: ActionsType) => {
     switch (action.type) {
-        case INITIALIZING_SUCCESS: {
+        case INITIALIZING_SUCCESS:
             return {
                 ...state,
                 initialized: true
             }
-        }
+
         default:
             return state
     }
@@ -24,7 +24,7 @@ const appReducer = (state = initialState, action: ActionsType) => {
 export const setInitializingSuccessAC = () => ({type: INITIALIZING_SUCCESS} as const)
 
 // thunks
-export const initializeAppTC = () =>  {
+export const initializeAppTC = () => {
     return (dispatch: any) => {
         //dispatch Не только что-то диспатчит, но и умеет возвращать что-то, что напишем в ретурне санки(или async await сам по себе ретурнит его??)
         let promise = dispatch(getAuthUserDataTC())

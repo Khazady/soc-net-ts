@@ -17,7 +17,7 @@ import userReducer, {
     toggleIsLoadingAC,
     unfollowSuccessAC,
 } from "./users-reducer";
-import {authReducer, setAuthUserDataAC, getCaptchaUrlSuccessAC} from "./auth-reducer";
+import {authReducer, getCaptchaUrlSuccessAC, setAuthUserDataAC} from "./auth-reducer";
 import thunkMiddleware from "redux-thunk";
 import {reducer as formReducer} from 'redux-form'
 import appReducer, {setInitializingSuccessAC} from "./app-reducer";

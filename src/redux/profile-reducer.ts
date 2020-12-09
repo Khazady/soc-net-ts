@@ -86,9 +86,13 @@ export const getStatus = (userId: string) => async (dispatch: Dispatch<ActionsTy
     dispatch(setStatusAC(response))
 }
 export const updateStatus = (status: string) => async (dispatch: Dispatch<ActionsType>) => {
-    let response = await profileAPI.updateStatus(status)
-    if (response.resultCode === 0) {
-        dispatch(setStatusAC(status))
+    try {
+        let response = await profileAPI.updateStatus(status)
+        if (response.resultCode === 0) {
+            dispatch(setStatusAC(status))
+        }
+    } catch(error) {
+        alert(error)
     }
 }
 export const updatePhoto = (photo: File | null | undefined) => async (dispatch: Dispatch<ActionsType>) => {
@@ -104,7 +108,8 @@ export const updateProfile = (changedProfile: ProfileFormDataType) => async (dis
         //т.к серв не возвращает обновленный профиль, то диспатчим санку для его получения
         dispatch(getUserProfile(userId))
     } else {
-        dispatch(stopSubmit('edit-profile', {_error: response.messages[0]}))
+        //в чейне выбираем из строки ошибки с сервера название нужного поля, в котором она происходит
+        dispatch(stopSubmit('edit-profile', {'contacts': {[response.messages[0].substring(30, response.messages[0].length - 1).toLowerCase()]: response.messages[0]}}))
         return Promise.reject(response.messages[0]);
     }
 }
