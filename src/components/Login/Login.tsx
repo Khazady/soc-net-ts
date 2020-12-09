@@ -9,12 +9,13 @@ export type LoginFormData = {
     email: string,
     password: string,
     rememberMe: boolean
+    captchaInput: string
 }
 
 const Login = (props: any) => {
     //сюда придет инфа по инпутам, собранная handleSubmit {login: 'что ввел', rememberMe: true} и тд
     const onSubmit = (formData: LoginFormData) => {
-        props.login(formData.email, formData.password, formData.rememberMe)
+        props.login(formData.email, formData.password, formData.rememberMe, formData.captchaInput)
     }
 
     if(props.isAuth) {
@@ -22,11 +23,12 @@ const Login = (props: any) => {
     }
     return <div>
         <h1>LOGIN</h1>
-        <LoginReduxForm onSubmit={onSubmit}/>
+        <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl}/>
     </div>
 }
 
 const mapStateToProps = (state: RootStateType) => ({
+    captchaUrl: state.auth.captchaUrl,
     isAuth: state.auth.isAuth
 })
 

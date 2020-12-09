@@ -17,7 +17,7 @@ import userReducer, {
     toggleIsLoadingAC,
     unfollowSuccessAC,
 } from "./users-reducer";
-import {authReducer, setAuthUserDataAC} from "./auth-reducer";
+import {authReducer, setAuthUserDataAC, getCaptchaUrlSuccessAC} from "./auth-reducer";
 import thunkMiddleware from "redux-thunk";
 import {reducer as formReducer} from 'redux-form'
 import appReducer, {setInitializingSuccessAC} from "./app-reducer";
@@ -40,7 +40,8 @@ export type ActionsType =
   ReturnType<typeof setInitializingSuccessAC> |
   ReturnType<typeof deletePostAC> |
   ReturnType<typeof deleteMessageAC> |
-  ReturnType<typeof savePhotosSuccessAC>
+  ReturnType<typeof savePhotosSuccessAC> |
+  ReturnType<typeof getCaptchaUrlSuccessAC>
 
 let reducers = combineReducers({
     //этот объект воспринимать как state
