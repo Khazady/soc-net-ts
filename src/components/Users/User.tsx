@@ -1,17 +1,17 @@
 import styles from "./Users.module.css";
 import userPhoto from "../../assets/images/default-user-avatar.svg";
 import React from "react";
-import {UsersType} from "../../redux/users-reducer";
 import {NavLink} from "react-router-dom";
+import { UserType } from "../../types/commonTypes";
 
-export type UserPropsType = {
-    user: UsersType
-    follow: any
-    unfollow: any
-    isFollowedInProgress: string[]
+type PropsType = {
+    user: UserType
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
+    isFollowedInProgress: Array<number>
 }
 
-export const User: React.FC<UserPropsType> = ({user, ...props}) => (
+export const User: React.FC<PropsType> = ({user, ...props}) => (
     <div>
                 <span>
                     <div>
@@ -27,12 +27,12 @@ export const User: React.FC<UserPropsType> = ({user, ...props}) => (
                     <div>
                         {user.followed ?
                             //если хоть кто-то из массива обрабатывающихся id совпадает с user id по которым мапимся, то true в disabled
-                            <button disabled={props.isFollowedInProgress.some((id: string) => id === user.id)}
+                            <button disabled={props.isFollowedInProgress.some((id) => id === user.id)}
                                     onClick={() => {
                                         //меняет в стейте дизаблед кнопки на тру
                                         props.unfollow(user.id)
                                     }}>Unfollow</button>
-                            : <button disabled={props.isFollowedInProgress.some((id: string) => id === user.id)}
+                            : <button disabled={props.isFollowedInProgress.some((id) => id === user.id)}
                                       onClick={() => {
                                           props.follow(user.id)
                                       }}>Follow</button>
@@ -43,11 +43,6 @@ export const User: React.FC<UserPropsType> = ({user, ...props}) => (
                         <div>{user.name}</div>
                         <div>{user.status}</div>
                         </span>
-                        <span>
-                        <div>{"u.location.city"}</div>
-                        <div>{"u.location.country"}</div>
-                        </span>
-
             {/*<button onClick={() => {*/}
             {/*    this.props.setUsers()*/}
             {/*}}>Show more</button>*/}

@@ -1,11 +1,12 @@
 import React from 'react'
 import {Preloader} from "../components/common/Preloader/Preloader";
 
+//WCP - wrapped component props
 //HOC возвращает новую компоненту, а не JSX
-export const withSuspense = (Component: any) => {
+export function withSuspense <WCP>(WrappedComponent: React.ComponentType<WCP>) {
     //для lazy, в fallback указываем компоненту, кот. будет показываться пока ждем загрузки
-    return (props: any) => <React.Suspense fallback={<Preloader/>}>
-        <Component {...props}/>
+    return (props: WCP) => <React.Suspense fallback={<Preloader/>}>
+        <WrappedComponent {...props}/>
     </React.Suspense>
 }
 

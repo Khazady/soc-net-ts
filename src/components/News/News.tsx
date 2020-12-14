@@ -1,12 +1,10 @@
 import React from "react";
 import classes from "./News.module.css";
 
-function News(props: any) {
-  return (
-    <div>
+const News: React.FC = () => (
+  <div>
       News
-    </div>
-  )
-}
+  </div>
+);
 
 export default News;

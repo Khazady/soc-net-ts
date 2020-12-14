@@ -1,14 +1,11 @@
 import React from "react";
 import classes from "./../Dialogs.module.css";
-import { NavLink } from "react-router-dom";
-import { DialogItemType } from "../../../redux/dialogs-reducer";
+import {NavLink} from "react-router-dom";
+import {DialogItemType} from "../../../types/commonTypes";
 
-function DialogItem(props: DialogItemType) {
-  return (
-    <div className={classes.dialog}>
+type PropsType = DialogItemType
+export const DialogItem: React.FC<PropsType> = (props) => (
+  <div className={classes.dialog}>
       <NavLink to={`/dialogs/${props.id}`}><img src={props.avatar} alt="avatar"/>{props.name}</NavLink>
-    </div>
-  );
-}
-
-export default DialogItem;
+  </div>
+)

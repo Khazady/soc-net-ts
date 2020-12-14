@@ -1,11 +1,11 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState, FC} from 'react';
 
-type ProfileStatusType = {
+type PropsType = {
     status: string
-    updateUserStatus: (status: string) => void
+    updateStatus: (status: string) => void
 }
 
-export const ProfileStatus: React.FC<ProfileStatusType> = (props) => {
+export const ProfileStatus: FC<PropsType> = (props) => {
     //синхронизируй компоненту с состоянием, когда меняется props.status
     useEffect(() => setStatus(props.status), [props.status])
 
@@ -16,7 +16,7 @@ export const ProfileStatus: React.FC<ProfileStatusType> = (props) => {
     const deactivateEditMode = () => {
         setEditMode(false)
         //отправляем в глобал стейт и на сервак, выходя из editMode
-        props.updateUserStatus(status)
+        props.updateStatus(status)
     }
     const onStatusChange = (e: ChangeEvent<HTMLInputElement>) => setStatus(e.currentTarget.value)
     const [editMode, setEditMode] = useState(false)

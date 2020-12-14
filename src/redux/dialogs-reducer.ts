@@ -1,26 +1,7 @@
-import {v1} from "uuid";
-import {ActionsType} from "./redux-store";
+import {v1} from 'uuid'
+import {DialogItemType, MessageType} from "../types/commonTypes";
 
-// types
-const ADD_MESSAGE = "dialogs/ADD_MESSAGE"
-const DELETE_MESSAGE = "dialogs/DELETE_MESSAGE"
-export type DialogItemType = {
-    name: string;
-    id: number;
-    avatar: string
-};
-export type MessageType = {
-    id: string
-    message: string;
-};
-export type DialogsPageType = {
-    dialogsData: Array<DialogItemType>;
-    messagesData: Array<MessageType>;
-};
-
-
-
-let initialState: DialogsPageType = {
+const initialState = {
     dialogsData: [
         {
             id: 1,
@@ -47,28 +28,28 @@ let initialState: DialogsPageType = {
             name: "Ivan",
             avatar: "https://upload.wikimedia.org/wikipedia/commons/9/99/Chris_Pratt_2018.jpg"
         },
-    ],
+    ] as Array<DialogItemType>,
     messagesData: [
         {id: v1(), message: "Hello"},
         {id: v1(), message: "What's up"},
         {id: v1(), message: "Privet"},
         {id: v1(), message: "Yo"},
         {id: v1(), message: "Yo"},
-    ],
+    ] as Array<MessageType>,
 };
 
-export const dialogsReducer = (state: DialogsPageType = initialState, action: ActionsType): DialogsPageType => {
+export const dialogsReducer = (state = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
-        case ADD_MESSAGE:
+        case 'ADD_MESSAGE':
             let newMessage = {id: v1(), message: action.newMessageText}
             return {
                 ...state,
-                messagesData: [...state.messagesData, newMessage ]
+                messagesData: [...state.messagesData, newMessage]
                 //эта запись перезатирает shallow-копию messagesData
                 //массив messagesData содержит объекты, мы их глубоко не копируем, т.к. не изменяем
                 //dialogsData глубоко не копируем, не собираемся изменять
             };
-        case DELETE_MESSAGE:
+        case 'DELETE_MESSAGE':
             return {
                 ...state,
                 messagesData: state.messagesData.filter(mess => mess.id !== action.messageId)
@@ -79,5 +60,11 @@ export const dialogsReducer = (state: DialogsPageType = initialState, action: Ac
 }
 
 // actions
-export const addMessageAC = (newMessageText: string) => ({type: ADD_MESSAGE, newMessageText} as const)
-export const deleteMessageAC = (messageId: string) => ({type: DELETE_MESSAGE, messageId} as const)
+export const addMessageAC = (newMessageText: string) => ({type: 'ADD_MESSAGE', newMessageText} as const)
+export const deleteMessageAC = (messageId: string) => ({type: 'DELETE_MESSAGE', messageId} as const)
+
+// types
+export type InitialStateType = typeof initialState
+type ActionsType =
+  | ReturnType<typeof addMessageAC>
+  | ReturnType<typeof deleteMessageAC>

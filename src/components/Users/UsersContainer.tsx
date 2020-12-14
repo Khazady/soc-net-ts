@@ -1,38 +1,42 @@
 import {connect} from "react-redux";
-import {RootStateType} from "../../redux/redux-store";
-import {
-    UsersType,
-    toggleFollowingProgressAC, requestUsersTC, unfollowTC, followTC
-} from "../../redux/users-reducer";
-import React from "react";
+import {RootStateType} from "../../redux/store";
+import {followTC, requestUsersTC, unfollowTC} from "../../redux/users-reducer";
+import React, {Component} from "react";
 import {UsersList} from "./UsersList";
-import { Preloader } from "../common/Preloader/Preloader";
+import {Preloader} from "../common/Preloader/Preloader";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
-import { compose } from "redux";
+import {compose} from "redux";
 import {
     getCurrentPage,
+    getIsFollowingProgress,
+    getIsLoading,
     getPageSize,
     getTotalUsersCount,
-    getUsers,
-    getIsLoading,
-    getIsFollowingProgress
+    getUsers
 } from "../../redux/users-selectors";
+import {UserType} from "../../types/commonTypes";
 
-//пропсы берутся из объекта, сформированного функцией connect ниже
-type UserContainerProps = {
-    users: Array<UsersType>
+type MapStatePropsType = {
+    //from mstp
+    users: Array<UserType>
     currentPage: number
     totalUsersCount: number
     pageSize: number
     isLoading: boolean
-    follow: any
-    unfollow: any
-    toggleFollowingProgress: (isFollowingInProgress: boolean, userId: string) => void
-    isFollowingInProgress: string[]
-    getUsers: any
+    isFollowingInProgress: Array<number> // array of users Ids
 }
+type MapDispatchPropsType = {
+    //from mdtp
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
+    getUsers: (currentPage: number, pageSize: number) => void
+}
+type OwnProps = {
+    //что передали непосредственно в пропсах
+}
+type PropsType = MapStatePropsType & MapDispatchPropsType & OwnProps
 
-class UsersContainer extends React.Component<UserContainerProps, any> {
+class UsersContainer extends Component<PropsType> {
     componentDidMount() {
         //вызываем санку
         this.props.getUsers(this.props.currentPage, this.props.pageSize)
@@ -54,12 +58,12 @@ class UsersContainer extends React.Component<UserContainerProps, any> {
                        onPageChanger={this.onPageChanger}
                        users={this.props.users}
                        isFollowedInProgress={this.props.isFollowingInProgress}
-                    />
+            />
         </>
     }
 }
 
-let mapStateToProps = (state: RootStateType) => {
+let mapStateToProps = (state: RootStateType): MapStatePropsType => {
     //принимает стейт целиком, а возвращает только то, что нужно компоненте
     //выбираем стейт в селекторах, чтобы если что не менять все mstp, а поменять в 1 селекторе
     return {
@@ -71,28 +75,10 @@ let mapStateToProps = (state: RootStateType) => {
         isFollowingInProgress: getIsFollowingProgress(state)
     }
 }
-let mapDispatchToProps = (dispatch: (action: any) => void) => {
-    //передает в пропсах презентационной компоненте коллбеки, которая она может вызывать
-    return {
-        follow: (userId: string) => {
-            debugger
-            //диспатчит результат работы AC
-            dispatch(followTC(userId))
-        },
-        unfollow: (userId: string) => {
-            dispatch(unfollowTC(userId))
-        },
-        toggleFollowingProgress: (isFollowingInProgress: boolean, userId: string) => {
-            dispatch(toggleFollowingProgressAC(isFollowingInProgress, userId))
-        },
-        getUsers: (currentPage: number, pageSize: number) => {
-            dispatch(requestUsersTC(currentPage, pageSize))
-        }
-    }
-}
 
-
-export default compose(
+export default compose<React.ComponentType>(
   withAuthRedirect,
-  connect(mapStateToProps, mapDispatchToProps)
+  connect<MapStatePropsType, MapDispatchPropsType, OwnProps, RootStateType>(
+    mapStateToProps,
+    {follow: followTC, unfollow: unfollowTC, getUsers: requestUsersTC})
 )(UsersContainer)

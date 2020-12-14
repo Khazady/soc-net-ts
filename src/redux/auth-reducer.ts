@@ -1,46 +1,28 @@
-import {ActionsType} from "./redux-store";
-import {authAPI, securityAPI} from "../api/api";
-import {Dispatch} from "redux";
-import {stopSubmit} from "redux-form";
-import {TOGGLE_IS_LOADING} from "./users-reducer";
+import {ResultCodeForCaptcha, ResultCodes} from "../api/api"
+import {Dispatch} from "redux"
+import {FormAction, stopSubmit} from "redux-form"
+import {toggleIsLoadingAC} from "./app-reducer"
+import {authAPI} from "../api/auth-api"
+import {securityAPI} from "../api/security-api"
+import {BaseThunkType} from "../types/commonTypes"
 
-// types
-export type AuthType = {
-    userId: number | null
-    email: string | null
-    login: string | null
-    isLoading: boolean
-    isAuth: boolean
-    captchaUrl: string | null
-}
-const SET_USER_DATA = "auth/SET_USER_DATA"
-const GET_CAPTCHA_URL_SUCCESS = "auth/GET_CAPTCHA_URL_SUCCESS"
-type ResponseData = {
-    resultCode: number,
-    data: {
-        id: number | null
-        login: string | null
-        email: string | null
-    }
-}
-
-let initialState: AuthType = {
-    userId: null,
-    email: null,
-    login: null,
+const initialState = {
+    userId: null as number | null,
+    email: null as string | null,
+    login: null as string | null,
     isLoading: false,
     isAuth: false,
-    captchaUrl: null // if null captcha is not required
+    captchaUrl: null as string | null, // if null captcha is not required
 };
-export const authReducer = (state: AuthType = initialState, action: ActionsType): AuthType => {
+export const authReducer = (state = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
-        case SET_USER_DATA:
-        case GET_CAPTCHA_URL_SUCCESS:
+        case 'SET_USER_DATA':
+        case 'GET_CAPTCHA_URL_SUCCESS':
             return {
                 ...state,
                 ...action.payload,
             }
-        case TOGGLE_IS_LOADING:
+        case 'APP/TOGGLE_IS_LOADING':
             return {
                 ...state,
                 isLoading: action.isLoading
@@ -51,49 +33,59 @@ export const authReducer = (state: AuthType = initialState, action: ActionsType)
 }
 
 export const setAuthUserDataAC = (userId: number | null, email: string | null, login: string | null, isAuth: boolean) =>
-  ({type: SET_USER_DATA, payload: {userId, email, login, isAuth}} as const)
+  ({type: 'SET_USER_DATA', payload: {userId, email, login, isAuth}} as const)
 export const getCaptchaUrlSuccessAC = (captchaUrl: string) =>
-  ({type: GET_CAPTCHA_URL_SUCCESS, payload: {captchaUrl}} as const)
+  ({type: 'GET_CAPTCHA_URL_SUCCESS', payload: {captchaUrl}} as const)
 
 
-export const getAuthUserDataTC = () =>
+export const getAuthUserDataTC = (): ThunkType =>
   async (dispatch: Dispatch) => {
       //возвращаем промис внаружу, диспатч TC вернет этот промис в app-reducer
-      let response: ResponseData = await authAPI.me()
-      if (response.resultCode === 0) {
-          let {id, email, login} = response.data;
+      const meData = await authAPI.me()
+      if (meData.resultCode === ResultCodes.Success) {
+          let {id, email, login} = meData.data;
           //axios упаковывает в data и разраб сервера упаковал в data
           dispatch(setAuthUserDataAC(id, email, login, true))
       }
   }
-export const loginTC = (email: string, password: string, rememberMe: boolean, captchaInput: string) =>
-  async (dispatch: Dispatch<any>) => {
-      let response = await authAPI.login(email, password, rememberMe, captchaInput);
-      if (response.resultCode === 0) {
+export const loginTC = (email: string, password: string, rememberMe: boolean, captchaInput: string): ThunkType =>
+  async (dispatch) => {
+      const data = await authAPI.login(email, password, rememberMe, captchaInput);
+      if (data.resultCode === ResultCodes.Success) {
           //запускаем санку получения данных юзера с серва, если успешная логинизация
           dispatch(getAuthUserDataTC())
       } else {
           // captcha
-          if (response.resultCode === 10) {
+          if (data.resultCode === ResultCodeForCaptcha.CaptchaIsRequired) {
               dispatch(getCaptchaUrlTC())
           }
           //если resultCode !== 0, то останавливаем сабмит формы
           //проверяем не пустой ли массив с сообщ. об ошибке
-          let errorMessage = response.messages.length > 0 ? response.messages[0] : "Unknown error"
+          let errorMessage = data.messages.length > 0 ? data.messages[0] : 'Unknown error'
           //1 арг. название именно <form/>, вторым объект с проблемным полем (_error для всех сразу field)
           dispatch(stopSubmit("login", {_error: errorMessage}))
       }
   }
-export const getCaptchaUrlTC = () =>
-  async (dispatch: Dispatch<any>) => {
-      const response = await securityAPI.getCaptchaUrl();
-      const captchaUrl = response.data.url
+export const getCaptchaUrlTC = (): ThunkType =>
+  async (dispatch) => {
+      const data = await securityAPI.getCaptchaUrl()
+      const captchaUrl = data.url
       dispatch(getCaptchaUrlSuccessAC(captchaUrl))
   }
-export const logoutTC = () => async (dispatch: Dispatch) => {
-    let response = await authAPI.logout()
-    if (response.resultCode === 0) {
+export const logoutTC = (): ThunkType => async (dispatch) => {
+    const data = await authAPI.logout()
+    if (data.resultCode === 0) {
         //удаляем всю информацю из стейта о юзере в исходное состояние (initState)
         dispatch(setAuthUserDataAC(null, null, null, false))
     }
 }
+
+// types
+export type InitialStateType = typeof initialState
+type ActionsType =
+  | ReturnType<typeof setAuthUserDataAC>
+  | ReturnType<typeof getCaptchaUrlSuccessAC>
+  | toggleIsLoadingAC
+type ThunkType = BaseThunkType<ActionsType
+  //extra actions
+  | FormAction>

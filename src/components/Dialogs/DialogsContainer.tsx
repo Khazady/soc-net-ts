@@ -1,9 +1,10 @@
 import {addMessageAC} from "../../redux/dialogs-reducer";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
-import {ActionsType, RootStateType} from "../../redux/redux-store";
+import {RootStateType} from "../../redux/store";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
+import React from "react";
 
 
 let mapStateToProps = (state: RootStateType) => {
@@ -11,22 +12,13 @@ let mapStateToProps = (state: RootStateType) => {
         dialogsPage: state.dialogsPage,
         //приходит в стейт ссылка на новый объект(копия), тогда перерисовывает
     }
-} //возвращает состояние объектом
-let mapDispatchToProps = (dispatch: (action: ActionsType) => void) => {
-    return {
-        sendMessage: (newMessageText: string) => {
-            //диспатчим, то, что вернул экшн креатор
-            dispatch(addMessageAC(newMessageText))
-        }
-    }
-} //возвращает коллбеки объектом
-
+}
 
 //конвеер(возьми Dialogs и оборачивай во всех хуки снизу вверх)
 //возьми Dialogs, закинь в функцию withAuthRedirect, а результат этого вызова закинь в вызов connect как бы во вторую его скобку
 //и так далее по конвееру
-export default compose(
+export default compose<React.ComponentType>(
   // HOC, который добавляет Redirect
   withAuthRedirect,
-  connect(mapStateToProps, mapDispatchToProps)
+  connect(mapStateToProps, {addMessage: addMessageAC})
 )(Dialogs);

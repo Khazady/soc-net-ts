@@ -1,15 +1,15 @@
 import React from "react";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
-import {profileServerType} from "./ProfileContainer";
+import {ProfileType} from "../../types/commonTypes";
 
 type PropsType = {
-    profile: profileServerType
+    profile: ProfileType | null
     status: string
     updateStatus: (status: string) => void
     isOwner: boolean
-    updatePhoto: (photo: File | null | undefined) => void
-    updateProfile: (profile: profileServerType) => Promise<any>
+    updatePhoto: (photo: File) => void
+    updateProfile: (profile: ProfileType) => Promise<any>
 }
 
 const Profile: React.FC<PropsType> = (props) => {

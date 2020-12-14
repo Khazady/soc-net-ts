@@ -1,17 +1,18 @@
 import React from "react";
 import classes from "./MyPosts.module.css";
 import Post from "./Post/Post";
-import {PostTypes} from "../../../redux/profile-reducer";
-import {AddPostFormRedux} from "./AddPostForm/AddPostForm";
+import {AddPostFormRedux, AddPostFormValuesType} from "./AddPostForm/AddPostForm";
+import {PostType} from "../../../types/commonTypes";
 
-type MyPostsPropsType = {
-    postsData: Array<PostTypes>
+export type MapStatePropsType = {
+    postsData: Array<PostType>
+}
+export type MapDispatchPropsType = {
     addPost: (newPostText: string) => void
-};
+}
 
-const MyPosts: React.FC<MyPostsPropsType> = React.memo((props) => {
-    console.log("Render")
-    let addNewPost = (values: any) => {
+const MyPost: React.FC<MapStatePropsType & MapDispatchPropsType> = (props) => {
+    let addNewPost = (values: AddPostFormValuesType) => {
         props.addPost(values.newPostText)
     }
     let post = [...props.postsData]
@@ -29,7 +30,8 @@ const MyPosts: React.FC<MyPostsPropsType> = React.memo((props) => {
           <AddPostFormRedux onSubmit={addNewPost}/>
           <div className={classes.posts}>{post}</div>
       </div>
-    );
-});
+    )
+}
 
-export default MyPosts;
+export const MyPostsMemorized = React.memo(MyPost);
+

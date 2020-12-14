@@ -1,20 +1,27 @@
-import React from "react";
-import {connect} from "react-redux";
-import {loginTC} from "../../redux/auth-reducer";
-import {LoginReduxForm} from "./LoginForm/LoginForm";
-import { Redirect } from "react-router-dom";
-import {RootStateType} from "../../redux/redux-store";
+import React, {FC} from "react"
+import {connect} from "react-redux"
+import {loginTC} from "../../redux/auth-reducer"
+import {LoginReduxForm} from "./LoginForm/LoginForm"
+import {Redirect} from "react-router-dom"
+import {RootStateType} from "../../redux/store"
 
-export type LoginFormData = {
+export type LoginFormValuesType = {
     email: string,
     password: string,
     rememberMe: boolean
     captchaInput: string
 }
+type MapStatePropsType = {
+    captchaUrl: string | null
+    isAuth: boolean
+}
+type MapDispatchPropsType = {
+    login: (email: string, password: string, rememberMe: boolean, captchaInput: string) => void
+}
 
-const Login = (props: any) => {
+const Login: FC<MapStatePropsType & MapDispatchPropsType> = (props) => {
     //сюда придет инфа по инпутам, собранная handleSubmit {login: 'что ввел', rememberMe: true} и тд
-    const onSubmit = (formData: LoginFormData) => {
+    const onSubmit = (formData: LoginFormValuesType) => {
         props.login(formData.email, formData.password, formData.rememberMe, formData.captchaInput)
     }
 
@@ -27,9 +34,9 @@ const Login = (props: any) => {
     </div>
 }
 
-const mapStateToProps = (state: RootStateType) => ({
+const mapStateToProps = (state: RootStateType): MapStatePropsType => ({
     captchaUrl: state.auth.captchaUrl,
     isAuth: state.auth.isAuth
 })
 
-export default connect(mapStateToProps, {login: loginTC})(Login);
+export default connect(mapStateToProps, {login: loginTC})(Login)

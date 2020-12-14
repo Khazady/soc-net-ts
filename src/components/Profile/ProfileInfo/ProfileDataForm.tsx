@@ -1,15 +1,15 @@
 import React from "react";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {Input, Textarea} from "../../common/FormsWithValidationErrors/FormsWithValidationErrors";
-import {profileServerType} from "../ProfileContainer";
 import classes from "../../common/FormsWithValidationErrors/FormsWithValidationErrors.module.css";
+import {ProfileType} from "../../../types/commonTypes";
 
-type ProfileDataFormPropsType = {
-    profile: profileServerType
+type PropsType = {
+    profile: ProfileType
 }
 
 // fix types
-const ProfileDataForm: React.FC<InjectedFormProps<profileServerType, ProfileDataFormPropsType> & ProfileDataFormPropsType> = ({handleSubmit, error, profile}) => (
+const ProfileDataForm: React.FC<InjectedFormProps<ProfileType, PropsType> & PropsType> = ({handleSubmit, error, profile}) => (
   <form onSubmit={handleSubmit}>
       <button>Save changes</button>
       {error && <div className={classes.formSummaryError}>{error}</div>}
@@ -33,7 +33,7 @@ const ProfileDataForm: React.FC<InjectedFormProps<profileServerType, ProfileData
 );
 
 //HOC, оборачиваем им форму
-export const ProfileDataReduxForm = reduxForm<profileServerType ,ProfileDataFormPropsType>(
+export const ProfileDataReduxForm = reduxForm<ProfileType ,PropsType>(
   //имя для этой формы
   {form: 'edit-profile'}
 )(ProfileDataForm)

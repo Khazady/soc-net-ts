@@ -1,24 +1,24 @@
-import React from "react";
-import {UsersType} from "../../redux/users-reducer";
+import React, { FC } from "react";
 import {Paginator} from "../common/Paginator/Paginator";
 import {User} from "./User";
+import { UserType } from "../../types/commonTypes";
 
-export type UsersListPropsType = {
-    users: Array<UsersType>
-    follow: any
-    unfollow: any
-    isFollowedInProgress: string[]
+export type PropsType = {
+    users: Array<UserType>
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
+    isFollowedInProgress: Array<number> // array of users Ids
     onPageChanger: (page: number) => void
     totalUsersCount: number
     pageSize: number
     currentPage: number
 }
 
-export const UsersList: React.FC<UsersListPropsType> = (props) => (
+export const UsersList: FC<PropsType> = (props) => (
   <div>
       <Paginator totalItemsCount={props.totalUsersCount}
                  pageSize={props.pageSize}
-                 currentPage={props.currentPage}
+                 currentPageNumber={props.currentPage}
                  onPageChanger={props.onPageChanger}
                  portionSize={10}/>
       {

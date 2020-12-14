@@ -1,6 +1,7 @@
-import {profileReducer, addPostAC, deletePostAC, ProfilePageType} from "./profile-reducer";
+import {profileReducer, addPostAC, deletePostAC, InitialStateType} from "./profile-reducer";
+import {ProfileType} from "../types/commonTypes";
 
-let startState: ProfilePageType;
+let startState: InitialStateType =
 beforeEach(() => {
       startState = {
           postsData: [
@@ -8,8 +9,8 @@ beforeEach(() => {
               {id: "2", message: "It's my first post", likesCount: 53},
               {id: "3", message: "КУ", likesCount: 3},
           ],
-          profile: null,
-          status: ""
+          profile: {} as ProfileType,
+          status: '',
       }
   }
 )

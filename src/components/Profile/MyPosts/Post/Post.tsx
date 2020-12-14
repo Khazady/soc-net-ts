@@ -1,8 +1,10 @@
 import classes from "../Post/Post.module.css";
 import React from "react";
-import { PostTypes } from "../../../../redux/profile-reducer";
+import { PostType } from "../../../../types/commonTypes";
 
-const Post = (props: PostTypes) => {
+type PropsType = PostType
+
+const Post: React.FC<PropsType> = (props) => {
   return (
     <div key={props.id} className={classes.item}>
       <img src="https://i.ibb.co/0t8zmD0/pngwing-com.png" alt="avatar" />

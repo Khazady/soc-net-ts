@@ -1,6 +1,6 @@
-import {dialogsReducer, addMessageAC, deleteMessageAC, DialogsPageType} from "./dialogs-reducer";
+import {dialogsReducer, addMessageAC, deleteMessageAC, InitialStateType} from "./dialogs-reducer";
 
-let startState: DialogsPageType;
+let startState: InitialStateType;
 beforeEach(() => {
       startState = {
           dialogsData: [

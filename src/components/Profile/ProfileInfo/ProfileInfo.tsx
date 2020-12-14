@@ -4,36 +4,18 @@ import {Preloader} from "../../common/Preloader/Preloader";
 import {ProfileStatus} from './ProfileStatus';
 import userPhoto from "../../../assets/images/default-user-avatar.svg";
 import {ProfileDataReduxForm} from "./ProfileDataForm";
-import {profileServerType} from '../ProfileContainer';
-
-export type ContactsType = {
-    github: string
-    vk: string
-    facebook: string
-    instagram: string
-    twitter: string
-    website: string
-    youtube: string
-    mainLink: string
-}
-export type ProfileFormDataType = {
-    fullName: string | null
-    lookingForAJob: boolean
-    lookingForAJobDescription: string | null
-    aboutMe: string | null
-    contacts: ContactsType
-}
+import {ContactsType, ProfileType} from "../../../types/commonTypes";
 
 type PropsType = {
-    profile: profileServerType | null
+    profile: ProfileType | null
     status: string
     updateStatus: (status: string) => void
     isOwner: boolean
-    updatePhoto: (file: File | null | undefined) => void
-    updateProfile: (profile: profileServerType) => Promise<any>
+    updatePhoto: (photo: File) => void
+    updateProfile: (profile: ProfileType) => Promise<any>
 }
 
-const ProfileInfo = ({profile, ...props}: PropsType) => {
+const ProfileInfo: React.FC<PropsType> = ({profile, ...props}) => {
     const [editMode, setEditMode] = useState(false);
     //наш профиль в иниц стейте = null, поэтому когда он null рисуем колесо
     if (!profile) {
@@ -41,13 +23,14 @@ const ProfileInfo = ({profile, ...props}: PropsType) => {
     }
     //вызов санки когда выбираем фото
     const MainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
-        if (e.currentTarget.files?.length) {
-            const selectedFile = e.target.files?.item(0)
+        if (e.target.files?.length) {
+            const selectedFile = e.target.files[0]
             props.updatePhoto(selectedFile)
         }
     }
     //сюда придет инфа по инпутам, собранная handleSubmit {aboutMe: 'что ввел', lookingFAJ: true} и тд
-    const onSubmit = (formData: profileServerType) => {
+    const onSubmit = (formData: ProfileType) => {
+        // todo: remove then
         props.updateProfile(formData).then(() => setEditMode(false))
     }
     return (
@@ -55,7 +38,7 @@ const ProfileInfo = ({profile, ...props}: PropsType) => {
           <div className={classes.descriptionBlock}>
               <img src={profile.photos.large || userPhoto} className={classes.mainPhoto} alt={"something wrong"}/>
               <div>{props.isOwner ? <input type='file' onChange={MainPhotoSelected}/> : null}</div>
-              <ProfileStatus status={props.status} updateUserStatus={props.updateStatus}/>
+              <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
           </div>
           {editMode
             ? <ProfileDataReduxForm initialValues={profile} onSubmit={onSubmit} profile={profile}/>
@@ -67,7 +50,7 @@ const ProfileInfo = ({profile, ...props}: PropsType) => {
 };
 
 type ProfileDataPropsType = {
-    profile: profileServerType
+    profile: ProfileType
     isOwner: boolean
     goToEditMode: () => void
 }

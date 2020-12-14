@@ -1,20 +1,20 @@
-import styles from "./Paginator.module.css";
-import React, {useState} from "react";
+import styles from './Paginator.module.css';
+import React, {useState, FC} from 'react';
 
-export type PaginatorPropsType = {
+type PropsType = {
     totalItemsCount: number
     pageSize: number
-    currentPage: number
+    currentPageNumber: number
     onPageChanger: (page: number) => void
     portionSize: number
 }
 
-export const Paginator: React.FC<PaginatorPropsType> = (props) => {
+export const Paginator: FC<PropsType> = (props) => {
     //логика для визуала, поэтому она в презентационной компоненте
     //делим общее количество юзеров на то, сколько их будет в 1 порции, получаем количество страниц
     let pagesCount = Math.ceil(props.totalItemsCount / props.pageSize);
     //массив с нумерацией страниц
-    let pages = [];
+    let pages: Array<number> = [];
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
     }
@@ -36,7 +36,7 @@ export const Paginator: React.FC<PaginatorPropsType> = (props) => {
             //находим нужную порцию по пограничным страницам порции
             .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
             .map(p =>
-              <span className={props.currentPage === p ? styles.selectedPage : styles.page}
+              <span className={props.currentPageNumber === p ? styles.selectedPage : styles.page}
                     onClick={() => {
                         props.onPageChanger(p)
                     }}>{p}</span>
