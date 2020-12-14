@@ -12,7 +12,7 @@ export const usersAPI = {
         return instance.post<ApiResponseType>(`follow/${userId}`, {})
           .then(res => res.data)
     },
-    unFollowUser(userId: number) {
+    unfollowUser(userId: number) {
         return instance.delete(`follow/${userId}`)
           .then(res => res.data) as Promise<ApiResponseType>
     }

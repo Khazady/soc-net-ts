@@ -1,17 +1,17 @@
-import {BaseThunkType, UserType} from "../types/commonTypes"
-import {toggleIsLoadingAC} from "./app-reducer"
-import {usersAPI} from "../api/user-api";
+import {BaseThunkType, UserType} from '../types/commonTypes'
+import {toggleIsLoadingAC} from './app-reducer'
+import {usersAPI} from '../api/user-api'
 
 //types
 export type InitialStateType = typeof initialState
 type ActionsType =
-  | ReturnType<typeof followSuccessAC>
-  | ReturnType<typeof unfollowSuccessAC>
-  | ReturnType<typeof setUsersAC>
-  | ReturnType<typeof setCurrentPageAC>
-  | ReturnType<typeof setTotalUsersCountAC>
-  | ReturnType<typeof toggleFollowingProgressAC>
-  | toggleIsLoadingAC
+    | ReturnType<typeof followSuccessAC>
+    | ReturnType<typeof unfollowSuccessAC>
+    | ReturnType<typeof setUsersAC>
+    | ReturnType<typeof setCurrentPageAC>
+    | ReturnType<typeof setTotalUsersCountAC>
+    | ReturnType<typeof toggleFollowingProgressAC>
+    | toggleIsLoadingAC
 
 const initialState = {
     usersData: [] as Array<UserType>,
@@ -32,7 +32,7 @@ const userReducer = (state = initialState, action: ActionsType): InitialStateTyp
                         //делаем копию только того юзера, которого меняем
                         return {...u, followed: true}
                     }
-                    return u;
+                    return u
                 })
             }
         case 'USER/UNFOLLOW':
@@ -42,7 +42,7 @@ const userReducer = (state = initialState, action: ActionsType): InitialStateTyp
                     if (u.id === action.userId) {
                         return {...u, followed: false}
                     }
-                    return u;
+                    return u
                 })
             }
         case 'USER/SET_USERS': {
@@ -71,11 +71,11 @@ const userReducer = (state = initialState, action: ActionsType): InitialStateTyp
             return {
                 ...state,
                 isFollowingInProgress: action.isFollowingInProgress
-                  //если в action isFollowing true, то в конец массива айдишек(которые были нажаты) дописываем айди из action
-                  ? [...state.isFollowingInProgress, action.userId]
-                  //если false, то деструкт. не нужна, фильтр возвр. новый массив
-                  //удаляет из массивы обрабатывающихся id, ту, что закончила обработку
-                  : [state.isFollowingInProgress.filter((id) => id !== action.userId)]
+                    //если в action isFollowing true, то в конец массива айдишек(которые были нажаты) дописываем айди из action
+                    ? [...state.isFollowingInProgress, action.userId]
+                    //если false, то деструкт. не нужна, фильтр возвр. новый массив
+                    //удаляет из массивы обрабатывающихся id, ту, что закончила обработку
+                    : [state.isFollowingInProgress.filter((id) => id !== action.userId)]
             } as InitialStateType
         }
         default:
@@ -87,7 +87,10 @@ const userReducer = (state = initialState, action: ActionsType): InitialStateTyp
 export const followSuccessAC = (userId: number) => ({type: 'USER/FOLLOW', userId} as const)
 export const unfollowSuccessAC = (userId: number) => ({type: 'USER/UNFOLLOW', userId: userId} as const)
 export const setUsersAC = (newUsersData: Array<UserType>) => ({type: 'USER/SET_USERS', newUsersData} as const)
-export const setCurrentPageAC = (pageNumber: number) => ({type: 'USER/SET_CURRENT_PAGE', pageNumber: pageNumber} as const)
+export const setCurrentPageAC = (pageNumber: number) => ({
+    type: 'USER/SET_CURRENT_PAGE',
+    pageNumber: pageNumber
+} as const)
 export const setTotalUsersCountAC = (totalUsersCount: number) => ({
     type: 'USER/SET_TOTAL_USERS_COUNT',
     totalUsersCount
@@ -101,42 +104,42 @@ export const toggleFollowingProgressAC = (isFollowingInProgress: boolean, userId
 // thunks
 //AC возвращает объект, кот. мы можем задиспатчить, ThunkCreator возвр. функцию кот. мы можем задиспатчить
 export const requestUsersTC = (currentPage: number, pageSize: number): BaseThunkType<ActionsType> =>
-  async (dispatch) => {
-      document.title = 'Users';
-      //включаем крутилку до запроса на серв
-      dispatch(toggleIsLoadingAC(true));
-      const data = await usersAPI.getUsers(currentPage, pageSize)
-      //после ответа сервера выполнится этот код
-      dispatch(setCurrentPageAC(currentPage))
-      dispatch(setUsersAC(data.items));
-      dispatch(setTotalUsersCountAC(data.totalCount));
-      //выключаем после получения ответа
-      dispatch(toggleIsLoadingAC(false));
-  }
+    async (dispatch) => {
+        document.title = 'Users'
+        //включаем крутилку до запроса на серв
+        dispatch(toggleIsLoadingAC(true))
+        const data = await usersAPI.getUsers(currentPage, pageSize)
+        //после ответа сервера выполнится этот код
+        dispatch(setCurrentPageAC(currentPage))
+        dispatch(setUsersAC(data.items))
+        dispatch(setTotalUsersCountAC(data.totalCount))
+        //выключаем после получения ответа
+        dispatch(toggleIsLoadingAC(false))
+    }
 
 export const followTC = (userId: number): BaseThunkType<ActionsType> =>
-  async (dispatch) => {
-      //меняет в стейте дизаблед кнопки на тру
-      dispatch(toggleFollowingProgressAC(true, userId));
-      const data = await usersAPI.followUser(userId)
-      if (data.resultCode === 0) {
-          dispatch(followSuccessAC(userId))
-      }
-      //разблочивает кнопку после запроса
-      dispatch(toggleFollowingProgressAC(false, userId))
-  }
+    async (dispatch) => {
+        //меняет в стейте дизаблед кнопки на тру
+        dispatch(toggleFollowingProgressAC(true, userId))
+        const data = await usersAPI.followUser(userId)
+        if (data.resultCode === 0) {
+            dispatch(followSuccessAC(userId))
+        }
+        //разблочивает кнопку после запроса
+        dispatch(toggleFollowingProgressAC(false, userId))
+    }
 
 export const unfollowTC = (userId: number): BaseThunkType<ActionsType> =>
-  async (dispatch) => {
-      //меняет в стейте дизаблед кнопки на тру
-      dispatch(toggleFollowingProgressAC(true, userId));
-      //дожидаемся когда промис придет в состояние resolved
-      const data = await usersAPI.unFollowUser(userId)
-      if (data.resultCode === 0) {
-          dispatch(unfollowSuccessAC(userId))
-      }
-      //разблочивает кнопку после запроса
-      dispatch(toggleFollowingProgressAC(false, userId))
-  }
+    async (dispatch) => {
+        //меняет в стейте дизаблед кнопки на тру
+        dispatch(toggleFollowingProgressAC(true, userId))
+        //дожидаемся когда промис придет в состояние resolved
+        const data = await usersAPI.unfollowUser(userId)
+        if (data.resultCode === 0) {
+            dispatch(unfollowSuccessAC(userId))
+        }
+        //разблочивает кнопку после запроса
+        dispatch(toggleFollowingProgressAC(false, userId))
+    }
 
 export default userReducer

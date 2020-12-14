@@ -36,7 +36,7 @@ export const Paginator: FC<PropsType> = (props) => {
             //находим нужную порцию по пограничным страницам порции
             .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
             .map(p =>
-              <span className={props.currentPageNumber === p ? styles.selectedPage : styles.page}
+              <span key={Math.random()} className={props.currentPageNumber === p ? styles.selectedPage : styles.page}
                     onClick={() => {
                         props.onPageChanger(p)
                     }}>{p}</span>
