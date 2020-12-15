@@ -23,7 +23,7 @@ beforeEach(() => {
 
 test('succeeded follow thunk', async () => {
     const thunk = followTC(1)
-    
+
     await thunk(dispatchMock, getStateMock, {})
     //dispatch was called 3 times, just like in we use it 3 time in followTC
     expect(dispatchMock).toBeCalledTimes(3)

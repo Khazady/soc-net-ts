@@ -1,4 +1,4 @@
-import userReducer, {followSuccessAC, InitialStateType, unfollowSuccessAC} from './users-reducer'
+import {userReducer, followSuccessAC, InitialStateType, unfollowSuccessAC} from './users-reducer'
 
 let state: InitialStateType
 beforeEach(() => {
@@ -26,7 +26,8 @@ beforeEach(() => {
         totalUsersCount: 0,
         currentPage: 1,
         isLoading: false,
-        isFollowingInProgress: []
+        isFollowingInProgress: [],
+        filter: {searchInput: '', friend: null}
     }
 })
 

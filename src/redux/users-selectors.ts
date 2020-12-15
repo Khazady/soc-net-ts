@@ -1,7 +1,7 @@
 //функция кот принимает State целиком, достает только то, что нужно компоненте и передаёт это в бизнес в mStP
 //это нужно, чтобы мы решим изменить архитектуру стейта, чтобы не исправлять в каждом mStP, мы исправим в 1 месте - здесь
-import {RootStateType} from "./store";
-import {createSelector} from "reselect"
+import {RootStateType} from './store'
+import {createSelector} from 'reselect'
 
 //примитивный селектор
 export const getUsersSelector = (state: RootStateType) => state.usersPage.usersData
@@ -21,4 +21,7 @@ export const getIsLoading = (state: RootStateType) => {
 }
 export const getIsFollowingProgress = (state: RootStateType) => {
     return state.usersPage.isFollowingInProgress
+}
+export const getUsersFilter = (state: RootStateType) => {
+    return state.usersPage.filter
 }

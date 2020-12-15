@@ -1,20 +1,21 @@
-import {connect} from "react-redux";
-import {RootStateType} from "../../redux/store";
-import {followTC, requestUsersTC, unfollowTC} from "../../redux/users-reducer";
-import React, {Component} from "react";
-import {UsersList} from "./UsersList";
-import {Preloader} from "../common/Preloader/Preloader";
-import {withAuthRedirect} from "../../hoc/withAuthRedirect";
-import {compose} from "redux";
+import {connect} from 'react-redux'
+import {RootStateType} from '../../redux/store'
+import {FilterType, followTC, requestUsersTC, unfollowTC} from '../../redux/users-reducer'
+import React, {Component} from 'react'
+import {UsersList} from './UsersList'
+import {Preloader} from '../common/Preloader/Preloader'
+import {withAuthRedirect} from '../../hoc/withAuthRedirect'
+import {compose} from 'redux'
 import {
     getCurrentPage,
     getIsFollowingProgress,
     getIsLoading,
     getPageSize,
     getTotalUsersCount,
-    getUsers
-} from "../../redux/users-selectors";
-import {UserType} from "../../types/commonTypes";
+    getUsers,
+    getUsersFilter
+} from '../../redux/users-selectors'
+import {UserType} from '../../types/commonTypes'
 
 type MapStatePropsType = {
     //from mstp
@@ -24,12 +25,13 @@ type MapStatePropsType = {
     pageSize: number
     isLoading: boolean
     isFollowingInProgress: Array<number> // array of users Ids
+    filter: FilterType
 }
 type MapDispatchPropsType = {
     //from mdtp
     follow: (userId: number) => void
     unfollow: (userId: number) => void
-    getUsers: (currentPage: number, pageSize: number) => void
+    getUsers: (currentPage: number, pageSize: number, filter: FilterType) => void
 }
 type OwnProps = {
     //что передали непосредственно в пропсах
@@ -39,11 +41,15 @@ type PropsType = MapStatePropsType & MapDispatchPropsType & OwnProps
 class UsersContainer extends Component<PropsType> {
     componentDidMount() {
         //вызываем санку
-        this.props.getUsers(this.props.currentPage, this.props.pageSize)
+        this.props.getUsers(this.props.currentPage, this.props.pageSize, this.props.filter)
     }
 
     onPageChanger = (currentPage: number) => {
-        this.props.getUsers(currentPage, this.props.pageSize);
+        this.props.getUsers(currentPage, this.props.pageSize, this.props.filter)
+    }
+
+    onFilterChanger = (filter: FilterType) => {
+        this.props.getUsers(1, this.props.pageSize, filter)
     }
 
     render() {
@@ -56,6 +62,7 @@ class UsersContainer extends Component<PropsType> {
                        follow={this.props.follow}
                        unfollow={this.props.unfollow}
                        onPageChanger={this.onPageChanger}
+                       onFilterChanger={this.onFilterChanger}
                        users={this.props.users}
                        isFollowedInProgress={this.props.isFollowingInProgress}
             />
@@ -72,13 +79,14 @@ let mapStateToProps = (state: RootStateType): MapStatePropsType => {
         totalUsersCount: getTotalUsersCount(state),
         currentPage: getCurrentPage(state),
         isLoading: getIsLoading(state),
-        isFollowingInProgress: getIsFollowingProgress(state)
+        isFollowingInProgress: getIsFollowingProgress(state),
+        filter: getUsersFilter(state)
     }
 }
 
 export default compose<React.ComponentType>(
-  withAuthRedirect,
-  connect<MapStatePropsType, MapDispatchPropsType, OwnProps, RootStateType>(
-    mapStateToProps,
-    {follow: followTC, unfollow: unfollowTC, getUsers: requestUsersTC})
+    withAuthRedirect,
+    connect<MapStatePropsType, MapDispatchPropsType, OwnProps, RootStateType>(
+        mapStateToProps,
+        {follow: followTC, unfollow: unfollowTC, getUsers: requestUsersTC})
 )(UsersContainer)
