@@ -6,7 +6,6 @@ import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import {HashRouter, Route, withRouter, Switch, Redirect} from 'react-router-dom';
 import UsersContainer from './components/Users/UsersPage';
-import HeaderContainer from "./components/Header/HeaderContainer";
 import {LoginPage} from './components/Login/LoginPage';
 import {connect, Provider} from 'react-redux';
 import {initializeAppTC} from "./redux/app-reducer";
@@ -15,10 +14,11 @@ import {Preloader} from "./components/common/Preloader/Preloader";
 import {compose} from "redux";
 import {withSuspense} from "./hoc/withSuspense";
 import {Page404} from './components/common/Page404/Page404';
+import { Header } from './components/Header/Header';
 
 //компонента не попадает в бандл(вебпак собирает все файлы в 1), она будет в своем бандле и только когда она не понадобится
 //это ускоряет стартовую загрузку, но медленнее, когда перейдем к этой компоненте
-const DialogsContainer = React.lazy(() => import("./components/Dialogs/DialogsContainer"))
+const DialogsContainer = React.lazy(() => import("./components/Dialogs/Dialogs"))
 const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer"))
 //чтобы не оборачивать при каждой перерисовке?
 const SuspendedDialogs = withSuspense(DialogsContainer)
@@ -53,7 +53,7 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
         // ? after userId makes param optional, so if we haven't it in url, another profile will be uploaded(in component code)
         return (
           <div className='app-wrapper'>
-              <HeaderContainer/>
+              <Header/>
               <Navbar/>
               <div className="app-wrapper-content">
                   <Switch>

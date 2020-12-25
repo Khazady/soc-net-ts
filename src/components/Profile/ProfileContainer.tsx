@@ -8,6 +8,7 @@ import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 import {ProfileType} from "../../types/commonTypes";
 
+//todo: refactor to hooks
 type MapStatePropsType = ReturnType<typeof mapStateToProps>
 type MapDispatchPropsType = {
     getUserProfile: (userId: number) => void
