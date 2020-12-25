@@ -12,7 +12,6 @@ const formValidation = (values: any) => {
 }
 export const UsersSearchForm: React.FC<PropsType> = React.memo((props) => {
     const submit = (values: FilterType, {setSubmitting}: { setSubmitting: (isSubmitting: boolean) => void }) => {
-        debugger
         props.onFilterChanger(values)
         setSubmitting(false)
     }

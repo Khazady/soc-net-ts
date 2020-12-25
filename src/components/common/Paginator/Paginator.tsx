@@ -10,7 +10,6 @@ type PropsType = {
 }
 
 export const Paginator: FC<PropsType> = (props) => {
-    //логика для визуала, поэтому она в презентационной компоненте
     //делим общее количество юзеров на то, сколько их будет в 1 порции, получаем количество страниц
     let pagesCount = Math.ceil(props.totalItemsCount / props.pageSize);
     //массив с нумерацией страниц

@@ -32,4 +32,4 @@ export const store = createStore(rootReducer,composeEnhancers( applyMiddleware(t
 
 //нужно для того, чтобы видеть store в консоли
 // @ts-ignore
-window.store = store;
+window.store = store

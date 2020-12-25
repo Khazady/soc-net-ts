@@ -5,9 +5,9 @@ import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import {HashRouter, Route, withRouter, Switch, Redirect} from 'react-router-dom';
-import UsersContainer from './components/Users/UsersContainer';
+import UsersContainer from './components/Users/UsersPage';
 import HeaderContainer from "./components/Header/HeaderContainer";
-import Login from './components/Login/Login';
+import {LoginPage} from './components/Login/LoginPage';
 import {connect, Provider} from 'react-redux';
 import {initializeAppTC} from "./redux/app-reducer";
 import {RootStateType, store} from "./redux/store";
@@ -68,7 +68,7 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
                       <Route path="/music" component={Music}/>
                       <Route path="/settings" component={Settings}/>
 
-                      <Route path="/login" component={Login}/>
+                      <Route path="/login" component={LoginPage}/>
                       <Route path={'/404'} render={() => <Page404/>}/>
                       <Redirect from={'*'} to={'/404'}/>
                   </Switch>

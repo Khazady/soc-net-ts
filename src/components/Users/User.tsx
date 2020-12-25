@@ -1,8 +1,8 @@
-import styles from "./Users.module.css";
-import userPhoto from "../../assets/images/default-user-avatar.svg";
-import React from "react";
-import {NavLink} from "react-router-dom";
-import { UserType } from "../../types/commonTypes";
+import styles from './Users.module.css'
+import userPhoto from '../../assets/images/default-user-avatar.svg'
+import React from 'react'
+import {NavLink} from 'react-router-dom'
+import {UserType} from '../../types/commonTypes'
 
 type PropsType = {
     user: UserType
@@ -15,13 +15,13 @@ export const User: React.FC<PropsType> = ({user, ...props}) => (
     <div>
                 <span>
                     <div>
-                        <NavLink to={"/profile/" + user.id}>
+                        <NavLink to={'/profile/' + user.id}>
                             <img
                                 src={
                                     /*если фото отсутствует, то стандартная картинка*/
                                     user.photos.small != null ? user.photos.small : userPhoto}
                                 className={styles.userPhoto}
-                                alt={"avatar"}/>
+                                alt={'avatar'}/>
                         </NavLink>
                     </div>
                     <div>

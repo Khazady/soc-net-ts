@@ -4,7 +4,7 @@ import React, { FC } from "react"
 import {Input} from "../../common/FormsWithValidationErrors/FormsWithValidationErrors"
 //validator for Field from another file
 import {required} from "../../../utils/validators";
-import {LoginFormValuesType} from "../Login";
+import {LoginFormValuesType} from "../LoginPage";
 import classes from "./../../common/FormsWithValidationErrors/FormsWithValidationErrors.module.css";
 
 type PropsType = { captchaUrl: string | null }
