@@ -57,15 +57,15 @@ export const savePhotosSuccessAC = (photos: PhotosType) => ({type: 'PROFILE/SAVE
 
 
 // thunks
-export const getUserProfile = (userId: number): ThunkType => async (dispatch) => {
+export const getUserProfileTC = (userId: number): ThunkType => async (dispatch) => {
     const data = await profileAPI.getProfile(userId)
     dispatch(setProfileAC(data))
 }
-export const getStatus = (userId: number): ThunkType => async (dispatch) => {
+export const getStatusTC = (userId: number): ThunkType => async (dispatch) => {
     const data = await profileAPI.getUserStatus(userId)
     dispatch(setStatusAC(data))
 }
-export const updateStatus = (status: string): ThunkType => async (dispatch) => {
+export const updateStatusTC = (status: string): ThunkType => async (dispatch) => {
     try {
         const data = await profileAPI.updateStatus(status)
         if (data.resultCode === 0) {
@@ -75,20 +75,20 @@ export const updateStatus = (status: string): ThunkType => async (dispatch) => {
         alert(error)
     }
 }
-export const updatePhoto = (photo: File): ThunkType => async (dispatch) => {
+export const updatePhotoTC = (photo: File): ThunkType => async (dispatch) => {
     const data = await profileAPI.uploadPhoto(photo)
     if (data.resultCode === 0) {
         dispatch(savePhotosSuccessAC(data.data.photos))
     }
 }
-export const updateProfile = (changedProfile: ProfileType): ThunkType => async (dispatch, getState) => {
+export const updateProfileTC = (changedProfile: ProfileType): ThunkType => async (dispatch, getState) => {
     const userId = getState().auth.userId
     const data = await profileAPI.updateProfile(changedProfile)
     if (data.resultCode === 0) {
         //because in initState userId = null
         if (userId)
           //т.к серв не возвращает обновленный профиль, то диспатчим санку для его получения
-            dispatch(getUserProfile(userId))
+            await dispatch(getUserProfileTC(userId))
         else
             throw new Error('userId can\'t be a null')
     } else {

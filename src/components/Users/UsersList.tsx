@@ -12,12 +12,36 @@ import {
     getUsers,
     getUsersFilter
 } from '../../redux/users-selectors'
+import {useHistory} from 'react-router-dom'
+import * as queryString from 'querystring'
 
 export const UsersList: React.FC = () => {
 
     //instead compDidMount
     useEffect(() => {
-        dispatch(requestUsersTC(currentPage, pageSize, filter))
+        // implementing links with query params at start of app
+
+        //parsing query string into object (substr from 1st element cuz querystring library parsing ? to first key)
+        const parsed = queryString.parse(history.location.search.substr(1)) as QueryParamsType
+        let actualPage = currentPage
+        let actualFilter = filter
+
+        //transform query string into data for BLL
+        if (parsed.page) actualPage = Number(parsed.page)
+        //as string  because we can input 2 same params and it will turn into array of strings
+        if (parsed.term) actualFilter = {...actualFilter, term: parsed.term as string}
+        switch (parsed.friend) {
+            case 'null':
+                actualFilter = {...actualFilter, friend: null}
+                break
+            case 'true':
+                actualFilter = {...actualFilter, friend: true}
+                break
+            case 'false':
+                actualFilter = {...actualFilter, friend: false}
+        }
+        //sending data from query string to api and bll
+        dispatch(requestUsersTC(actualPage, pageSize, actualFilter))
     }, [])
 
     //instead props from mstp
@@ -29,7 +53,6 @@ export const UsersList: React.FC = () => {
     const isFollowingInProgress = useSelector(getIsFollowingProgress)// array of users Ids
 
     const dispatch = useDispatch()
-
     //instead props from mdtp
     //лучше не плодить субскрайберов и передать пропсами, чем юзать юзселектор в нижних компонентах?
     const follow = (userId: number) => {
@@ -44,6 +67,22 @@ export const UsersList: React.FC = () => {
     const onFilterChanger = (filter: FilterType) => {
         dispatch(requestUsersTC(1, pageSize, filter))
     }
+
+    const history = useHistory()
+    //synch URL every time we getting new filter/crntPage from BLL (from inputs to BLL, BLL to subscriber component and URL)
+    useEffect(() => {
+        let query: QueryParamsType = {}
+        if(filter.term) query.term = filter.term
+        if(filter.friend !== null) query.friend = String(filter.friend)
+        if(currentPage !== 1) query.page = String(currentPage)
+
+        history.push({
+            //start url point
+            pathname: '/users',
+            //URI params from bll
+            search: queryString.stringify(query)
+        })
+    }, [filter, currentPage])
 
     return (
         <div>
@@ -62,4 +101,5 @@ export const UsersList: React.FC = () => {
     )
 }
 
-
+// types
+type QueryParamsType = { term?: string, page?: string, friend?: string }

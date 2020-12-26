@@ -18,10 +18,10 @@ import { Header } from './components/Header/Header';
 
 //компонента не попадает в бандл(вебпак собирает все файлы в 1), она будет в своем бандле и только когда она не понадобится
 //это ускоряет стартовую загрузку, но медленнее, когда перейдем к этой компоненте
-const DialogsContainer = React.lazy(() => import("./components/Dialogs/Dialogs"))
+const DialogsPage = React.lazy(() => import("./components/Dialogs/Dialogs"))
 const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer"))
 //чтобы не оборачивать при каждой перерисовке?
-const SuspendedDialogs = withSuspense(DialogsContainer)
+const SuspendedDialogs = withSuspense(DialogsPage)
 const SuspendedProfile = withSuspense(ProfileContainer)
 
 

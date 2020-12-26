@@ -10,7 +10,7 @@ const initialState = {
     isLoading: false,
     isFollowingInProgress: [] as Array<number>, // array of users Ids
     filter: {
-        searchInput: '',
+        term: '',
         friend: null as null | boolean
     }
 }
@@ -95,7 +95,7 @@ export const requestUsersTC = (currentPage: number, pageSize: number, filter: Fi
         document.title = 'Users'
         //включаем крутилку до запроса на серв
         dispatch(toggleIsLoadingAC(true))
-        const data = await usersAPI.getUsers(currentPage, pageSize, filter.searchInput, filter.friend)
+        const data = await usersAPI.getUsers(currentPage, pageSize, filter.term, filter.friend)
         //после ответа сервера выполнится этот код
         dispatch(setFilterAC(filter))
         dispatch(setCurrentPageAC(currentPage))
