@@ -10,18 +10,18 @@ export const getUsers = createSelector(getUsersSelector, (users) => users.filter
 export const getPageSize = (state: RootStateType) => {
     return state.usersPage.pageSize
 }
-export const getTotalUsersCount = (state: RootStateType) => {
+export const selectTotalUsersCount = (state: RootStateType) => {
     return state.usersPage.totalUsersCount
 }
-export const getCurrentPage = (state: RootStateType) => {
+export const selectCurrentPage = (state: RootStateType) => {
     return state.usersPage.currentPage
 }
-export const getIsLoading = (state: RootStateType) => {
+export const selectIsLoading = (state: RootStateType) => {
     return state.usersPage.isLoading
 }
-export const getIsFollowingProgress = (state: RootStateType) => {
+export const selectIsFollowingProgress = (state: RootStateType) => {
     return state.usersPage.isFollowingInProgress
 }
-export const getUsersFilter = (state: RootStateType) => {
+export const selectUsersFilter = (state: RootStateType) => {
     return state.usersPage.filter
 }

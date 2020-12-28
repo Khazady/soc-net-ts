@@ -27,7 +27,7 @@ beforeEach(() => {
         currentPage: 1,
         isLoading: false,
         isFollowingInProgress: [],
-        filter: {searchInput: '', friend: null}
+        filter: {term: '', friend: null}
     }
 })
 

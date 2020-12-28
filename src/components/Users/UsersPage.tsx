@@ -4,11 +4,11 @@ import {UsersList} from './UsersList'
 import {Preloader} from '../common/Preloader/Preloader'
 import {withAuthRedirect} from '../../hoc/withAuthRedirect'
 import {compose} from 'redux'
-import {getIsLoading} from '../../redux/users-selectors'
+import {selectIsLoading} from '../../redux/users-selectors'
 
 
 const UsersPage: React.FC = () => {
-    const isLoading = useSelector(getIsLoading)
+    const isLoading = useSelector(selectIsLoading)
     return (
         <>
             {isLoading ? <Preloader/> : null}

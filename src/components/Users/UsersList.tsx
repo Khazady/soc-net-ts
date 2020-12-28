@@ -5,12 +5,12 @@ import {UsersSearchForm} from './UsersSearchForm'
 import {FilterType, followTC, requestUsersTC, unfollowTC} from '../../redux/users-reducer'
 import {useDispatch, useSelector} from 'react-redux'
 import {
-    getCurrentPage,
-    getIsFollowingProgress,
+    selectCurrentPage,
+    selectIsFollowingProgress,
     getPageSize,
-    getTotalUsersCount,
+    selectTotalUsersCount,
     getUsers,
-    getUsersFilter
+    selectUsersFilter
 } from '../../redux/users-selectors'
 import {useHistory} from 'react-router-dom'
 import * as queryString from 'querystring'
@@ -46,11 +46,11 @@ export const UsersList: React.FC = () => {
 
     //instead props from mstp
     const users = useSelector(getUsers)
-    const totalUsersCount = useSelector(getTotalUsersCount)
-    const currentPage = useSelector(getCurrentPage)
+    const totalUsersCount = useSelector(selectTotalUsersCount)
+    const currentPage = useSelector(selectCurrentPage)
     const pageSize = useSelector(getPageSize)
-    const filter = useSelector(getUsersFilter)
-    const isFollowingInProgress = useSelector(getIsFollowingProgress)// array of users Ids
+    const filter = useSelector(selectUsersFilter)
+    const isFollowingInProgress = useSelector(selectIsFollowingProgress)// array of users Ids
 
     const dispatch = useDispatch()
     //instead props from mdtp
