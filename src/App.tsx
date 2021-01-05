@@ -3,7 +3,7 @@ import './App.css'
 import News from './components/News/News'
 import Music from './components/Music/Music'
 import Settings from './components/Settings/Settings'
-import {HashRouter, Link, Redirect, Route, Switch, withRouter} from 'react-router-dom'
+import {BrowserRouter, Link, Redirect, Route, Switch, withRouter} from 'react-router-dom'
 import UsersContainer from './components/Users/UsersPage'
 import {LoginPage} from './components/Login/LoginPage'
 import {connect, Provider} from 'react-redux'
@@ -134,9 +134,9 @@ let AppContainer = compose<React.ComponentType>(
 //this component for correct work App.test
 export const MainApp: FC = () => (
     //HashRouter for github pages
-    <HashRouter>
+    <BrowserRouter>
         <Provider store={store}>
             <AppContainer/>
         </Provider>
-    </HashRouter>
+    </BrowserRouter>
 )
