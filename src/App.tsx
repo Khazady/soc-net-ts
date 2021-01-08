@@ -39,6 +39,7 @@ type DispatchPropsType = { initializingApp: () => void }
 class App extends React.Component<MapPropsType & DispatchPropsType> {
     catchAllUnhandledErrors = (e: PromiseRejectionEvent) => {
         //server errors/offline
+        debugger
         alert('Some error occurred')
     }
 
