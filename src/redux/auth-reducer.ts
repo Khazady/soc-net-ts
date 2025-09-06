@@ -40,11 +40,11 @@ export const getCaptchaUrlSuccessAC = (captchaUrl: string) =>
 
 export const getAuthUserDataTC = (): ThunkType =>
   async (dispatch: Dispatch) => {
-      //возвращаем промис внаружу, диспатч TC вернет этот промис в app-reducer
+      // Return the promise outside; dispatching the thunk will return this promise to app-reducer
       const meData = await authAPI.me()
       if (meData.resultCode === ResultCodes.Success) {
           let {id, email, login} = meData.data;
-          //axios упаковывает в data и разраб сервера упаковал в data
+          // axios wraps in data and the server developer also wrapped it in data
           dispatch(setAuthUserDataAC(id, email, login, true))
       }
   }
@@ -52,17 +52,17 @@ export const loginTC = (email: string, password: string, rememberMe: boolean, ca
   async (dispatch) => {
       const data = await authAPI.login(email, password, rememberMe, captchaInput);
       if (data.resultCode === ResultCodes.Success) {
-          //запускаем санку получения данных юзера с серва, если успешная логинизация
+          // Start the thunk to get user data from the server if login is successful
           dispatch(getAuthUserDataTC())
       } else {
           // captcha
           if (data.resultCode === ResultCodeForCaptcha.CaptchaIsRequired) {
               dispatch(getCaptchaUrlTC())
           }
-          //если resultCode !== 0, то останавливаем сабмит формы
-          //проверяем не пустой ли массив с сообщ. об ошибке
+          // If resultCode !== 0, stop form submission
+          // Check whether the array with error messages is not empty
           let errorMessage = data.messages.length > 0 ? data.messages[0] : 'Unknown error'
-          //1 арг. название именно <form/>, вторым объект с проблемным полем (_error для всех сразу field)
+          // 1st argument is the <form/> name, second is an object with the problematic field (_error for all fields)
           dispatch(stopSubmit("login", {_error: errorMessage}))
       }
   }
@@ -75,7 +75,7 @@ export const getCaptchaUrlTC = (): ThunkType =>
 export const logoutTC = (): ThunkType => async (dispatch) => {
     const data = await authAPI.logout()
     if (data.resultCode === 0) {
-        //удаляем всю информацю из стейта о юзере в исходное состояние (initState)
+        // Remove all user info from the state back to the initial state
         dispatch(setAuthUserDataAC(null, null, null, false))
     }
 }

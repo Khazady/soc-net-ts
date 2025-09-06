@@ -22,14 +22,14 @@ type PathParamType = {
 }
 type PropsType = MapStatePropsType & MapDispatchPropsType & RouteComponentProps<PathParamType>
 
-//1-ый контейнер для AJAX запросов, setInterval и т.д. (грязной работы), рисует презентационную
+// First container for AJAX requests, setInterval, etc. (dirty work), renders the presentational component
 class ProfileContainer extends React.Component<PropsType> {
     refreshProfile() {
         document.title = "Profile";
-        //айди из URL (withRouter, Route)
+        // id from URL (withRouter, Route)
         let userId: number | null = Number(this.props.match.params.userId)
-        //если параметра userId нет (url выглядит как /profile/), то вставить айди, пришедший с сервака
-        //если и он null, то "" (временно)
+        // If the userId parameter is missing (URL looks like /profile/), insert the id from the server
+        // If it's also null, then "" (temporary)
         if (!userId) {
             userId = this.props.authorizedUserId ? this.props.authorizedUserId : null
         }
@@ -46,19 +46,19 @@ class ProfileContainer extends React.Component<PropsType> {
     }
 
     componentDidUpdate(prevProps: PropsType, prevState: PropsType) {
-        //чтобы компонента обновлялась, если после вмонтирования меняем юзера
+        // To update the component if we change the user after mounting
         if (this.props.match.params.userId !== prevProps.match.params.userId) {
             this.refreshProfile()
         }
     }
 
     render() {
-        //копирует и передает все пропсы
+        // Copy and pass all props
         return <Profile {...this.props}
                         profile={this.props.profile}
                         status={this.props.status}
                         updateStatus={this.props.updateStatus}
-          //если нет userId, то owner страницы (для показа кнопки загрузки фото)
+          // If there's no userId, then the page owner (for showing the upload photo button)
                         isOwner={!this.props.match.params.userId}
                         updatePhoto={this.props.updatePhoto}
         />

@@ -1,13 +1,13 @@
 //common type
 type FieldValidatorType = (value: string) => string | undefined
 
-//если пришло value, то undefined, else string
+// If value is provided, return undefined; otherwise return a string
 export const required: FieldValidatorType = (value) => value ? undefined : "Field is required"
 
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-т.к. не мы вызываем внутреннюю функцию, передать в неё помимо value maxLength вторым параметром нельзя, поэтому
-оборачиваем в функцию обертку и передаем в неё параметр
-(ЗАМЫКАНИЕ - фун возвр другую фун и эта внутренняя фун может юзать параметры(переменные и т.д.) внешней функции) */
+Since we don't call the inner function, we can't pass maxLength as the second parameter along with value,
+so we wrap it in a higher-order function and pass the parameter there
+(CLOSURE - a function returns another function, and this inner function can use parameters (variables, etc.) of the outer function) */
 export const maxLengthCreator = (maxLength: number): FieldValidatorType => {
     return (value) => value.length > maxLength ? `Max length is ${maxLength} symbols` : undefined
 }

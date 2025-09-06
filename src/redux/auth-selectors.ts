@@ -1,5 +1,5 @@
-//функция кот принимает State целиком, достает только то, что нужно компоненте и передаёт это в бизнес в mStP
-//это нужно, чтобы мы решим изменить архитектуру стейта, чтобы не исправлять в каждом mStP, мы исправим в 1 месте - здесь
+// Function that takes the whole state, extracts only what's needed for the component, and passes it to business in mStP
+// Needed so that if we decide to change the state architecture, we fix it in one place – here
 import {RootStateType} from './store'
 
 

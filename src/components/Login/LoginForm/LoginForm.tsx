@@ -1,4 +1,4 @@
-//типизация redux-form
+// Typing for redux-form
 import {Field, InjectedFormProps, reduxForm} from "redux-form"
 import React, { FC } from "react"
 import {Input} from "../../common/FormsWithValidationErrors/FormsWithValidationErrors"
@@ -9,9 +9,9 @@ import classes from "./../../common/FormsWithValidationErrors/FormsWithValidatio
 
 type PropsType = { captchaUrl: string | null }
 
-//деструктуризация пропсов, достаем из них нужные айтемы, чтобы постоянно не писать props.error
+// Destructure props to extract needed items, avoiding repeated props.error
 const LoginForm: FC<InjectedFormProps<LoginFormValuesType, PropsType> & PropsType> = ({handleSubmit, error, captchaUrl}) => {
-      //handleSubmit прокинул HOC, он делает e.preventDefault, передает значения из инпутов наверх упакуя в объект
+      // handleSubmit was passed by HOC; it calls e.preventDefault and passes input values upward wrapped in an object
       return <form onSubmit={handleSubmit}>
           <div><Field component={Input} validate={[required]} name="email" placeholder="Email" type='email'/></div>
           <div><Field component={Input} validate={[required]} name="password" placeholder="Password" type='password'/>
@@ -26,8 +26,8 @@ const LoginForm: FC<InjectedFormProps<LoginFormValuesType, PropsType> & PropsTyp
       </form>
   }
 
-//HOC, оборачиваем им форму
+// HOC that wraps the form
 export const LoginReduxForm = reduxForm<LoginFormValuesType, PropsType>({
-    //имя для этой формы
+    // Name for this form
     form: 'login'
 })(LoginForm)

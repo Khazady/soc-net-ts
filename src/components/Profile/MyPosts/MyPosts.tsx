@@ -16,8 +16,8 @@ const MyPost: React.FC<MapStatePropsType & MapDispatchPropsType> = (props) => {
         props.addPost(values.newPostText)
     }
     let post = [...props.postsData]
-      //reverse мутабельный метод массива(не делает копию, а меняет изначальный массив по ссылке)
-      //поэтому создаем копию
+      // reverse is a mutable array method (it doesn't create a copy; it modifies the original array by reference)
+      // therefore create a copy
       .reverse()
       .map(post =>
         <Post id={post.id}

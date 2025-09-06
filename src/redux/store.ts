@@ -21,15 +21,15 @@ let rootReducer = combineReducers({
 
 
 //store for ReduxDevTools
-//расширение добавит в глобальный window __REDUX_D.., если его нет то обычный compose
+// Extension adds __REDUX_D.. to global window; otherwise use regular compose
 // @ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 export const store = createStore(rootReducer,composeEnhancers( applyMiddleware(thunkMiddleware)));
 
-//обычный стор
+// Regular store
 //export let store: Store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
 
-//нужно для того, чтобы видеть store в консоли
+// Needed to see store in the console
 // @ts-ignore
 window.store = store

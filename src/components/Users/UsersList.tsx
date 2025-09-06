@@ -54,7 +54,7 @@ export const UsersList: React.FC = () => {
 
     const dispatch = useDispatch()
     //instead props from mdtp
-    //лучше не плодить субскрайберов и передать пропсами, чем юзать юзселектор в нижних компонентах?
+    // Better not to spawn subscribers; pass via props instead of using useSelector in lower components?
     const follow = (userId: number) => {
         dispatch(followTC(userId))
     }

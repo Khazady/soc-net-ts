@@ -24,12 +24,12 @@ export const setInitializingSuccessAC = () => ({type: 'APP/INITIALIZING_SUCCESS'
 // thunks
 export const initializeAppTC = (): ThunkType => {
     return (dispatch) => {
-        //dispatch Не только что-то диспатчит, но и умеет возвращать что-то, что напишем в ретурне санки(или async await сам по себе ретурнит его??)
+        // dispatch not only sends actions but can also return what we return from the thunk (does async/await return it itself?)
         let promise = dispatch(getAuthUserDataTC())
-        //all ждет пока зарезолвятся все промисы из массива
+        // all waits until all promises in the array are resolved
         Promise.all([promise])
           .then(() => {
-              //когда приходит инфа о том, что юзер авторизован(или нет), диспатчим в бизнес initialSuccess
+              // When we receive info that the user is authorized (or not), dispatch initialSuccess to the store
               dispatch(setInitializingSuccessAC())
           })
     }

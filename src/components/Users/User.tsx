@@ -18,7 +18,7 @@ export const User: React.FC<PropsType> = ({user, ...props}) => (
                         <NavLink to={'/profile/' + user.id}>
                             <img
                                 src={
-                                    /*если фото отсутствует, то стандартная картинка*/
+                                    /* if photo is absent, use default image */
                                     user.photos.small != null ? user.photos.small : userPhoto}
                                 className={styles.userPhoto}
                                 alt={'avatar'}/>
@@ -26,10 +26,10 @@ export const User: React.FC<PropsType> = ({user, ...props}) => (
                     </div>
                     <div>
                         {user.followed ?
-                            //если хоть кто-то из массива обрабатывающихся id совпадает с user id по которым мапимся, то true в disabled
+                            // If any processing ID matches the user id we're mapping over, true in disabled
                             <button disabled={props.isFollowedInProgress.some((id) => id === user.id)}
                                     onClick={() => {
-                                        //меняет в стейте дизаблед кнопки на тру
+                                        // Change the button's disabled state in the store to true
                                         props.unfollow(user.id)
                                     }}>Unfollow</button>
                             : <button disabled={props.isFollowedInProgress.some((id) => id === user.id)}

@@ -6,7 +6,7 @@ import {Textarea} from "../../../common/FormsWithValidationErrors/FormsWithValid
 
 type PropsType = {}
 
-//вызываем за компонентой, т.к. каждый раз приходит новая функция и зацикливается перерисовка(нет useCallback)
+// Call outside the component because a new function is created each time, causing re-render loops (no useCallback)
 const maxLength10 = maxLengthCreator(10)
 
 const AddPostForm: React.FC<InjectedFormProps<AddPostFormValuesType, PropsType> & PropsType> = (props) => {
