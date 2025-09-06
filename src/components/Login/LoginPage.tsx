@@ -16,7 +16,7 @@ export const LoginPage: FC = () => {
     const isAuth = useSelector<RootStateType, boolean>(state => state.auth.isAuth)
 
     const dispatch = useDispatch()
-    //сюда придет инфа по инпутам, собранная handleSubmit {login: 'что ввел', rememberMe: true} и тд
+    // handleSubmit collects input info here {login: 'value entered', rememberMe: true, etc.}
     const onSubmit = (formData: LoginFormValuesType) => {
         dispatch(loginTC(formData.email, formData.password, formData.rememberMe, formData.captchaInput))
     }

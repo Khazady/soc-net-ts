@@ -39,7 +39,7 @@ export const profileReducer = (state = initialState, action: ActionsType): Initi
         case 'PROFILE/SAVE_PHOTO_SUCCESS':
             return {
                 ...state,
-                //меняем только объект с фотками
+                // Change only the object with photos
                 profile: {...state.profile, photos: action.photos} as ProfileType
             }
         default:
@@ -87,12 +87,12 @@ export const updateProfileTC = (changedProfile: ProfileType): ThunkType => async
     if (data.resultCode === 0) {
         //because in initState userId = null
         if (userId)
-          //т.к серв не возвращает обновленный профиль, то диспатчим санку для его получения
+          // Since the server doesn't return the updated profile, dispatch the thunk to fetch it
             await dispatch(getUserProfileTC(userId))
         else
             throw new Error('userId can\'t be a null')
     } else {
-        //в чейне выбираем из строки ошибки с сервера название нужного поля, в котором она происходит
+        // In the chain, extract from the server error string the name of the field where it occurs
         dispatch(stopSubmit('edit-profile', {'contacts': {[data.messages[0].substring(30, data.messages[0].length - 1).toLowerCase()]: data.messages[0]}}))
         return Promise.reject(data.messages[0]);
     }

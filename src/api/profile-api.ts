@@ -19,11 +19,11 @@ export const profileAPI = {
           .then(res => res.data)
     },
     uploadPhoto(photoFile: File) {
-        //формируем объект с файлом
+        // Create an object with the file
         const formData = new FormData();
         formData.append("image", photoFile)
         return instance.put<ApiResponseType<UploadPhotosDataType>>(`profile/photo`, formData, {
-            //меня тип отправляемых данных с json на формдату
+            // Change the type of sent data from JSON to FormData
             headers: {
                 'Content-type': 'multipart/form-data'
             }

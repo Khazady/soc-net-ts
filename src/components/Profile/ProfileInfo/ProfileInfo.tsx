@@ -17,18 +17,18 @@ type PropsType = {
 
 const ProfileInfo: React.FC<PropsType> = ({profile, ...props}) => {
     const [editMode, setEditMode] = useState(false);
-    //наш профиль в иниц стейте = null, поэтому когда он null рисуем колесо
+    // Our profile in initial state is null, so when it's null we show the spinner
     if (!profile) {
         return <Preloader/>
     }
-    //вызов санки когда выбираем фото
+    // Call thunk when selecting a photo
     const MainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files?.length) {
             const selectedFile = e.target.files[0]
             props.updatePhoto(selectedFile)
         }
     }
-    //сюда придет инфа по инпутам, собранная handleSubmit {aboutMe: 'что ввел', lookingFAJ: true} и тд
+    // handleSubmit collects input info here {aboutMe: 'value entered', lookingFAJ: true, etc.}
     const onSubmit = (formData: ProfileType) => {
         // todo: remove then
         props.updateProfile(formData).then(() => setEditMode(false))
@@ -66,7 +66,7 @@ const ProfileData: React.FC<ProfileDataPropsType> = ({profile, ...props}) => {
                 <b>Contacts</b>:
                 <ul>
                     {Object.keys(profile.contacts).map(key => {
-                        //мапимся по массиву ключей, в тайтле сам ключ, в валуе обращаемся через индекс obj["key"]
+                        // Iterate over array of keys: use key as title, value via index obj["key"]
                         return <Contact contactTitle={key} contactValue={profile.contacts[key as keyof ContactsType]} key={key}/>
                     })}
                 </ul>

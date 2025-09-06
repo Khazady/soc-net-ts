@@ -6,7 +6,7 @@ type PropsType = {
 }
 
 export const ProfileStatus: FC<PropsType> = (props) => {
-    //синхронизируй компоненту с состоянием, когда меняется props.status
+    // Synchronize component state when props.status changes
     useEffect(() => setStatus(props.status), [props.status])
 
     const activateEditMode = () => {
@@ -15,7 +15,7 @@ export const ProfileStatus: FC<PropsType> = (props) => {
 
     const deactivateEditMode = () => {
         setEditMode(false)
-        //отправляем в глобал стейт и на сервак, выходя из editMode
+        // Send to global state and server when leaving editMode
         props.updateStatus(status)
     }
     const onStatusChange = (e: ChangeEvent<HTMLInputElement>) => setStatus(e.currentTarget.value)

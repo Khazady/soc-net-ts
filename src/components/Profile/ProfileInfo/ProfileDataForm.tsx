@@ -23,7 +23,7 @@ const ProfileDataForm: React.FC<InjectedFormProps<ProfileType, PropsType> & Prop
               <b>Contacts</b>:
               <ul>
                   {Object.keys(profile.contacts).map(key => {
-                      //мапимся по массиву ключей, в тайтле сам ключ, в валуе обращаемся через индекс obj["key"]
+                      // Iterate over the array of keys: use the key as the title and access value via obj["key"]
                       return <li key={key}><b>{key}: </b><Field placeholder={key} component={Input} name={'contacts.' + key}/></li>
                   })}
               </ul>
@@ -32,8 +32,8 @@ const ProfileDataForm: React.FC<InjectedFormProps<ProfileType, PropsType> & Prop
   </form>
 );
 
-//HOC, оборачиваем им форму
+// HOC that wraps the form
 export const ProfileDataReduxForm = reduxForm<ProfileType ,PropsType>(
-  //имя для этой формы
+  // Name for this form
   {form: 'edit-profile'}
 )(ProfileDataForm)

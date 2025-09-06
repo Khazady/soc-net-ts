@@ -7,7 +7,7 @@ import {RootStateType} from "../../../redux/store";
 let mapStateToProps = (state: RootStateType) => {
     return {
         postsData: state.profilePage.postsData,
-        //перерисуйся, когда что-то из этого изменится
+        // Re-render when any of this changes
     }
 }
 export default connect<MapStatePropsType, MapDispatchPropsType, {}, RootStateType>(mapStateToProps, {addPost: addPostAC}) (MyPostsMemorized);

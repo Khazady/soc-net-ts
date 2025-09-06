@@ -45,9 +45,9 @@ export const dialogsReducer = (state = initialState, action: ActionsType): Initi
             return {
                 ...state,
                 messagesData: [...state.messagesData, newMessage]
-                //эта запись перезатирает shallow-копию messagesData
-                //массив messagesData содержит объекты, мы их глубоко не копируем, т.к. не изменяем
-                //dialogsData глубоко не копируем, не собираемся изменять
+                // This statement overwrites the shallow copy of messagesData
+                // messagesData array contains objects; we don't deep copy them since we don't modify them
+                // dialogsData isn't deep copied; we don't plan to modify it
             };
         case 'DELETE_MESSAGE':
             return {

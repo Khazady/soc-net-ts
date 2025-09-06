@@ -3,7 +3,7 @@ import React, {FC} from "react";
 import {Textarea} from "../../common/FormsWithValidationErrors/FormsWithValidationErrors";
 import {maxLengthCreator, required} from "../../../utils/validators";
 
-//вызываем за компонентой, т.к. каждый раз приходит новая функция и зацикливается перерисовка(нет useCallback)
+// Call outside the component because a new function is created each time, causing re-render loops (no useCallback)
 const maxLength100 = maxLengthCreator(100)
 
 type NewMessageFormType = { newMessageText: string }

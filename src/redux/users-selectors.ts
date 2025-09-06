@@ -1,11 +1,11 @@
-//функция кот принимает State целиком, достает только то, что нужно компоненте и передаёт это в бизнес в mStP
-//это нужно, чтобы мы решим изменить архитектуру стейта, чтобы не исправлять в каждом mStP, мы исправим в 1 месте - здесь
+// Function that takes the whole state, extracts only what's needed for the component, and passes it to business in mStP
+// Needed so that if we change the state architecture, we fix it in one place instead of every mStP
 import {RootStateType} from './store'
 import {createSelector} from 'reselect'
 
-//примитивный селектор
+// Primitive selector
 export const getUsersSelector = (state: RootStateType) => state.usersPage.usersData
-//селектор с вычислениями, reselect предотвращает перерисовку ( useMemo ), кэшируя её значения и пересчитывает только при измен. в getUsersSelector
+// Selector with computations; reselect prevents re-render (useMemo), caching its values and recomputing only when getUsersSelector changes
 export const getUsers = createSelector(getUsersSelector, (users) => users.filter(u => true))
 export const getPageSize = (state: RootStateType) => {
     return state.usersPage.pageSize

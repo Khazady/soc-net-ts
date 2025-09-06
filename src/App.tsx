@@ -24,11 +24,11 @@ const {SubMenu} = Menu
 const {Content, Footer, Sider} = Layout
 
 
-//компонента не попадает в бандл(вебпак собирает все файлы в 1), она будет в своем бандле и только когда она не понадобится
-//это ускоряет стартовую загрузку, но медленнее, когда перейдем к этой компоненте
+// The component isn't included in the bundle (webpack collects all files into one); it will be in its own bundle and loaded only when needed
+// This speeds up the initial load but is slower when we navigate to this component
 const DialogsPage = React.lazy(() => import('./components/Dialogs/Dialogs'))
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'))
-//чтобы не оборачивать при каждой перерисовке?
+// To avoid wrapping on each re-render?
 const SuspendedDialogs = withSuspense(DialogsPage)
 const SuspendedProfile = withSuspense(ProfileContainer)
 
@@ -57,7 +57,7 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
         if (!this.props.isInitialized) {
             return <Preloader/>
         }
-        //В Profile /:userId param for withRouter props (60)
+        // In Profile, /:userId is the param for withRouter props (60)
         // ? after userId makes param optional, so if we haven't it in url, another profile will be uploaded(in component code)
         return (
             <Layout>

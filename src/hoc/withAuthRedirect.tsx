@@ -5,22 +5,22 @@ import {connect} from "react-redux";
 
 type MapStatePropsType = { isAuth: boolean }
 type MapDispatchPropsType = {}
-//берет только то, что нужно redirect, чтобы сделать его уникальным
+// Take only what's needed for redirect to make it unique
 let mapStateToPropsForRedirect = (state: RootStateType) => ({isAuth: state.auth.isAuth})
 
 //WCP wrapped component props
-// Обертвываем приходящую компоненту в логику с Redirect
+// Wrap the incoming component with redirect logic
 export function withAuthRedirect<WCP>(WrappedComponent: React.ComponentType<WCP>) {
 
     const RedirectComponent: React.FC<MapStatePropsType & MapDispatchPropsType> = (props) => {
-        //забираем isAuth из props, чтобы не передавать его в WrappedComp
+        // Extract isAuth from props so it's not passed to the wrapped component
         let {isAuth, ...restProps} = props
-        //если не залогинен, то редирект на логин
+        // If not logged in, redirect to login
         if (!isAuth) return <Redirect to='/login'/>
-        //возвращаем пришедший компонент с его пропсами
+        // Return the incoming component with its props
         return <WrappedComponent {...restProps as WCP}/>
     }
-    //юзаем коннект только с половиной стейта
+    // Use connect with only part of the state
     return connect<MapStatePropsType, MapDispatchPropsType, WCP, RootStateType>(
       mapStateToPropsForRedirect, {})
     (RedirectComponent);
