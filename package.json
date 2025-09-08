@@ -19,9 +19,9 @@
     "reselect": "^4.0.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "node --openssl-legacy-provider node_modules/react-scripts/scripts/start.js",
+    "build": "node --openssl-legacy-provider node_modules/react-scripts/scripts/build.js",
+    "test": "node --openssl-legacy-provider node_modules/react-scripts/scripts/test.js",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
@@ -63,5 +63,6 @@
     "react-test-renderer": "^17.0.1",
     "typescript": "~3.7.2",
     "uuid": "^8.1.0"
-  }
+  },
+  "packageManager": "yarn@4.9.4"
 }
